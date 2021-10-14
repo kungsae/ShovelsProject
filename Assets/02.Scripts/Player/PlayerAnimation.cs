@@ -11,8 +11,8 @@ public class PlayerAnimation : MonoBehaviour
 	// Start is called before the first frame update
 	private void Awake()
 	{
-		rigid = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
+		rigid = GetComponent<Rigidbody2D>();
 		playerMove = GetComponent<PlayerMove>();
 	}
 
