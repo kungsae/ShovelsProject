@@ -52,11 +52,11 @@ public class EnemyControl : MonoBehaviour
 		//	Attack();
 		//}
 
-		//if (!isAttack)
-		//{
-		//	rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-		//	IsStayPoint();
-		//}
+		if (!isAttack)
+		{
+			rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
+			//IsStayPoint();
+		}
 
 
 		if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
@@ -72,19 +72,18 @@ public class EnemyControl : MonoBehaviour
         }
         //테스트
 
-        if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
-        {
-            Attack();
-        }
+        //if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
+        //{
+        //    Attack();
+        //}
 
-        if (!isAttack)
-        {
-            rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-            //IsStayPoint();
-        }
+        //if (!isAttack)
+        //{
+        //    rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
+        //    //IsStayPoint();
+        //}
     }
     //어택
-    //이것도 수정 해야함
 	public void Attack()
     {
         if (canAttack)
@@ -122,6 +121,7 @@ public class EnemyControl : MonoBehaviour
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
         isStop = false;
     }
+
     //플레이어 추적 or 이동 목표 추적
     //이건 바꾸자
     //public void IsStayPoint()

@@ -8,7 +8,6 @@ public class EnemyAi : MonoBehaviour
     {
         PATROL,
         TRACE,
-        ATTACK,
         STAY,
         DIE
     }
@@ -43,12 +42,12 @@ public class EnemyAi : MonoBehaviour
 				break;
 
 			case State.TRACE:
+				//if ()
+				{
+					
+				}
 				break;
 
-			case State.ATTACK:
-				enemy.Attack();
-				state = State.STAY;
-				break;
 
 			case State.STAY:
 				break;
@@ -76,13 +75,9 @@ public class EnemyAi : MonoBehaviour
 			case State.TRACE:
 				if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
 				{
-					state = State.ATTACK;
+					
 				}
 					break;
-
-			case State.ATTACK:
-
-				break;
 
 			case State.STAY:
 				break;
