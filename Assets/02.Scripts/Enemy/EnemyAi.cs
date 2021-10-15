@@ -31,7 +31,6 @@ public class EnemyAi : MonoBehaviour
     void FixedUpdate()
     {
 		StateAction();
-
 	}
 
     //상태에 따른 행동실행하는 함수
@@ -47,6 +46,8 @@ public class EnemyAi : MonoBehaviour
 				break;
 
 			case State.ATTACK:
+				enemy.Attack();
+				state = State.STAY;
 				break;
 
 			case State.STAY:
@@ -70,18 +71,13 @@ public class EnemyAi : MonoBehaviour
 				{
 					state = State.TRACE;
 				}
-				else
-				{
-					
-				}
 					break;
 
 			case State.TRACE:
 				if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
 				{
-					enemy.Attack();
+					state = State.ATTACK;
 				}
-
 					break;
 
 			case State.ATTACK:

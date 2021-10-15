@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 6378538}
   - component: {fileID: 6378535}
   - component: {fileID: 6378539}
+  - component: {fileID: 6378540}
   m_Layer: 6
   m_Name: FatEnemy
   m_TagString: Enemy
@@ -334,6 +335,18 @@ MonoBehaviour:
   viewAngle: 45
   attackRange: 3
   aggroRange: 20
+--- !u!114 &6378540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a33a43d6ff36f4bb81c2f02e5f6659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &42859932
 GameObject:
   m_ObjectHideFlags: 0
