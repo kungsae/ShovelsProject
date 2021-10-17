@@ -8,13 +8,16 @@ public class EnemyAi : MonoBehaviour
     {
         PATROL,
         TRACE,
-        STAY,
+        ATTACK,
+		STAY,
         DIE
     }
     private State state;
 
     private EnemyControl enemy;
     private EnemyFOV fov;
+
+	private bool stateChange = false;
 	// Start is called before the first frame update
 	private void Awake()
 	{
@@ -42,14 +45,12 @@ public class EnemyAi : MonoBehaviour
 				break;
 
 			case State.TRACE:
-				//if ()
-				{
-					
-				}
+				enemy.Trace();
 				break;
 
 
-			case State.STAY:
+			case State.ATTACK:
+				enemy.Attack();
 				break;
 
 			case State.DIE:
@@ -63,31 +64,46 @@ public class EnemyAi : MonoBehaviour
     //상태 변경 해주는 함수
     private void StateCheck()
     {
-		switch (state)
+		float dist = (GameManager.instance.player.transform.position - transform.position).sqrMagnitude;
+
+		//공격사거리 내라면 공격            
+		if (dist <= fov.attackRange * fov.attackRange)
 		{
-			case State.PATROL:
-				if ((fov.IsTracePlayer() && fov.IsViewPlayer()))
-				{
-					state = State.TRACE;
-				}
-					break;
-
-			case State.TRACE:
-				if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
-				{
-					
-				}
-					break;
-
-			case State.STAY:
-				break;
-
-			case State.DIE:
-				break;
-
-			default:
-				break;
+			if (fov.IsTracePlayer() && fov.IsViewPlayer())
+			{
+				state = State.ATTACK;
+			}
+		}
+		else if (fov.IsTracePlayer() && fov.IsViewPlayer())
+		{
+			state = State.TRACE;
+		}
+		else
+		{
+			StartCoroutine(StateChange(State.PATROL, 2f));
 		}
 
+	}
+
+	///<summary>
+	///상태 전환 이후 잠깐 멈추는 함수
+	///</summary>
+	private IEnumerator StateChange(State nextState, float waitTime)
+	{
+		if (!stateChange)
+		{
+			stateChange = true;
+			yield return new WaitForSeconds(waitTime);
+			state = nextState;
+			stateChange = false;
+		}
+	}
+
+	///<summary>
+	///플레이어와 적과의 거리
+	///</summary>
+	private float PlayerDistance()
+	{
+		return (transform.position - GameManager.instance.player.transform.position).sqrMagnitude;
 	}
 }

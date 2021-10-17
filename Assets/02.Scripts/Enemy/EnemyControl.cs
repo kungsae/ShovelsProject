@@ -8,7 +8,7 @@ public class EnemyControl : MonoBehaviour
 
     public bool isStop;
     public bool isAttack = false;
-    private bool canAttack = true;
+    public bool canAttack = true;
     public bool isTrace = false;
 
     public float attackDelay;
