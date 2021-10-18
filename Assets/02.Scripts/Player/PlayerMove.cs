@@ -6,6 +6,7 @@ public class PlayerMove : LivingEntity
 {
     private PlayerInput playerInput;
     private Rigidbody2D rigid;
+    private SpriteRenderer spriteRenderer;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
@@ -40,6 +41,10 @@ public class PlayerMove : LivingEntity
     public float x;
     public float y;
 
+    public GameObject aiPrefab;
+    public Transform afterImageTrm;
+    public float aiCreateTerm = 0.3f;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -47,9 +52,10 @@ public class PlayerMove : LivingEntity
 
         rigid = GetComponentInParent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         Debug.Log(rigid);
 
-
+        PoolManager.CreatPool<Afterimage>(aiPrefab, afterImageTrm, 20);
         jump = jumpPower;
     }
     private void Update()
@@ -233,6 +239,25 @@ public class PlayerMove : LivingEntity
             yield return new WaitForSeconds(0.2f);
             rigid.gravityScale = 3;
             rigid.AddForce(new Vector2(0,-30f),ForceMode2D.Impulse);
+        }
+
+        float time = 0;
+        float aftertime = 0;
+        float TargetTime = Random.Range(0.03f, 0.06f);
+
+        while (isAttack)
+        {
+            time += Time.deltaTime;
+            aftertime += Time.deltaTime;
+
+            if (aftertime >= TargetTime)
+            {
+                Afterimage ai = PoolManager.GetItem<Afterimage>();
+                ai.SetSprite(spriteRenderer.sprite, spriteRenderer.flipX, transform.position);
+                TargetTime = Random.Range(0.01f, 0.02f);
+                aftertime = 0;
+            }
+            yield return null;
         }
 
     }

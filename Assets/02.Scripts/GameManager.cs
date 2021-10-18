@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
+
 	}
 	// Start is called before the first frame update
 	void Start()
