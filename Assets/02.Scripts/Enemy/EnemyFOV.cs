@@ -11,7 +11,7 @@ public class EnemyFOV : MonoBehaviour
 	public float viewAngle = 40f;//시야 각도
 
 	public float attackRange = 2f;
-	public float aggroRange = 20f;
+	public float aggroRange = 5f;
 
 
 	private void Awake()

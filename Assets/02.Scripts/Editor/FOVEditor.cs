@@ -15,5 +15,12 @@ public class FOVEditor : Editor
 		GUIStyle style = new GUIStyle();
 		style.fontSize = 35;
 		Handles.Label(fov.transform.position + new Vector3(0, 0.5f, 0), fov.viewAngle.ToString(), style);
+
+		Vector2 aggroAngle = fov.CirclePoint(-fov.aggroRange * 0.5f);
+		Handles.color = Color.red;
+		Handles.DrawWireDisc(fov.transform.position, Vector3.forward, fov.aggroRange);
+		Vector2 attackAngle = fov.CirclePoint(-fov.attackRange * 0.5f);
+		Handles.color = Color.blue;
+		Handles.DrawWireDisc(fov.transform.position, Vector3.forward, fov.attackRange);
 	}
 }

@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         xMove = Input.GetAxisRaw(xAxisName);
-        jump = Input.GetKeyDown(KeyCode.C);
+        jump = Input.GetKey(KeyCode.C);
         attack = Input.GetKeyDown(KeyCode.Z);
     }
 }

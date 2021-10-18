@@ -9,7 +9,6 @@ public class EnemyControl : MonoBehaviour
     public bool isStop;
     public bool isAttack = false;
     public bool canAttack = true;
-    public bool isTrace = false;
 
     public float attackDelay;
     private WaitForSeconds attackDelayWaitSecond;
@@ -19,7 +18,7 @@ public class EnemyControl : MonoBehaviour
     Rigidbody2D rigid;
     private Animator animator;
 
-    public Vector2[] patrollPoint;
+    public Vector3[] patrollPoint;
     public int patrollIndex = 0;
     Vector3 destination;
 
@@ -41,10 +40,19 @@ public class EnemyControl : MonoBehaviour
         animator.SetFloat("moveSpeed", Mathf.Abs(rigid.velocity.x));
         animator.SetBool("isAttack", isAttack);
         animator.SetBool("isMove", !isStop);
-		if (isStop)
+		if (!isStop)
 		{
-			return;
-		}
+            if (!isAttack)
+            {
+                rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
+                //IsStayPoint();
+            }
+
+            if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
+            {
+                Flip();
+            }
+        }
 		//테스트
 
 		//if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
@@ -52,17 +60,7 @@ public class EnemyControl : MonoBehaviour
 		//	Attack();
 		//}
 
-		if (!isAttack)
-		{
-			rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-			//IsStayPoint();
-		}
-
-
-		if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
-		{
-			Flip();
-		}
+		
 	}
 	private void FixedUpdate()
 	{
@@ -90,7 +88,11 @@ public class EnemyControl : MonoBehaviour
         {
             isAttack = true;
             canAttack = false;
-            StartCoroutine(AttackDelay()); 
+            StartCoroutine(AttackDelay());
+        }
+        else
+        {
+            StartCoroutine(StayState(2f));
         }
     }
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음
@@ -121,31 +123,24 @@ public class EnemyControl : MonoBehaviour
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
         isStop = false;
     }
-
-    //플레이어 추적 or 이동 목표 추적
-    //이건 바꾸자
-    //public void IsStayPoint()
-    //{
-    //    if (Mathf.Abs(destination.x - transform.position.x) < 0.5f&&!isTrace)
-    //    {
-    //        StartCoroutine(StayPoint());
-    //    }
-    //    if (Mathf.Abs(GameManager.instance.player.transform.position.x - transform.position.x) < 1f)
-    //    {
-    //        isTrace = true;
-    //        StartCoroutine(StayPoint());
-    //    }
-        
-    //}
     //잠깐 현재 위치에서 멈추고 다음 패트롤 포인트로 이동 또는 플레이어 추적
-    //잠깐 멈춤인데 이것도 ai에서 처리할 예정 or 약간 변경
     public IEnumerator StayPoint()
     {
-        isStop = true;
-        yield return new WaitForSeconds(2f);
-        NextPatrollPoint();
+        float dist = Mathf.Abs(patrollPoint[patrollIndex].x - transform.position.x);
+        if (!isStop&&dist < 0.5f)
+        {
+            isStop = true;
+            yield return new WaitForSeconds(2f);
+            NextPatrollPoint();
+        }
     }
-	private void Flip()
+    public IEnumerator StayState(float waitTime)
+    {
+        isStop = true;
+        yield return new WaitForSeconds(waitTime);
+        isStop = false;
+    }
+    private void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
