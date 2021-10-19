@@ -115,7 +115,7 @@ public class EnemyControl : MonoBehaviour
     {
         destination = GameManager.instance.player.transform.position;
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
-        isStop = false;
+        //isStop = false;
     }
     //이동 목표를 패트롤 포인트를 패트롤 포인트로 변경,멈춤상태 해제
     public void NextPatrollPoint()
@@ -139,6 +139,7 @@ public class EnemyControl : MonoBehaviour
     public IEnumerator StayState(float waitTime)
     {
         isStop = true;
+        rigid.velocity = new Vector2(0, 0);
         yield return new WaitForSeconds(waitTime);
         isStop = false;
     }

@@ -84,6 +84,10 @@ public class EnemyAi : MonoBehaviour
 				else if (dist <= fov.viewRange*fov.viewRange)
 				{
 					state = State.TRACE;
+					if (dist_X <= 0.5f)
+					{
+						StartCoroutine(StateChange(State.TRACE, 2f));
+					}
 				}
 				else if (fov.aggroRange * fov.aggroRange < dist)
 				{
