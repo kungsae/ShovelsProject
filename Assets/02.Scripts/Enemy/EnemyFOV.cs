@@ -6,6 +6,8 @@ public class EnemyFOV : MonoBehaviour
 {
 	EnemyControl enemy;
 
+	public LayerMask layer;
+
 	public float viewRange = 10f; //시야거리
 	[Range(0, 360)]
 	public float viewAngle = 40f;//시야 각도
@@ -42,25 +44,25 @@ public class EnemyFOV : MonoBehaviour
 		return isTracePlayer;
 	}
 	//플레이어가 공격 범위 안에 들어왔는지 체크
-	public bool IsAttackRangeInPlayer()
-	{
-		bool isAttack = false;
-		Vector2 dir = GameManager.instance.player.transform.position - transform.position;
-		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, attackRange, (1 << 7) + (1 << 8));
-		Vector3 right = enemy.facingRight ? transform.right : transform.right * -1;
-		if (Vector2.Angle(right, dir) < 180 * 0.5f)
-		{
-			Debug.DrawRay(transform.position, dir.normalized * attackRange, Color.blue, 0.1f);
-			if (hit2D.collider != null)
-			{
-				isAttack = (hit2D.collider.gameObject.CompareTag("Player"));
-				Debug.Log(isAttack);
-			}
+	//public bool IsAttackRangeInPlayer()
+	//{
+	//	bool isAttack = false;
+	//	Vector2 dir = GameManager.instance.player.transform.position - transform.position;
+	//	RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, attackRange, (1 << 7) + (1 << 8));
+	//	Vector3 right = enemy.facingRight ? transform.right : transform.right * -1;
+	//	if (Vector2.Angle(right, dir) < 180 * 0.5f)
+	//	{
+	//		Debug.DrawRay(transform.position, dir.normalized * attackRange, Color.blue, 0.1f);
+	//		if (hit2D.collider != null)
+	//		{
+	//			isAttack = (hit2D.collider.gameObject.CompareTag("Player"));
+	//			Debug.Log(isAttack);
+	//		}
 
-		}
+	//	}
 
-		return isAttack;
-	}
+	//	return isAttack;
+	//}
 	private void Update()
 	{
 		//if(IsAttackRangeInPlayer())
@@ -77,7 +79,7 @@ public class EnemyFOV : MonoBehaviour
 		bool isView = false;
 		Vector2 dir = GameManager.instance.player.transform.position - transform.position;
 
-		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, viewRange, 1<<7);
+		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, viewRange, layer);
 		Debug.DrawRay(transform.position, dir.normalized * viewRange, Color.red, 0.1f);
 		if (hit2D.collider != null)
 		{
@@ -88,19 +90,19 @@ public class EnemyFOV : MonoBehaviour
 		return isView;
 	}
 
-	public bool IsAggroOutPlayer()
-	{
-		bool aggro = true;
-		Vector2 dir = GameManager.instance.player.transform.position - transform.position;
+	//public bool IsAggroOutPlayer()
+	//{
+	//	bool aggro = true;
+	//	Vector2 dir = GameManager.instance.player.transform.position - transform.position;
 
-		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, aggroRange, 1 << 7);
-		Debug.DrawRay(transform.position, dir.normalized * aggroRange, Color.cyan, 0.1f);
-		if (hit2D.collider != null)
-		{
-			aggro = !(hit2D.collider.gameObject.CompareTag("Player"));
-			Debug.Log(aggro);
-		}
+	//	RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, aggroRange, 1 << 7);
+	//	Debug.DrawRay(transform.position, dir.normalized * aggroRange, Color.cyan, 0.1f);
+	//	if (hit2D.collider != null)
+	//	{
+	//		aggro = !(hit2D.collider.gameObject.CompareTag("Player"));
+	//		Debug.Log(aggro);
+	//	}
 
-		return aggro;
-	}
+	//	return aggro;
+	//}
 }

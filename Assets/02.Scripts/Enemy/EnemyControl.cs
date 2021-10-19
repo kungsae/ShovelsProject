@@ -15,8 +15,8 @@ public class EnemyControl : MonoBehaviour
 
     public float speed = 1f;
 
-    Rigidbody2D rigid;
-    private Animator animator;
+    protected Rigidbody2D rigid;
+    protected Animator animator;
 
     public Vector3[] patrollPoint;
     public int patrollIndex = 0;
@@ -35,7 +35,7 @@ public class EnemyControl : MonoBehaviour
         attackDelayWaitSecond = new WaitForSeconds(attackDelay);
         destination = patrollPoint[patrollIndex];
     }
-	private void Update()
+	protected virtual void Update()
 	{
         animator.SetFloat("moveSpeed", Mathf.Abs(rigid.velocity.x));
         animator.SetBool("isAttack", isAttack);
@@ -52,11 +52,6 @@ public class EnemyControl : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-        if (isStop)
-        {
-            return;
-        }
-
         if (!isStop)
         {
             if (!isAttack)
@@ -84,18 +79,10 @@ public class EnemyControl : MonoBehaviour
         //}
     }
     //어택
-	public void Attack()
+	public virtual void Attack()
     {
-        if (canAttack)
-        {
-            isAttack = true;
-            canAttack = false;
-            StartCoroutine(AttackDelay());
-        }
-        else
-        {
-            StartCoroutine(StayState(2f));
-        }
+        isAttack = true;
+        canAttack = false;
     }
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음
     public void AttackEnd()
@@ -138,10 +125,12 @@ public class EnemyControl : MonoBehaviour
     }
     public IEnumerator StayState(float waitTime)
     {
-        isStop = true;
-        rigid.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(waitTime);
-        isStop = false;
+        if (!isStop)
+        {
+            isStop = true;
+            yield return new WaitForSeconds(waitTime);
+            isStop = false;
+        }
     }
     private void Flip()
     {

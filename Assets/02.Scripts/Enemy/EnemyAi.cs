@@ -33,7 +33,6 @@ public class EnemyAi : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
 		StateAction();
 	}
 
@@ -52,7 +51,15 @@ public class EnemyAi : MonoBehaviour
 
 
 			case State.ATTACK:
-				enemy.Attack();
+				if (enemy.canAttack)
+				{
+					enemy.Attack();
+				}
+				else
+				{
+					StartCoroutine(enemy.StayState(1f));
+				}
+
 				break;
 
 			case State.DIE:
@@ -80,8 +87,7 @@ public class EnemyAi : MonoBehaviour
 				{
 					state = State.ATTACK;
 				}
-				//밑에거 현재 상태에 따라 그냥 트레이스 하는지 시야 안에 있어야 트레이스 하는지로 바꿀예정
-				else if (dist <= fov.viewRange*fov.viewRange)
+				else if (dist <= fov.viewRange*fov.viewRange&& dist > fov.attackRange * fov.attackRange)
 				{
 					state = State.TRACE;
 					if (dist_X <= 0.5f)
