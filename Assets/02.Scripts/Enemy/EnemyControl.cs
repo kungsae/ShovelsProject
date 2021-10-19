@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-    public float dir;
+    private float dir;
 
     public bool isStop;
     public bool isAttack = false;
@@ -50,7 +50,7 @@ public class EnemyControl : MonoBehaviour
 
 		
 	}
-	private void FixedUpdate()
+    protected virtual void FixedUpdate()
 	{
         if (!isStop)
         {
@@ -58,11 +58,11 @@ public class EnemyControl : MonoBehaviour
             {
                 rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
                 //IsStayPoint();
-            }
 
-            if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
-            {
-                Flip();
+                if ((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0))
+                {
+                    Flip();
+                }
             }
         }
         //테스트
@@ -81,6 +81,7 @@ public class EnemyControl : MonoBehaviour
     //어택
 	public virtual void Attack()
     {
+       
         isAttack = true;
         canAttack = false;
     }
@@ -132,7 +133,7 @@ public class EnemyControl : MonoBehaviour
             isStop = false;
         }
     }
-    private void Flip()
+    protected void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;

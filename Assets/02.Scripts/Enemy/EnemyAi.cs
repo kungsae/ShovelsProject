@@ -57,7 +57,7 @@ public class EnemyAi : MonoBehaviour
 				}
 				else
 				{
-					StartCoroutine(enemy.StayState(1f));
+					StartCoroutine(enemy.StayState(3f));
 				}
 
 				break;
@@ -80,7 +80,6 @@ public class EnemyAi : MonoBehaviour
 			float dist = (transform.position - GameManager.instance.player.transform.position).sqrMagnitude;
 			float dist_X = Mathf.Abs(transform.position.x - GameManager.instance.player.transform.position.x);
 			//공격사거리 내라면 공격
-			Debug.Log(dist);
 			if (state != State.PATROL)
 			{
 				if (dist <= fov.attackRange * fov.attackRange)

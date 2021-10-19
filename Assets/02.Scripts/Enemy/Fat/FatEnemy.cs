@@ -6,27 +6,35 @@ public class FatEnemy : EnemyControl
 {
 	public LayerMask layer;
 	private bool wallCheck = false;
+	public float attackSpeed;
 
 	protected override void Update()
 	{
 		base.Update();
-		float dir = transform.localScale.x > 0 ? 1 : -1;
-		wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 1f, layer);
+
 		animator.SetBool("wallCheck", wallCheck);
-
-		if (isAttack && !wallCheck)
-		{
-			rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-		}
 	}
-
-	public override void Attack()
+	public IEnumerator AttackDash()
 	{
-		base.Attack();
-		
+		float dir = transform.localScale.x > 0 ? 1 : -1;
+		while (!wallCheck)
+		{
+			wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 2f, layer);
+			Debug.DrawRay(transform.position, Vector2.right * dir * 2f, Color.red, 0.1f);
+			if (isAttack && !wallCheck)
+				rigid.velocity = new Vector2(attackSpeed * dir * Time.deltaTime, rigid.velocity.y);
+
+			yield return null;
+		}	
 	}
 	public void attackEndEvent()
 	{
+		float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
+		if ((facingRight && dir < 0) || (!facingRight && dir > 0))
+		{
+			Flip();
+		}
+		wallCheck = false;
 		AttackEnd();
 		StartCoroutine(AttackDelay());
 	}
