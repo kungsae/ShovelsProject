@@ -1170,7 +1170,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpTime: 0.2
   x: 0.84
-  y: 1.67
+  y: 1.55
   aiPrefab: {fileID: 7897839002753557688, guid: 93034baa0a3747548aeac98f1b0107b8, type: 3}
   afterImageTrm: {fileID: 1616956871}
   aiCreateTerm: 0.3
@@ -1198,7 +1198,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85, y: 1.6707063}
+  m_Size: {x: 0.85, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &1181547824
 Rigidbody2D:
