@@ -40,19 +40,7 @@ public class EnemyControl : MonoBehaviour
         animator.SetFloat("moveSpeed", Mathf.Abs(rigid.velocity.x));
         animator.SetBool("isAttack", isAttack);
         animator.SetBool("isMove", !isStop);
-		if (!isStop)
-		{
-            if (!isAttack)
-            {
-                rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-                //IsStayPoint();
-            }
 
-            if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
-            {
-                Flip();
-            }
-        }
 		//테스트
 
 		//if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
@@ -67,6 +55,20 @@ public class EnemyControl : MonoBehaviour
         if (isStop)
         {
             return;
+        }
+
+        if (!isStop)
+        {
+            if (!isAttack)
+            {
+                rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
+                //IsStayPoint();
+            }
+
+            if (((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0)) && !isAttack)
+            {
+                Flip();
+            }
         }
         //테스트
 

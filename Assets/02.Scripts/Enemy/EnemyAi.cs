@@ -46,10 +46,6 @@ public class EnemyAi : MonoBehaviour
 				StartCoroutine(enemy.StayPoint());
 				break;
 
-			case State.STAY:
-				
-				break;
-
 			case State.TRACE:
 				enemy.Trace();
 				break;
@@ -78,23 +74,35 @@ public class EnemyAi : MonoBehaviour
 			float dist_X = Mathf.Abs(transform.position.x - GameManager.instance.player.transform.position.x);
 			//공격사거리 내라면 공격
 			Debug.Log(dist);
-			if (dist <= fov.attackRange * fov.attackRange)
+			if (state != State.PATROL)
 			{
-				if (fov.IsTracePlayer() && fov.IsViewPlayer())
+				if (dist <= fov.attackRange * fov.attackRange)
 				{
 					state = State.ATTACK;
 				}
+				//밑에거 현재 상태에 따라 그냥 트레이스 하는지 시야 안에 있어야 트레이스 하는지로 바꿀예정
+				else if (dist <= fov.viewRange*fov.viewRange)
+				{
+					state = State.TRACE;
+				}
+				else if (fov.aggroRange * fov.aggroRange < dist)
+				{
+					StartCoroutine(StateChange(State.PATROL, 2f));
+				}
 			}
-			//밑에거 현재 상태에 따라 그냥 트레이스 하는지 시야 안에 있어야 트레이스 하는지로 바꿀예정
-			else if (fov.IsTracePlayer() && fov.IsViewPlayer())
+			else
 			{
-				state = State.TRACE;
+				if (fov.IsTracePlayer() && fov.IsViewPlayer())
+				{
+					state = State.TRACE;
+				}
+				else
+				{
+					state = State.PATROL;
+				}
 			}
-			else if (state != State.PATROL && fov.aggroRange * fov.aggroRange < dist)
-			{
-				StartCoroutine(StateChange(State.PATROL, 2f));
-			}
-			yield return new WaitForSeconds(0.5f);
+
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
