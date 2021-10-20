@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class Afterimage : MonoBehaviour
 {
@@ -13,10 +11,10 @@ public class Afterimage : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void SetSprite(Sprite sprite, bool flip, Vector3 position)
+    public void SetSprite(Sprite sprite, Vector3 scale, Vector3 position)
     {
         transform.position = position;
-        spriteRenderer.flipX = flip;
+        transform.localScale = scale;
         spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
         spriteRenderer.sprite = sprite;
         DOTween.ToAlpha(() => spriteRenderer.color, x => spriteRenderer.color = x, 0, 0.3f).OnComplete(() => { gameObject.SetActive(false); });

@@ -255,7 +255,7 @@ public class PlayerMove : LivingEntity
             {
                 Afterimage ai = PoolManager.GetItem<Afterimage>();
                 print(ai);
-                ai.SetSprite(spriteRenderer.sprite, spriteRenderer.flipX, transform.position);
+                ai.SetSprite(spriteRenderer.sprite, transform.localScale, transform.position);
                 TargetTime = Random.Range(0.01f, 0.02f);
                 aftertime = 0;
             }
