@@ -26,6 +26,7 @@ public class PoolManager
         pool[key] = q;
         prefabDictionary[key] = prefab;
     }
+
     public static T GetItem<T>() where T : MonoBehaviour
     {
         string key = typeof(T).ToString();
@@ -40,12 +41,13 @@ public class PoolManager
             {
                 GameObject prefab = prefabDictionary[key];
                 GameObject g = GameObject.Instantiate(prefab, firstItemk.transform.parent);
+                Item = g.GetComponent<T>();
             }
             else
             {
                 Item = q.Dequeue();
-                Item.gameObject.SetActive(true);
             }
+            Item.gameObject.SetActive(true);
             q.Enqueue(Item);
         }
         return Item;
