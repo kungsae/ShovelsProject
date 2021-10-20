@@ -62,15 +62,12 @@ public class PlayerMove : LivingEntity
     {
         xMove = playerInput.xMove;
 
-        Debug.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckDistance, Color.red);
-        Debug.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f,0,0), Vector2.down * attackCheckDistance, Color.green);
-
         if (hit.collider != null)
         {
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 Collider2D enemy = hit.collider;
-                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y && !isInvincible)
+                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y && !isInvincible&&canHit)
                 {
                     EnemyDamage(enemy, damage, 1);
                 }
@@ -82,12 +79,12 @@ public class PlayerMove : LivingEntity
             if (hit.collider.gameObject.CompareTag("Hit"))
             {
                 Collider2D enemy = hit.collider;
-                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y&& !isInvincible)
+                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y&& !isInvincible&&canHit)
                 {
                     EnemyDamage(enemy, damage, 4);
                 }
                 else if (!isInvincible)
-                {
+                {   
                     PlayerDamage(enemy);
                 }
             }
@@ -124,7 +121,11 @@ public class PlayerMove : LivingEntity
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(/*groundCheckObj.*/transform.position, new Vector3(x, y));
+        Gizmos.DrawWireCube(transform.position, new Vector3(x, y));
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckDistance);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -132,7 +133,7 @@ public class PlayerMove : LivingEntity
         isGround = Physics2D.BoxCast(/*groundCheckObj*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsGround);
         hit = Physics2D.BoxCast(/*groundCheckObj.*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
         canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7));
-
+        canHit = Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, groundCheckDistance, whatIsEnemy);
 
 
         if (isGround)

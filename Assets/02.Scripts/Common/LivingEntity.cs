@@ -22,7 +22,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if (canDamage)
         {
             hp -= damage* damageDrng;
-            Debug.Log( gameObject.name+ ": 받은 데미지 : " + damage * damageDrng + " 현재 체력 : " + hp);
+            //Debug.Log( gameObject.name+ ": 받은 데미지 : " + damage * damageDrng + " 현재 체력 : " + hp);
             StartCoroutine(DamageDelay());
         }
         if (hp <= 0 && !dead)
