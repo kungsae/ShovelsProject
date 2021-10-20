@@ -81,7 +81,6 @@ public class EnemyControl : MonoBehaviour
     //어택
 	public virtual void Attack()
     {
-       
         isAttack = true;
         canAttack = false;
     }
@@ -89,9 +88,10 @@ public class EnemyControl : MonoBehaviour
     public void AttackEnd()
     {
         isAttack = false;
+        StartCoroutine(AttackDelay());
     }
     //공격 쿨타임
-    public IEnumerator AttackDelay()
+    private IEnumerator AttackDelay()
     {
         yield return attackDelayWaitSecond;
         canAttack = true;

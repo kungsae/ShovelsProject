@@ -35,7 +35,6 @@ public class FatEnemy : EnemyControl
 			Flip();
 		}
 		wallCheck = false;
-		AttackEnd();
-		StartCoroutine(AttackDelay());
+		AttackEnd();	
 	}
 }
