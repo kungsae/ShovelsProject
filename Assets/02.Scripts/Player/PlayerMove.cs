@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : LivingEntity
 {
+    public int energy = 0;
+    public int maxEnergy = 0;
+
     private PlayerInput playerInput;
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
@@ -158,46 +161,6 @@ public class PlayerMove : LivingEntity
             rigid.velocity = new Vector3(0, rigid.velocity.y);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (isGround && collision.gameObject.CompareTag("Ground"))
-        //{
-        //    isfalling = false;
-        //    isAttack = false;
-        //    isOnDamaged = false;
-
-        //    StartCoroutine(JumpDelay());
-        //}
-
-
-        //if (collision.gameObject.CompareTag("Enemy"))
-        //{
-        //    if (isfalling && hit && !isOnDamaged && collision.transform.position.y < groundCheckObj.transform.position.y)
-        //    {
-        //        Debug.Log("A");
-        //        EnemyDamage(collision,damage, 1);
-        //    }
-        //    else if (!isOnDamaged)
-        //    {
-        //        PlayerDamage(collision);
-        //    }
-        //}
-
-  //      if (collision.gameObject.CompareTag("Hit"))
-  //      {
-  //          if (/*isfalling &&*/hit && !isOnDamaged && collision.transform.position.y < groundCheckObj.transform.position.y)
-  //          {
-  //              if(collision.gameObject.name == "Head")
-  //              Debug.Log(collision.gameObject.name);
-  //              EnemyDamage(collision,damage,4);
-  //          }
-  //          else if (!isOnDamaged)
-  //          {
-  //              PlayerDamage(collision);
-  //          }
-
-		//}
-    }
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
@@ -232,6 +195,7 @@ public class PlayerMove : LivingEntity
     {
         if (!isAttack&&canAttack)
         {
+            energy--;
             isAttack = true;
             canAttack = false;
             rigid.velocity = new Vector2(0, 0);
@@ -299,10 +263,22 @@ public class PlayerMove : LivingEntity
         }
 
     }
+    private IEnumerator EnergyRecover()
+    {
+		while (true)
+		{
+            if (energy < maxEnergy)
+            {
+                energy++;
+            }
+            yield return new WaitForSeconds(2f);
+		}
+    }
     public void Jump()
     {
         if (!isOnDamaged)
         {
+            energy--;
             rigid.velocity = new Vector2(0, jump);
         }
         //rigid.AddForce(Vector2.up * (jump), ForceMode2D.Impulse);
