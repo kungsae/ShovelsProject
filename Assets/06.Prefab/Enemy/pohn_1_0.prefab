@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 187
+    m_Bits: 393
   viewRange: 4
   viewAngle: 90
   attackRange: 1.5
