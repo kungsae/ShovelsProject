@@ -37,10 +37,6 @@ public class EnemyAi : MonoBehaviour
     {
 		while (!isDie)
 		{
-			if (state == State.DIE)
-			{
-				yield break;
-			}
 			switch (state)
 			{
 				case State.PATROL:
@@ -66,11 +62,14 @@ public class EnemyAi : MonoBehaviour
 
 				case State.DIE:
 					isDie = true;
-					enemy.DieAnimation();
-
 					break;
 			}
+			if (state == State.DIE)
+			{
+				yield break;
+			}
 			yield return new WaitForSeconds(0.1f);
+
 		}
 	}
 
@@ -134,12 +133,14 @@ public class EnemyAi : MonoBehaviour
 	public void SetDead()
 	{
 		state = State.DIE;
+		enemy.DieAnimation();
+		gameObject.layer = 9;
 		StartCoroutine(DeadProcess());
 	}
 	IEnumerator DeadProcess()
 	{
 		yield return new WaitForSeconds(5f);
-		//gameObject.SetActive(false);
-		Destroy(gameObject);
+		gameObject.SetActive(false);
+		//Destroy(gameObject);
 	}
 }
