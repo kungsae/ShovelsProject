@@ -871,9 +871,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1181547821}
-  - component: {fileID: 1181547825}
-  - component: {fileID: 1181547826}
   - component: {fileID: 1181547822}
+  - component: {fileID: 1181547826}
+  - component: {fileID: 1181547825}
   - component: {fileID: 1181547820}
   - component: {fileID: 1181547819}
   - component: {fileID: 1181547824}
@@ -1702,7 +1702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8619097739726557251, guid: 7f7f05bb2a85e0e459ce92bb119b7caa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8619097739726557252, guid: 7f7f05bb2a85e0e459ce92bb119b7caa, type: 3}
       propertyPath: m_Materials.Array.data[0]
