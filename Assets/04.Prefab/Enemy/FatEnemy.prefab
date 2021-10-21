@@ -334,10 +334,10 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 393
-  viewRange: 8.25
-  viewAngle: 45
-  attackRange: 6.06
-  aggroRange: 21.76
+  viewRange: 8
+  viewAngle: 80
+  attackRange: 6
+  aggroRange: 20
 --- !u!114 &8619097739726557260
 MonoBehaviour:
   m_ObjectHideFlags: 0

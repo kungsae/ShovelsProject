@@ -16,66 +16,68 @@ public class EnemyAi : MonoBehaviour
 
     private EnemyControl enemy;
     private EnemyFOV fov;
+	private bool isDie = false;
 
 	private bool stateChange = false;
 	// Start is called before the first frame update
 	private void Awake()
-	{
-        enemy = GetComponent<EnemyControl>();
+	{ 
+		enemy = GetComponent<EnemyControl>();
         fov = GetComponent<EnemyFOV>();
 	}
 	void Start()
     {
         state = State.PATROL;
 		StartCoroutine(StateCheck());
+		StartCoroutine(StateAction());
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-		StateAction();
-	}
-
     //상태에 따른 행동실행하는 함수
-    private void StateAction()
+    private IEnumerator StateAction()
     {
-		switch (state)
+		while (!isDie)
 		{
-			case State.PATROL:
-				StartCoroutine(enemy.StayPoint());
-				break;
+			if (state == State.DIE)
+			{
+				yield break;
+			}
+			switch (state)
+			{
+				case State.PATROL:
+					StartCoroutine(enemy.StayPoint());
+					break;
 
-			case State.TRACE:
-				enemy.Trace();
-				break;
+				case State.TRACE:
+					enemy.Trace();
+					break;
 
 
-			case State.ATTACK:
-				if (enemy.canAttack)
-				{
-					enemy.Attack();
-				}
-				else
-				{
-					StartCoroutine(enemy.StayState(3f));
-				}
+				case State.ATTACK:
+					if (enemy.canAttack)
+					{
+						enemy.Attack();
+					}
+					else
+					{
+						StartCoroutine(enemy.StayState(3f));
+					}
 
-				break;
+					break;
 
-			case State.DIE:
-				break;
+				case State.DIE:
+					isDie = true;
+					enemy.DieAnimation();
 
-			default:
-				break;
+					break;
+			}
+			yield return new WaitForSeconds(0.1f);
 		}
 	}
 
     //상태 변경 해주는 함수
     private IEnumerator StateCheck()
     {
-
-
-		while (true)
+		while (!isDie)
 		{
 			float dist = (transform.position - GameManager.instance.player.transform.position).sqrMagnitude;
 			float dist_X = Mathf.Abs(transform.position.x - GameManager.instance.player.transform.position.x);
@@ -128,5 +130,16 @@ public class EnemyAi : MonoBehaviour
 			state = nextState;
 			stateChange = false;
 		}
+	}
+	public void SetDead()
+	{
+		state = State.DIE;
+		StartCoroutine(DeadProcess());
+	}
+	IEnumerator DeadProcess()
+	{
+		yield return new WaitForSeconds(5f);
+		//gameObject.SetActive(false);
+		Destroy(gameObject);
 	}
 }

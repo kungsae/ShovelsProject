@@ -19,16 +19,16 @@ public class PlayerMove : LivingEntity
     public GameObject groundCheckObj;
     public bool isGround = false;
     
-    public bool facingRight = true;
+    private bool facingRight = true;
 
-    public bool canAttack = true;
-    public bool canHit = true;
+    private bool canAttack = true;
+    private bool canHit = true;
 
-    public bool isAttack = false;
-    public bool isJump = false;
-    public bool isOnDamaged = false;
-    public bool isfalling = false;
-    public bool isInvincible = false;
+    private bool isAttack = false;
+    private bool isJump = false;
+    private bool isOnDamaged = false;
+    private bool isfalling = false;
+    private bool isInvincible = false;
 
     //이동 관련 수치
     public float groundCheckDistance;
@@ -61,9 +61,38 @@ public class PlayerMove : LivingEntity
         PoolManager.CreatPool<Afterimage>(aiPrefab, afterImageTrm, 20);
         jump = jumpPower;
     }
-    private void Update()
+	private void Start()
+	{
+        StartCoroutine(EnergyRecover());
+	}
+	private void Update()
     {
         xMove = playerInput.xMove;
+
+        if (isGround || hit)
+        {
+            if (playerInput.jump && !isOnDamaged && energy > 0)
+            {
+                jump = jumpPower * 2;
+            }
+            else
+            {
+                jump = jumpPower;
+            }
+
+        }
+        else
+        {
+            if (rigid.velocity.y < 0)
+            {
+                isfalling = true;
+            }
+            if (playerInput.attack && !isOnDamaged && energy > 0)
+            {
+                StartCoroutine(Attack());
+            }
+
+        }
 
         if (hit.collider != null)
         {
@@ -93,34 +122,15 @@ public class PlayerMove : LivingEntity
             }
         }
 
+        
+
+
         if (((facingRight && xMove < 0) || (!facingRight && xMove > 0))&& !isOnDamaged)
         {
             Flip();
         }
 
-        if (isGround||hit)
-        {
-            if (playerInput.jump&&!isOnDamaged)
-            {
-                jump = jumpPower*2;
-            }
-            if (isOnDamaged)
-            {
-                jump = jumpPower;
-            }
 
-        }
-        else
-        {
-            if (rigid.velocity.y < 0)
-            {
-                isfalling = true;
-            }
-            if (playerInput.attack&& !isOnDamaged)
-            {
-                StartCoroutine(Attack());
-            }
-        }
     }
     void OnDrawGizmos()
     {
@@ -137,8 +147,7 @@ public class PlayerMove : LivingEntity
         hit = Physics2D.BoxCast(/*groundCheckObj.*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
         canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7));
         canHit = Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, groundCheckDistance, whatIsEnemy);
-
-
+       
         if (isGround)
         {
             if(!isOnDamaged)
@@ -196,6 +205,7 @@ public class PlayerMove : LivingEntity
         if (!isAttack&&canAttack)
         {
             energy--;
+            UIManager.instance.StatUpdate();
             isAttack = true;
             canAttack = false;
             rigid.velocity = new Vector2(0, 0);
@@ -267,19 +277,23 @@ public class PlayerMove : LivingEntity
     {
 		while (true)
 		{
+            yield return new WaitForSeconds(2f);
             if (energy < maxEnergy)
             {
                 energy++;
+                UIManager.instance.StatUpdate();
             }
-            yield return new WaitForSeconds(2f);
-		}
+        }
     }
     public void Jump()
     {
         if (!isOnDamaged)
         {
-            energy--;
             rigid.velocity = new Vector2(0, jump);
+            if (jump > jumpPower)
+            {
+                UseEnergy(1);
+            }
         }
         //rigid.AddForce(Vector2.up * (jump), ForceMode2D.Impulse);
         jump = jumpPower;   
@@ -299,21 +313,11 @@ public class PlayerMove : LivingEntity
         {
             OnDamage(target.damage, collision.transform.position, hit.normal, 1f);
         }
+        else if(!isOnDamaged)
+        {
+            OnDamage(1, collision.transform.position, hit.normal, 1f);
+        }
 
-    }
-    public void EnemyDamage(Collision2D collision, float damage, float damageDrng)
-    {
-        if (isAttack)
-        {
-            damage += 1;
-        }
-        IDamageable target = collision.transform.GetComponentInParent<IDamageable>();
-        if (target != null)
-        {
-            target.OnDamage(damage, hit.point, hit.normal, damageDrng);
-            Jump();
-            isAttack = false;
-        }
     }
     public void EnemyDamage(Collider2D collision, float damage, float damageDrng)
     {
@@ -321,15 +325,20 @@ public class PlayerMove : LivingEntity
         {
             damage += 1;
         }
-        IDamageable target = collision.transform.GetComponentInParent<IDamageable>();
-        if (target != null)
+        LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
+        if (target != null&&target.canDamage)
         {
             target.OnDamage(damage, hit.point, hit.normal, damageDrng);
             Jump();
-            isAttack = false;
+            isAttack = false;   
         }
     }
+    private void UseEnergy(int energeyConsumption)
+    {
+        energy-= energeyConsumption;
+        UIManager.instance.StatUpdate();
 
+    }
     private void Flip()
     {
         Vector3 scale = transform.localScale;

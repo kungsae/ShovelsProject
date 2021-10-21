@@ -29,12 +29,7 @@ public class FatEnemy : EnemyControl
 	}
 	public void attackEndEvent()
 	{
-		float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
-		if ((facingRight && dir < 0) || (!facingRight && dir > 0))
-		{
-			Flip();
-		}
+		AttackEnd();
 		wallCheck = false;
-		AttackEnd();	
 	}
 }

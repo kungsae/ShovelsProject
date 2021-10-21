@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Pohn_Archer_attack
+  m_Name: Pohn_Archer_Die
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 6598592900600979612, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - time: 0.16666667
-      value: {fileID: -7250745836855268937, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - time: 0.6666667
-      value: {fileID: 7458446779044743664, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - time: 0.8333333
-      value: {fileID: -3177775858896708781, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
+      value: {fileID: -3059935577801369051, guid: 78f73bdc45e2467458249623aaa8207f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +40,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 6598592900600979612, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - {fileID: -7250745836855268937, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - {fileID: 7458446779044743664, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
-    - {fileID: -3177775858896708781, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
+    - {fileID: -3059935577801369051, guid: 78f73bdc45e2467458249623aaa8207f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.16666667
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -74,11 +65,4 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0
-    functionName: AttackEnd
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

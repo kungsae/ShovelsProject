@@ -22,10 +22,13 @@ public class EnemyControl : MonoBehaviour
     public int patrollIndex = 0;
     Vector3 destination;
 
+    EnemyHealth health;
+
     public bool facingRight = true;
 
     private void Awake()
 	{
+        health = GetComponent<EnemyHealth>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
@@ -36,7 +39,7 @@ public class EnemyControl : MonoBehaviour
         destination = patrollPoint[patrollIndex];
     }
 	protected virtual void Update()
-	{
+    {
         animator.SetFloat("moveSpeed", Mathf.Abs(rigid.velocity.x));
         animator.SetBool("isAttack", isAttack);
         animator.SetBool("isMove", !isStop);
@@ -52,6 +55,10 @@ public class EnemyControl : MonoBehaviour
 	}
     protected virtual void FixedUpdate()
 	{
+        if (health.dead)
+        {
+            return;
+        }
         if (!isStop)
         {
             if (!isAttack)
@@ -87,14 +94,19 @@ public class EnemyControl : MonoBehaviour
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음
     public void AttackEnd()
     {
+        float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
+        if ((facingRight && dir < 0) || (!facingRight && dir > 0))
+        {
+            Flip();
+        }
         isAttack = false;
         StartCoroutine(AttackDelay());
     }
     //공격 쿨타임
     private IEnumerator AttackDelay()
     {
-            yield return attackDelayWaitSecond;
-            canAttack = true;
+         yield return attackDelayWaitSecond;
+         canAttack = true;
     }
 
 
@@ -132,6 +144,10 @@ public class EnemyControl : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             isStop = false;
         }
+    }
+    public void DieAnimation()
+    {
+        animator.SetTrigger("dead");
     }
     protected void Flip()
     {

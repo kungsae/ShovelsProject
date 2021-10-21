@@ -28,6 +28,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if (hp <= 0 && !dead)
         {
             Die();
+            Debug.Log("»ç¸Á");
         }
     }
     IEnumerator DamageDelay()

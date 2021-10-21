@@ -5,13 +5,20 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
     [SerializeField]private PlayerMove player;
+    [SerializeField] private Sprite[] hpSprite;
 
-    List<Image> energyImage = new List<Image>();
+    public List<Image> energyImage = new List<Image>();
 	private void Awake()
 	{
-		
-	}
+        if (instance != null)
+        {
+            Debug.Log("ui 매니저 중복");
+            Destroy(this);
+        }
+        instance = this;
+    }
 	// Start is called before the first frame update
 	void Start()
     {
@@ -21,12 +28,22 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+    }
+    public void StatUpdate()
+    {
+		for (int i = 0; i < energyImage.Count; i++)
+		{
+            energyImage[i].gameObject.SetActive(false);
+            energyImage[i].sprite = hpSprite[0];
+        }
+        for (int i = 0; i < player.energy; i++)
         {
-			for (int i = 0; i < player.energy; i++)
-			{
+            if (i % 2 == 0)
+            {
                 energyImage[i].gameObject.SetActive(true);
-			}
+                if (i == player.energy - 1)
+                energyImage[i].sprite = hpSprite[1];
+            }
         }
     }
 }
