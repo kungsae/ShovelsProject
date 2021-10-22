@@ -22,7 +22,7 @@ public class EnemyControl : MonoBehaviour
     public int patrollIndex = 0;
     Vector3 destination;
 
-    EnemyHealth health;
+    protected EnemyHealth health;
 
     public bool facingRight = true;
 
@@ -94,18 +94,19 @@ public class EnemyControl : MonoBehaviour
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음
     public void AttackEnd()
     {
+        isAttack = false;
         float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
         if ((facingRight && dir < 0) || (!facingRight && dir > 0))
         {
             Flip();
         }
-        isAttack = false;
         StartCoroutine(AttackDelay());
     }
     //공격 쿨타임
     private IEnumerator AttackDelay()
     {
          yield return attackDelayWaitSecond;
+         Debug.Log(gameObject.name +"A");
          canAttack = true;
     }
 

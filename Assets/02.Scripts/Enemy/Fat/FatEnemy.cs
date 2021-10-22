@@ -23,7 +23,8 @@ public class FatEnemy : EnemyControl
 			Debug.DrawRay(transform.position, Vector2.right * dir * 2f, Color.red, 0.1f);
 			if (isAttack && !wallCheck)
 				rigid.velocity = new Vector2(attackSpeed * dir * Time.deltaTime, rigid.velocity.y);
-
+			if (health.dead)
+				yield break;
 			yield return null;
 		}	
 	}

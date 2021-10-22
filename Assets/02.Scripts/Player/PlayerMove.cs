@@ -63,6 +63,8 @@ public class PlayerMove : LivingEntity
     }
 	private void Start()
 	{
+        energy = maxEnergy;
+        UIManager.instance.StatUpdate();
         StartCoroutine(EnergyRecover());
 	}
 	private void Update()
