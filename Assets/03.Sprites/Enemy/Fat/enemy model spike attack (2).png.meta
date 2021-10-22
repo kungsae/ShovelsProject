@@ -1,43 +1,28 @@
 fileFormatVersion: 2
-guid: b16a5042ba3da2e4683e2c0dab45821c
+guid: d448d93289ae97546b521e511d2e8596
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2435290640650830476
-    second: fat_enemy_model_walk_0
+      213: 8213174459847250394
+    second: enemy model spike attack (2)_0
   - first:
-      213: 8027094580362943024
-    second: fat_enemy_model_walk_1
+      213: -9029064416562242703
+    second: enemy model spike attack (2)_1
   - first:
-      213: -4133713937198643633
-    second: fat_enemy_model_walk_2
+      213: -6935460031309124699
+    second: enemy model spike attack (2)_2
   - first:
-      213: 8630912480901854175
-    second: fat_enemy_model_walk_3
+      213: -5051827604440697710
+    second: enemy model spike attack (2)_3
   - first:
-      213: -273015150343145447
-    second: fat_enemy_model_walk_4
+      213: -1715152449651126689
+    second: enemy model spike attack (2)_4
   - first:
-      213: 5259942088036290640
-    second: fat_enemy_model_walk_5
+      213: 175039058692892628
+    second: enemy model spike attack (2)_5
   - first:
-      213: 8514787746141629666
-    second: fat_enemy_model_walk_6
-  - first:
-      213: -5065150438261922431
-    second: fat_enemy_model_walk_7
-  - first:
-      213: 6774169298138570310
-    second: fat_enemy_model_walk_8
-  - first:
-      213: -1078182349529299915
-    second: fat_enemy_model_walk_9
-  - first:
-      213: -4306361560858328356
-    second: fat_enemy_model_walk_10
-  - first:
-      213: 5992321464773120881
-    second: fat_enemy_model_walk_11
+      213: -3177079721168330180
+    second: enemy model spike attack (2)_6
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -68,7 +53,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -102,9 +87,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 512
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -114,21 +99,9 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 512
-    resizeAlgorithm: 0
+    resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 16384
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,70 +112,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fat_enemy_model_walk_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 480
-        width: 160
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47d7c27a01c143ed0800000000000000
-      internalID: -2435290640650830476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fat_enemy_model_walk_1
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 480
-        width: 160
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 03a1ff0ddf7f56f60800000000000000
-      internalID: 8027094580362943024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fat_enemy_model_walk_2
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 480
-        width: 160
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f468132531912a6c0800000000000000
-      internalID: -4133713937198643633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fat_enemy_model_walk_3
+      name: enemy model spike attack (2)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -216,14 +126,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd3f3af3c2927c770800000000000000
-      internalID: 8630912480901854175
+      spriteID: ad1918de7ae0bf170800000000000000
+      internalID: 8213174459847250394
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_4
+      name: enemy model spike attack (2)_1
       rect:
         serializedVersion: 2
         x: 160
@@ -237,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9183f71da2e063cf0800000000000000
-      internalID: -273015150343145447
+      spriteID: 17b10bc40c152b280800000000000000
+      internalID: -9029064416562242703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_5
+      name: enemy model spike attack (2)_2
       rect:
         serializedVersion: 2
         x: 320
@@ -258,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0509780f5711ff840800000000000000
-      internalID: 5259942088036290640
+      spriteID: 5ab66efd8db40cf90800000000000000
+      internalID: -6935460031309124699
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_6
+      name: enemy model spike attack (2)_3
       rect:
         serializedVersion: 2
         x: 0
@@ -279,14 +189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ecee92875a9a2670800000000000000
-      internalID: 8514787746141629666
+      spriteID: 294bcca3f8d44e9b0800000000000000
+      internalID: -5051827604440697710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_7
+      name: enemy model spike attack (2)_4
       rect:
         serializedVersion: 2
         x: 160
@@ -300,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 185eb714388f4b9b0800000000000000
-      internalID: -5065150438261922431
+      spriteID: f5e47ee2fed8238e0800000000000000
+      internalID: -1715152449651126689
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_8
+      name: enemy model spike attack (2)_5
       rect:
         serializedVersion: 2
         x: 320
@@ -321,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64e18e7e51fa20e50800000000000000
-      internalID: 6774169298138570310
+      spriteID: 4d76533b81ddd6200800000000000000
+      internalID: 175039058692892628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fat_enemy_model_walk_9
+      name: enemy model spike attack (2)_6
       rect:
         serializedVersion: 2
         x: 0
@@ -342,50 +252,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 534c5359dd68901f0800000000000000
-      internalID: -1078182349529299915
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fat_enemy_model_walk_10
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 160
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cd284aaf9fabc34c0800000000000000
-      internalID: -4306361560858328356
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: fat_enemy_model_walk_11
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 160
-        height: 160
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17310cf9f90092350800000000000000
-      internalID: 5992321464773120881
+      spriteID: c322aa493deb8e3d0800000000000000
+      internalID: -3177079721168330180
       vertices: []
       indices: 
       edges: []
