@@ -43,14 +43,6 @@ public class EnemyControl : MonoBehaviour
         animator.SetFloat("moveSpeed", Mathf.Abs(rigid.velocity.x));
         animator.SetBool("isAttack", isAttack);
         animator.SetBool("isMove", !isStop);
-
-		//테스트
-
-		//if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
-		//{
-		//	Attack();
-		//}
-
 		
 	}
     protected virtual void FixedUpdate()
@@ -72,18 +64,6 @@ public class EnemyControl : MonoBehaviour
                 }
             }
         }
-        //테스트
-
-        //if ((transform.position - GameManager.instance.player.transform.position).sqrMagnitude < 5f)
-        //{
-        //    Attack();
-        //}
-
-        //if (!isAttack)
-        //{
-        //    rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
-        //    //IsStayPoint();
-        //}
     }
     //어택
 	public virtual void Attack()
@@ -91,7 +71,7 @@ public class EnemyControl : MonoBehaviour
         isAttack = true;
         canAttack = false;
     }
-    //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음
+    //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음 
     public void AttackEnd()
     {
         isAttack = false;
