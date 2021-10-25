@@ -1088,8 +1088,8 @@ MonoBehaviour:
   m_ShadowIntensity: 0.39
   m_ShadowVolumeIntensity: 0.92
   m_PointLightInnerAngle: 6
-  m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.2
+  m_PointLightOuterAngle: 17
+  m_PointLightInnerRadius: 9.051314
   m_PointLightOuterRadius: 40
   m_PointLightDistance: 3
   m_PointLightQuality: 1
@@ -2970,7 +2970,9 @@ MonoBehaviour:
   canAttack: 1
   attackDelay: 0
   speed: 1
-  patrollPoint: []
+  patrollPoint:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
   patrollIndex: 0
   facingRight: 1
   layer:
