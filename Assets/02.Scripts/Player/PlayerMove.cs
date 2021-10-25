@@ -69,7 +69,15 @@ public class PlayerMove : LivingEntity
 	}
 	private void Update()
     {
+        if (dead)
+            return;
+
         xMove = playerInput.xMove;
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            OnDamage(1, transform.position, transform.position, 1);
+        }
 
         if (isGround || hit)
         {
@@ -85,6 +93,7 @@ public class PlayerMove : LivingEntity
         }
         else
         {
+           
             if (rigid.velocity.y < 0)
             {
                 isfalling = true;
@@ -116,7 +125,7 @@ public class PlayerMove : LivingEntity
                 if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y&& !isInvincible&&canHit)
                 {
                     EnemyDamage(enemy, damage, 4);
-                }
+                } 
                 else if (!isInvincible)
                 {   
                     PlayerDamage(enemy);
@@ -147,9 +156,18 @@ public class PlayerMove : LivingEntity
     {
         isGround = Physics2D.BoxCast(/*groundCheckObj*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsGround);
         hit = Physics2D.BoxCast(/*groundCheckObj.*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
-        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7));
+        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) - 1<<8);
         canHit = Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, groundCheckDistance, whatIsEnemy);
-       
+
+        if (dead)
+        {
+            if (isGround)
+            {
+                rigid.velocity = new Vector2(0, 0);
+            }
+            return;
+        }
+
         if (isGround)
         {
             if(!isOnDamaged)
@@ -196,7 +214,7 @@ public class PlayerMove : LivingEntity
     {
         int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
         //Vector2 dir = (transform.position - targetPos);
-
+        rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(dir, 1)*5;
         //rigid.AddForce(new Vector2(dir, 1) * 5, ForceMode2D.Impulse);
         Debug.Log(dir);
@@ -206,6 +224,7 @@ public class PlayerMove : LivingEntity
     {
         if (!isAttack&&canAttack)
         {
+
             energy--;
             UIManager.instance.StatUpdate();
             isAttack = true;
@@ -248,7 +267,7 @@ public class PlayerMove : LivingEntity
     {
         isInvincible = true;
         StartCoroutine(InvincibleEffect());
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(10f);
         isInvincible = false;
 
         //플레이어 레이어
@@ -257,7 +276,7 @@ public class PlayerMove : LivingEntity
     }
     IEnumerator InvincibleEffect()
     {
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 20; i++)
 		{
             sprite.color = new Color(1, 1, 1, 0.5f);
             yield return new WaitForSeconds(0.25f);
@@ -341,7 +360,7 @@ public class PlayerMove : LivingEntity
         UIManager.instance.StatUpdate();
 
     }
-    private void Flip()
+	private void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
