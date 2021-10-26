@@ -31,18 +31,45 @@ public class UIManager : MonoBehaviour
     }
     public void StatUpdate()
     {
-		for (int i = 0; i < energyImage.Count; i++)
-		{
-            energyImage[i].gameObject.SetActive(false);
-            energyImage[i].sprite = hpSprite[0];
+        for (int i = 0; i < energyImage.Count; i++)
+        {
+
+            energyImage[i].sprite = hpSprite[2];
+            if (i<player.maxEnergy/2)
+            {
+                energyImage[i].gameObject.SetActive(true);
+            }
         }
+        List<Image> images = energyImage.FindAll((x) => x.gameObject.activeSelf);
+
+
+		for (int i = 0; i < images.Count*2; i++)
+		{
+            if (i % 2 == 0 && i != 0)
+            {
+                
+            }
+		}
+        //for (int i = 0; i < player.energy; i++)
+        //{
+        //    energyImage[i].sprite = hpSprite[0];
+        //    if (i == player.energy - 1)
+        //    {
+        //        if (i % 2 == 0)
+        //            energyImage[i].sprite = hpSprite[1];
+        //        else
+        //            energyImage[i].sprite = hpSprite[0];
+        //    }
+        //}
+    }
+    public void UseAnimation()
+    {
         for (int i = 0; i < player.energy; i++)
         {
             if (i % 2 == 0)
             {
-                energyImage[i].gameObject.SetActive(true);
-                if (i == player.energy - 1)
-                energyImage[i].sprite = hpSprite[1];
+                if (i == player.energy - 1) ;
+
             }
         }
     }

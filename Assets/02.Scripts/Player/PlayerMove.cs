@@ -14,7 +14,9 @@ public class PlayerMove : LivingEntity
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
     public LayerMask notPlayer;
-    public RaycastHit2D hit;
+
+    public RaycastHit2D hitRay;
+    public RaycastHit2D attackRay;
 
     public GameObject groundCheckObj;
     public bool isGround = false;
@@ -22,7 +24,6 @@ public class PlayerMove : LivingEntity
     private bool facingRight = true;
 
     private bool canAttack = true;
-    private bool canHit = true;
 
     private bool isAttack = false;
     private bool isJump = false;
@@ -31,7 +32,7 @@ public class PlayerMove : LivingEntity
     private bool isInvincible = false;
 
     //이동 관련 수치
-    public float groundCheckDistance;
+    public float groundCheckRadius;
     public float attackCheckDistance;
     public float jumpPower = 3f;
     public float moveSpeed;
@@ -48,11 +49,16 @@ public class PlayerMove : LivingEntity
     public Transform afterImageTrm;
     public float aiCreateTerm = 0.3f;
 
+    public GameObject testObj;
+    public LayerMask testLayer;
+    public Collision2D testCol;
+
     // Start is called before the first frame update
     protected override void Awake()
     {
-        base.Awake();
 
+        base.Awake();
+        testLayer = ~(1 << 7) + ~(1 << 8);
         rigid = GetComponentInParent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -78,8 +84,8 @@ public class PlayerMove : LivingEntity
         {
             OnDamage(1, transform.position, transform.position, 1);
         }
-
-        if (isGround || hit)
+        //바닥체크
+        if (isGround || attackRay)
         {
             if (playerInput.jump && !isOnDamaged && energy > 0)
             {
@@ -89,11 +95,10 @@ public class PlayerMove : LivingEntity
             {
                 jump = jumpPower;
             }
-
         }
+        //체공중
         else
-        {
-           
+        {   
             if (rigid.velocity.y < 0)
             {
                 isfalling = true;
@@ -102,39 +107,28 @@ public class PlayerMove : LivingEntity
             {
                 StartCoroutine(Attack());
             }
-
         }
 
-        if (hit.collider != null)
+        //데미지 입는 부분
+        if (hitRay.collider != null)
         {
-            if (hit.collider.gameObject.CompareTag("Enemy"))
+            if (hitRay.collider.gameObject.CompareTag("Enemy")|| hitRay.collider.gameObject.CompareTag("Hit"))
             {
-                Collider2D enemy = hit.collider;
-                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y && !isInvincible&&canHit)
-                {
-                    EnemyDamage(enemy, damage, 1);
-                }
-                else if (!isInvincible)
-                {
-                    PlayerDamage(enemy);
-                }
-            }
-            if (hit.collider.gameObject.CompareTag("Hit"))
-            {
-                Collider2D enemy = hit.collider;
-                if (isfalling && hit && !isOnDamaged && hit.point.y < groundCheckObj.transform.position.y&& !isInvincible&&canHit)
-                {
-                    EnemyDamage(enemy, damage, 4);
-                } 
-                else if (!isInvincible)
-                {   
-                    PlayerDamage(enemy);
-                }
+                Collider2D enemy = hitRay.collider;
+                if(!isOnDamaged && !isInvincible)
+                PlayerDamage(enemy);
             }
         }
-
-        
-
+        //데미지 주는부분
+        if (attackRay.collider != null)
+        {
+            if (attackRay.collider.gameObject.CompareTag("Enemy") || attackRay.collider.gameObject.CompareTag("Hit"))
+            {
+                Collider2D enemy = attackRay.collider;
+                if(!isOnDamaged&&!isInvincible)
+                EnemyDamage(enemy, damage, 1);
+            }
+        }
 
         if (((facingRight && xMove < 0) || (!facingRight && xMove > 0))&& !isOnDamaged)
         {
@@ -145,19 +139,25 @@ public class PlayerMove : LivingEntity
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.position, new Vector3(x, y));
+        Gizmos.DrawWireCube(testObj.transform.position, new Vector3(x, y));
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckDistance);
+        Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckRadius);
         Gizmos.color = Color.green;
         Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
+
+        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.5f, 0.5f));
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        isGround = Physics2D.BoxCast(/*groundCheckObj*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsGround);
-        hit = Physics2D.BoxCast(/*groundCheckObj.*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
-        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) - 1<<8);
-        canHit = Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, groundCheckDistance, whatIsEnemy);
+
+        isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
+        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.1f, whatIsEnemy);
+        //데미지 입는 부분
+        hitRay = Physics2D.BoxCast(/*groundCheckObj.*/transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
+
+        //땅과 거리 계산
+        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8));
 
         if (dead)
         {
@@ -213,12 +213,9 @@ public class PlayerMove : LivingEntity
     public void OnDamageEffect(Vector3 hitPosition)
     {
         int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
-        //Vector2 dir = (transform.position - targetPos);
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(dir, 1)*5;
-        //rigid.AddForce(new Vector2(dir, 1) * 5, ForceMode2D.Impulse);
         Debug.Log(dir);
-        // rigid.AddForce(dir*5, ForceMode2D.Impulse);
     }
     IEnumerator Attack()
     {
@@ -267,7 +264,7 @@ public class PlayerMove : LivingEntity
     {
         isInvincible = true;
         StartCoroutine(InvincibleEffect());
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(1.5f);
         isInvincible = false;
 
         //플레이어 레이어
@@ -276,7 +273,7 @@ public class PlayerMove : LivingEntity
     }
     IEnumerator InvincibleEffect()
     {
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 3; i++)
 		{
             sprite.color = new Color(1, 1, 1, 0.5f);
             yield return new WaitForSeconds(0.25f);
@@ -293,18 +290,6 @@ public class PlayerMove : LivingEntity
             Jump();
         }
 
-    }
-    private IEnumerator EnergyRecover()
-    {
-		while (true)
-		{
-            yield return new WaitForSeconds(2f);
-            if (energy < maxEnergy)
-            {
-                energy++;
-                UIManager.instance.StatUpdate();
-            }
-        }
     }
     public void Jump()
     {
@@ -324,7 +309,7 @@ public class PlayerMove : LivingEntity
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null&&!isOnDamaged)
         {
-            OnDamage(target.damage, collision.transform.position, hit.normal, 1f);
+            OnDamage(target.damage, collision.transform.position, hitRay.normal, 1f);
         }
     }
     public void PlayerDamage(Collider2D collision)
@@ -332,11 +317,11 @@ public class PlayerMove : LivingEntity
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null && !isOnDamaged)
         {
-            OnDamage(target.damage, collision.transform.position, hit.normal, 1f);
+            OnDamage(target.damage, collision.transform.position, hitRay.normal, 1f);
         }
         else if(!isOnDamaged)
         {
-            OnDamage(1, collision.transform.position, hit.normal, 1f);
+            OnDamage(1, collision.transform.position, hitRay.normal, 1f);
         }
 
     }
@@ -346,10 +331,11 @@ public class PlayerMove : LivingEntity
         {
             damage += 1;
         }
+        Debug.Log(collision.transform.GetComponent<LivingEntity>());
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null&&target.canDamage)
         {
-            target.OnDamage(damage, hit.point, hit.normal, damageDrng);
+            target.OnDamage(damage, hitRay.point, hitRay.normal, damageDrng);
             Jump();
             isAttack = false;   
         }
@@ -360,7 +346,19 @@ public class PlayerMove : LivingEntity
         UIManager.instance.StatUpdate();
 
     }
-	private void Flip()
+    private IEnumerator EnergyRecover()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+            if (energy < maxEnergy)
+            {
+                energy++;
+                UIManager.instance.StatUpdate();
+            }
+        }
+    }
+    private void Flip()
     {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
