@@ -77,6 +77,27 @@ TextureImporter:
   - first:
       213: 597816628536976296
     second: stamina_24
+  - first:
+      213: 3145238386102517252
+    second: stamina_25
+  - first:
+      213: -188919835154317974
+    second: stamina_26
+  - first:
+      213: 7895575821006787178
+    second: stamina_27
+  - first:
+      213: 6168531820794042294
+    second: stamina_28
+  - first:
+      213: 841405385047474932
+    second: stamina_29
+  - first:
+      213: -8695437326404527193
+    second: stamina_30
+  - first:
+      213: -3484128679478659171
+    second: stamina_31
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -182,7 +203,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 320
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -203,7 +224,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 80
-        y: 320
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -224,7 +245,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 320
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -245,7 +266,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 240
-        y: 320
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -266,7 +287,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 320
-        y: 320
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -286,8 +307,8 @@ TextureImporter:
       name: stamina_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 240
+        x: 400
+        y: 400
         width: 80
         height: 80
       alignment: 0
@@ -307,8 +328,8 @@ TextureImporter:
       name: stamina_6
       rect:
         serializedVersion: 2
-        x: 80
-        y: 240
+        x: 0
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -328,8 +349,8 @@ TextureImporter:
       name: stamina_7
       rect:
         serializedVersion: 2
-        x: 160
-        y: 240
+        x: 80
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -349,8 +370,8 @@ TextureImporter:
       name: stamina_8
       rect:
         serializedVersion: 2
-        x: 240
-        y: 240
+        x: 160
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -370,8 +391,8 @@ TextureImporter:
       name: stamina_9
       rect:
         serializedVersion: 2
-        x: 320
-        y: 240
+        x: 240
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -391,8 +412,8 @@ TextureImporter:
       name: stamina_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 320
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -412,8 +433,8 @@ TextureImporter:
       name: stamina_11
       rect:
         serializedVersion: 2
-        x: 80
-        y: 160
+        x: 400
+        y: 320
         width: 80
         height: 80
       alignment: 0
@@ -433,8 +454,8 @@ TextureImporter:
       name: stamina_12
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
+        x: 0
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -454,8 +475,8 @@ TextureImporter:
       name: stamina_13
       rect:
         serializedVersion: 2
-        x: 240
-        y: 160
+        x: 80
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -475,8 +496,8 @@ TextureImporter:
       name: stamina_14
       rect:
         serializedVersion: 2
-        x: 320
-        y: 160
+        x: 160
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -496,8 +517,8 @@ TextureImporter:
       name: stamina_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
+        x: 240
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -517,8 +538,8 @@ TextureImporter:
       name: stamina_16
       rect:
         serializedVersion: 2
-        x: 80
-        y: 80
+        x: 320
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -538,8 +559,8 @@ TextureImporter:
       name: stamina_17
       rect:
         serializedVersion: 2
-        x: 160
-        y: 80
+        x: 400
+        y: 240
         width: 80
         height: 80
       alignment: 0
@@ -559,8 +580,8 @@ TextureImporter:
       name: stamina_18
       rect:
         serializedVersion: 2
-        x: 240
-        y: 80
+        x: 0
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -580,8 +601,8 @@ TextureImporter:
       name: stamina_19
       rect:
         serializedVersion: 2
-        x: 320
-        y: 80
+        x: 80
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -601,8 +622,8 @@ TextureImporter:
       name: stamina_20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 160
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -622,8 +643,8 @@ TextureImporter:
       name: stamina_21
       rect:
         serializedVersion: 2
-        x: 80
-        y: 0
+        x: 240
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -643,8 +664,8 @@ TextureImporter:
       name: stamina_22
       rect:
         serializedVersion: 2
-        x: 160
-        y: 0
+        x: 320
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -664,8 +685,8 @@ TextureImporter:
       name: stamina_23
       rect:
         serializedVersion: 2
-        x: 240
-        y: 0
+        x: 400
+        y: 160
         width: 80
         height: 80
       alignment: 0
@@ -685,8 +706,8 @@ TextureImporter:
       name: stamina_24
       rect:
         serializedVersion: 2
-        x: 320
-        y: 0
+        x: 0
+        y: 80
         width: 80
         height: 80
       alignment: 0
@@ -698,6 +719,153 @@ TextureImporter:
       bones: []
       spriteID: 8a3a4c86e0fdb4800800000000000000
       internalID: 597816628536976296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_25
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40e3091e5a126ab20800000000000000
+      internalID: 3145238386102517252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_26
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6df99e2962d06df0800000000000000
+      internalID: -188919835154317974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_27
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a62d54c6068b29d60800000000000000
+      internalID: 7895575821006787178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_28
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b75f1c32070b9550800000000000000
+      internalID: 6168531820794042294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_29
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 80
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f20bdf5db54dab00800000000000000
+      internalID: 841405385047474932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ab5cf072d9935780800000000000000
+      internalID: -8695437326404527193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stamina_31
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d977cebfc63e5afc0800000000000000
+      internalID: -3484128679478659171
       vertices: []
       indices: 
       edges: []

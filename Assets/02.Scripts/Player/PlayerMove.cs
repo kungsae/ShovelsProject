@@ -202,7 +202,7 @@ public class PlayerMove : LivingEntity
 	public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
 	{
 		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
-
+        UIManager.instance.StatUpdate();
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
         StartCoroutine(Invincible());
@@ -348,15 +348,16 @@ public class PlayerMove : LivingEntity
     }
     private IEnumerator EnergyRecover()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(2f);
-            if (energy < maxEnergy)
-            {
-                energy++;
-                UIManager.instance.StatUpdate();
-            }
-        }
+		while (true)
+		{
+			yield return new WaitForSeconds(2f);
+			if (energy < maxEnergy)
+			{
+				energy++;
+				UIManager.instance.StatUpdate();
+			}
+		}
+		//yield return null;
     }
     private void Flip()
     {

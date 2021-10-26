@@ -9,7 +9,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public float initHealth;
     public bool canDamage = true;
     public SpriteRenderer sprite;
-    public float hp { get; protected set; }
+    public float hp; /*{ get; protected set; }*/
     public bool dead { get; protected set; }
     public event Action OnDeath;
 	protected virtual void Awake()
