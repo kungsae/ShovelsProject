@@ -5,14 +5,12 @@ using UnityEngine;
 public class FatBoss : EnemyControl
 {
 	public LayerMask layer;
-	public BoxCollider2D colliderD;
 	private bool wallCheck = false;
 	public float attackSpeed;
-	public int damagedtime;
 
-	private float dashAttackDelay = 3f;
+	private float dashAttackDelay = 6f;
 
-	private int attackType;
+	private int attackType = 1;
 
 	protected override void Start()
 	{
@@ -21,9 +19,10 @@ public class FatBoss : EnemyControl
 		health.hitEvent += () => 
 		{
 			attackType = 3;
-			canAttack = true;
 			Attack();
 		};
+		//attackType = 2;
+		//Attack();
 	}
 	protected override void Update()
 	{
@@ -50,12 +49,22 @@ public class FatBoss : EnemyControl
 	{
 		AttackEnd();
 		wallCheck = false;
+		StartCoroutine(DashDelay());
 	}
-	private void OnCollisionEnter2D(Collision2D collision)
+	IEnumerator DashDelay()
+	{
+		yield return new WaitForSeconds(dashAttackDelay);
+		while (isAttack)
+		{
+			yield return null;
+		}
+		attackType = 2;
+		Attack();
+	}
+	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			
 		}
 	}
 	public override void AttackEnd()
@@ -65,6 +74,7 @@ public class FatBoss : EnemyControl
 	}
 	public override void Attack()
 	{
+		animator.SetInteger("AttackType", attackType);
 		base.Attack();
 	}
 }

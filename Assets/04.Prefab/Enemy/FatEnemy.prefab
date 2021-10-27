@@ -309,7 +309,7 @@ MonoBehaviour:
   isAttack: 0
   canAttack: 1
   attackDelay: 3
-  speed: 50
+  speed: 2
   patrollPoint:
   - {x: -2.58, y: -3.44, z: 0}
   - {x: 9.4, y: -3.48, z: 0}
@@ -367,3 +367,6 @@ MonoBehaviour:
   initHealth: 50
   canDamage: 1
   sprite: {fileID: 0}
+  hp: 0
+  hitCount: 0
+  maxHitCount: 0

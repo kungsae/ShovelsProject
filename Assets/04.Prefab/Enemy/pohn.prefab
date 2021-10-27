@@ -173,7 +173,7 @@ MonoBehaviour:
   isAttack: 0
   canAttack: 1
   attackDelay: 2
-  speed: 20
+  speed: 2
   patrollPoint:
   - {x: -1.46, y: -3.19, z: 0}
   - {x: -14.08, y: -3.19, z: 0}
@@ -228,6 +228,8 @@ MonoBehaviour:
   canDamage: 1
   sprite: {fileID: 0}
   hp: 0
+  hitCount: 0
+  maxHitCount: 0
 --- !u!1 &150885069497447868
 GameObject:
   m_ObjectHideFlags: 0

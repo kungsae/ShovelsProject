@@ -49,7 +49,7 @@ public class EnemyAi : MonoBehaviour
 
 
 				case State.ATTACK:
-					if (enemy.canAttack)
+					if (enemy.canAttack&&!enemy.isAttack)
 					{
 						enemy.Attack();
 					}

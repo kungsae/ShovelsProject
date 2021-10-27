@@ -56,7 +56,6 @@ public class PlayerMove : LivingEntity
     // Start is called before the first frame update
     protected override void Awake()
     {
-
         base.Awake();
         testLayer = ~(1 << 7) + ~(1 << 8);
         rigid = GetComponentInParent<Rigidbody2D>();

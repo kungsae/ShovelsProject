@@ -23,6 +23,7 @@ public class EnemyControl : MonoBehaviour
     Vector3 destination;
 
     protected EnemyHealth health;
+    private EnemyAi ai;
 
     public bool facingRight = true;
 
@@ -31,6 +32,7 @@ public class EnemyControl : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        ai = GetComponent<EnemyAi>();
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
 	protected virtual void Start()
@@ -53,9 +55,9 @@ public class EnemyControl : MonoBehaviour
         }
         if (!isStop)
         {
-            if (!isAttack)
+            if (ai.state != EnemyAi.State.ATTACK&&!isStop)
             {
-                rigid.velocity = new Vector2(speed * dir * Time.deltaTime, rigid.velocity.y);
+                rigid.velocity = new Vector2(speed * dir, rigid.velocity.y);
                 //IsStayPoint();
 
                 if ((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0))

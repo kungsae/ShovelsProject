@@ -171,7 +171,7 @@ MonoBehaviour:
   isAttack: 0
   canAttack: 1
   attackDelay: 5
-  speed: 20
+  speed: 2
   patrollPoint:
   - {x: -1.46, y: -3.19, z: 0}
   - {x: -14.18, y: -3.19, z: 0}
@@ -223,7 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e62ce12cd9e8b146b118dd4fa8be1f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  initHealth: 0
+  damage: 1
+  initHealth: 15
   canDamage: 1
   sprite: {fileID: 0}
+  hp: 0
+  hitCount: 0
+  maxHitCount: 0
