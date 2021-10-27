@@ -33,7 +33,7 @@ public class EnemyHealth : LivingEntity
             hitEvent();
             hitCount = 0;
         }
-        GameObject text = Instantiate(damageText, hitPosition, Quaternion.identity);
+        GameObject text = Instantiate(damageText, transform.position, Quaternion.identity);
         text.GetComponent<DamageText>().text.text = damage.ToString();
         //데미지 수치 뜨는거 만들예정
 

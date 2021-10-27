@@ -10,7 +10,7 @@ public class DamageText : MonoBehaviour
     void Start()
     {
         text = GetComponent<TextMeshPro>();
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 1.5f);
     }
 
     // Update is called once per frame
