@@ -9,6 +9,8 @@ public class EnemyHealth : LivingEntity
     [HideInInspector] public int hitCount = 0;
     [SerializeField] private int maxHitCount = 5;
     public Action hitEvent;
+    public GameObject damageText;
+
 	// Start is called before the first frame update
 	protected override void Awake()
     {
@@ -30,8 +32,11 @@ public class EnemyHealth : LivingEntity
         {
             hitEvent();
             hitCount = 0;
-        }  
+        }
+        GameObject text = Instantiate(damageText, hitPosition, Quaternion.identity);
+        text.GetComponent<DamageText>().text.text = damage.ToString();
         //데미지 수치 뜨는거 만들예정
+
     }
 	public override void Die()
 	{

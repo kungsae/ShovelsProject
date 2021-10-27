@@ -230,6 +230,7 @@ MonoBehaviour:
   hp: 0
   hitCount: 0
   maxHitCount: 0
+  damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}
 --- !u!1 &150885069497447868
 GameObject:
   m_ObjectHideFlags: 0
