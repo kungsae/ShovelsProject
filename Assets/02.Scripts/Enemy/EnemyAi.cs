@@ -24,10 +24,10 @@ public class EnemyAi : MonoBehaviour
 	{ 
 		enemy = GetComponent<EnemyControl>();
         fov = GetComponent<EnemyFOV>();
+		state = State.PATROL;
 	}
 	void Start()
     {
-        state = State.PATROL;
 		StartCoroutine(StateCheck());
 		StartCoroutine(StateAction());
     }

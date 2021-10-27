@@ -26,14 +26,14 @@ public class EnemyControl : MonoBehaviour
 
     public bool facingRight = true;
 
-    private void Awake()
-	{
+    protected void Awake()
+    {
         health = GetComponent<EnemyHealth>();
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
-	private void Start()
+	protected virtual void Start()
 	{
         attackDelayWaitSecond = new WaitForSeconds(attackDelay);
         destination = patrollPoint[patrollIndex];
@@ -72,7 +72,7 @@ public class EnemyControl : MonoBehaviour
         canAttack = false;
     }
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음 
-    public void AttackEnd()
+    public virtual void AttackEnd()
     {
         isAttack = false;
         float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
@@ -86,7 +86,6 @@ public class EnemyControl : MonoBehaviour
     private IEnumerator AttackDelay()
     {
          yield return attackDelayWaitSecond;
-         Debug.Log(gameObject.name +"A");
          canAttack = true;
     }
 
