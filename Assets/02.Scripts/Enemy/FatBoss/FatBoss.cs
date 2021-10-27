@@ -6,6 +6,7 @@ public class FatBoss : EnemyControl
 {
 	public LayerMask layer;
 	private bool wallCheck = false;
+	private bool canDash = false;
 	public float attackSpeed;
 
 	private float dashAttackDelay = 6f;
@@ -21,13 +22,16 @@ public class FatBoss : EnemyControl
 			attackType = 3;
 			Attack();
 		};
-		//attackType = 2;
-		//Attack();
+		canDash = true;
+		attackType = 2;
+		Attack();
+		//StartCoroutine(DashDelay());
 	}
 	protected override void Update()
 	{
 		base.Update();
 
+		animator.SetBool("canDash", canDash);
 		animator.SetBool("wallCheck", wallCheck);
 	}
 
@@ -38,7 +42,7 @@ public class FatBoss : EnemyControl
 		{
 			wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 2f, layer);
 			Debug.DrawRay(transform.position, Vector2.right * dir * 2f, Color.red, 0.1f);
-			if (isAttack && !wallCheck)
+			if (isAttack&&!wallCheck)
 				rigid.velocity = new Vector2(attackSpeed * dir, rigid.velocity.y);
 			yield return null;
 		}
@@ -49,22 +53,23 @@ public class FatBoss : EnemyControl
 	{
 		AttackEnd();
 		wallCheck = false;
+		canDash = false;
 		StartCoroutine(DashDelay());
 	}
 	IEnumerator DashDelay()
 	{
 		yield return new WaitForSeconds(dashAttackDelay);
-		while (isAttack)
-		{
-			yield return null;
-		}
+		canDash = true;
+		//canAttack = true;
 		attackType = 2;
 		Attack();
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player")&&attackType == 2)
 		{
+			//rigid.velocity = new Vector2(0, 0);
+			//AttackEnd();
 		}
 	}
 	public override void AttackEnd()

@@ -193,6 +193,7 @@ public class PlayerMove : LivingEntity
 	{
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
         {
+            rigid.velocity = new Vector2(0, 0);
             PlayerDamage(collision);
         }
     }

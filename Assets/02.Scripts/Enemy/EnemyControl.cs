@@ -55,7 +55,7 @@ public class EnemyControl : MonoBehaviour
         }
         if (!isStop)
         {
-            if (ai.state != EnemyAi.State.ATTACK&&!isStop)
+            if (ai.state != EnemyAi.State.ATTACK&&!isStop&&!isAttack)
             {
                 rigid.velocity = new Vector2(speed * dir, rigid.velocity.y);
                 //IsStayPoint();
@@ -70,8 +70,8 @@ public class EnemyControl : MonoBehaviour
     //어택
 	public virtual void Attack()
     {
-        isAttack = true;
-        canAttack = false;
+          isAttack = true;
+          canAttack = false;
     }
     //애니메이션 끝나면 공격 꺼주는 함수,스크립트에서 쓸일 없음 
     public virtual void AttackEnd()

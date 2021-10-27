@@ -55,7 +55,7 @@ public class EnemyAi : MonoBehaviour
 					}
 					else
 					{
-						StartCoroutine(enemy.StayState(3f));
+						StartCoroutine(enemy.StayState(2f));
 					}
 
 					break;
