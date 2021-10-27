@@ -12,12 +12,9 @@ public class TestCutScene : MonoBehaviour
         director = GetComponent<PlayableDirector>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            director.Play();
-        }
-    }
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+        director.Play();
+        Destroy(this);
+	}
 }
