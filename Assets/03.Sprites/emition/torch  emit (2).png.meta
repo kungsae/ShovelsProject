@@ -1,27 +1,27 @@
 fileFormatVersion: 2
-guid: 17d35dba367bbef438c618bb4150fed5
+guid: dd94c6c9068869641ac2af89a7ff59bb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5278734259511242463
-    second: hp_0
+      213: 5535776595169679473
+    second: torch  emit (2)_0
   - first:
-      213: 3532547729105675132
-    second: hp_1
+      213: 2053650893764323750
+    second: torch  emit (2)_1
   - first:
-      213: -6770129802454094894
-    second: hp_2
+      213: -204172453442240464
+    second: torch  emit (2)_2
   - first:
-      213: 8701041431903605724
-    second: hp_3
+      213: 3968156215688339230
+    second: torch  emit (2)_3
   - first:
-      213: 1746293952470358957
-    second: hp_4
+      213: 8317416902159942274
+    second: torch  emit (2)_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -61,13 +61,13 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 160
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 0
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -80,10 +80,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -92,22 +92,10 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 16384
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,7 +106,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hp_0
+      name: torch  emit (2)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -126,20 +114,20 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 121d52ea82b2eb6b0800000000000000
-      internalID: -5278734259511242463
+      spriteID: 1789207cb7703dc40800000000000000
+      internalID: 5535776595169679473
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_1
+      name: torch  emit (2)_1
       rect:
         serializedVersion: 2
         x: 160
@@ -147,20 +135,20 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c73e4718171260130800000000000000
-      internalID: 3532547729105675132
+      spriteID: 6a96c7f6b98008c10800000000000000
+      internalID: 2053650893764323750
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_2
+      name: torch  emit (2)_2
       rect:
         serializedVersion: 2
         x: 0
@@ -168,20 +156,20 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2db207970daab02a0800000000000000
-      internalID: -6770129802454094894
+      spriteID: 030c7af3c32aa2df0800000000000000
+      internalID: -204172453442240464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_3
+      name: torch  emit (2)_3
       rect:
         serializedVersion: 2
         x: 160
@@ -189,20 +177,20 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd3129c051f40c870800000000000000
-      internalID: 8701041431903605724
+      spriteID: e1f9c51dd09b11730800000000000000
+      internalID: 3968156215688339230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hp_4
+      name: torch  emit (2)_4
       rect:
         serializedVersion: 2
         x: 0
@@ -210,14 +198,14 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dab9866f8151c3810800000000000000
-      internalID: 1746293952470358957
+      spriteID: 282c21eda966d6370800000000000000
+      internalID: 8317416902159942274
       vertices: []
       indices: 
       edges: []
@@ -231,9 +219,7 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 62b7d164a9049b144a2ad61a9bca3c25, type: 3}
-      name: _Emissions
+    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
