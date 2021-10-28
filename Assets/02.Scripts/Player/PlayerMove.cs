@@ -29,7 +29,7 @@ public class PlayerMove : LivingEntity
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
-   // private bool isfalling = false;
+    //private bool isfalling = false;
     private bool isInvincible = false;
     public float invincibleTime = 1.5f;
 
@@ -172,7 +172,7 @@ public class PlayerMove : LivingEntity
             return;
         }
 
-        if (isGround&&rigid.velocity.y<=0)
+        if (isGround&&rigid.velocity.y<1)
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());

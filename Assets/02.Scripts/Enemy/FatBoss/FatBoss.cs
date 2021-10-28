@@ -76,6 +76,10 @@ public class FatBoss : EnemyControl
 	//	attackType = 2;
 	//	Attack();
 	//}
+	public void cry()
+	{
+		CameraShake.instance.ShakeCam(10, 1.5f);
+	}
 	public override void AttackEnd()
 	{
 		base.AttackEnd();
