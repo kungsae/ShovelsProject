@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  initHealth: 15
+  initHealth: 4
   canDamage: 1
   sprite: {fileID: 0}
   hp: 0

@@ -29,8 +29,9 @@ public class PlayerMove : LivingEntity
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
-    private bool isfalling = false;
+   // private bool isfalling = false;
     private bool isInvincible = false;
+    public float invincibleTime = 1.5f;
 
     //이동 관련 수치
     public float groundCheckRadius;
@@ -101,7 +102,7 @@ public class PlayerMove : LivingEntity
         {   
             if (rigid.velocity.y < 0)
             {
-                isfalling = true;
+                //isfalling = true;
             }
             if (playerInput.attack && !isOnDamaged && energy > 0)
             {
@@ -172,7 +173,7 @@ public class PlayerMove : LivingEntity
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());
-            isfalling = false;
+            //isfalling = false;
             isAttack = false;
             isOnDamaged = false;
         }
@@ -266,7 +267,7 @@ public class PlayerMove : LivingEntity
     {
         isInvincible = true;
         StartCoroutine(InvincibleEffect());
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(invincibleTime);
         isInvincible = false;
 
         //플레이어 레이어
@@ -275,12 +276,13 @@ public class PlayerMove : LivingEntity
     }
     IEnumerator InvincibleEffect()
     {
-		for (int i = 0; i < 3; i++)
+        int count = 3;
+		for (int i = 0; i < count; i++)
 		{
-            sprite.color = new Color(1, 1, 1, 0.5f);
-            yield return new WaitForSeconds(0.25f);
-            sprite.color = new Color(1, 1, 1, 1f);
-            yield return new WaitForSeconds(0.25f);
+			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
+			yield return new WaitForSeconds(invincibleTime/(count*2));
+            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
+            yield return new WaitForSeconds(invincibleTime/(count*2));
         }
     }
     IEnumerator JumpDelay()
@@ -331,7 +333,7 @@ public class PlayerMove : LivingEntity
     {
         if (isAttack)
         {
-            damage += 1;
+            damage += 3;
         }
         Debug.Log(collision.transform.GetComponent<LivingEntity>());
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
