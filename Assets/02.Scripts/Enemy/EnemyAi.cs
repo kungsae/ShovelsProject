@@ -16,6 +16,7 @@ public class EnemyAi : MonoBehaviour
 
     private EnemyControl enemy;
     private EnemyFOV fov;
+	private EnemyHealth health;
 	private bool isDie = false;
 
 	private bool stateChange = false;
@@ -24,6 +25,7 @@ public class EnemyAi : MonoBehaviour
 	{ 
 		enemy = GetComponent<EnemyControl>();
         fov = GetComponent<EnemyFOV>();
+		health = GetComponent<EnemyHealth>();
 		state = State.PATROL;
 	}
 	void Start()
@@ -97,12 +99,13 @@ public class EnemyAi : MonoBehaviour
 				}
 				else if (fov.aggroRange * fov.aggroRange < dist)
 				{
+					health.hitCount = 0;
 					StartCoroutine(StateChange(State.PATROL, 2f));
 				}
 			}
 			else
 			{
-				if (fov.IsTracePlayer() && fov.IsViewPlayer())
+				if ((fov.IsTracePlayer() && fov.IsViewPlayer())|| health.hitCount != 0)
 				{
 					state = State.TRACE;
 				}

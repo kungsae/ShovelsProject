@@ -195,7 +195,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 392
   viewRange: 10
-  viewAngle: 40
+  viewAngle: 160
   attackRange: 8
   aggroRange: 15
 --- !u!114 &1940292181644410160

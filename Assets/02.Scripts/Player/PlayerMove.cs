@@ -172,7 +172,7 @@ public class PlayerMove : LivingEntity
             return;
         }
 
-        if (isGround)
+        if (isGround&&rigid.velocity.y<=0)
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());
@@ -220,7 +220,6 @@ public class PlayerMove : LivingEntity
         int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(dir, 1)*5;
-        Debug.Log(dir);
     }
     IEnumerator Attack()
     {

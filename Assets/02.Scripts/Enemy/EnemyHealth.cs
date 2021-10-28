@@ -7,8 +7,8 @@ public class EnemyHealth : LivingEntity
 {
     private EnemyAi ai;
     [HideInInspector] public int hitCount = 0;
-    [SerializeField] private int maxHitCount = 5;
     public Action hitEvent;
+    public Action hitEvent2;
     public GameObject damageText;
 
 	// Start is called before the first frame update
@@ -28,10 +28,14 @@ public class EnemyHealth : LivingEntity
 	{
 		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
         hitCount++;
-        if (maxHitCount <= hitCount && hitEvent != null)
+        if (hitEvent != null)
         {
+            if(hitCount % 3 == 0)
             hitEvent();
-            hitCount = 0;
+            else if(hitCount % 7 == 0)
+			{
+                hitEvent2();
+			}
         }
         GameObject text = Instantiate(damageText, transform.position, Quaternion.identity);
         text.GetComponent<DamageText>().text.text = damage.ToString();

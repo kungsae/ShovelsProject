@@ -84,7 +84,6 @@ public class EnemyFOV : MonoBehaviour
 		if (hit2D.collider != null)
 		{
 			isView = (hit2D.collider.gameObject.CompareTag("Player"));
-			Debug.Log(hit2D.collider.gameObject);
 		}
 
 		return isView;

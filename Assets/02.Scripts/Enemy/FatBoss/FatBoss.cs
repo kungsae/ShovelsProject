@@ -22,6 +22,12 @@ public class FatBoss : EnemyControl
 			attackType = 3;
 			Attack();
 		};
+		health.hitEvent2 += () =>
+		{
+			canDash = true;
+			attackType = 2;
+			Attack();
+		};
 		canDash = true;
 		attackType = 2;
 		Attack();
@@ -33,6 +39,12 @@ public class FatBoss : EnemyControl
 
 		animator.SetBool("canDash", canDash);
 		animator.SetBool("wallCheck", wallCheck);
+		float dist_X = Mathf.Abs(transform.position.x - GameManager.instance.player.transform.position.x);
+		if (dist_X > 10&&!canDash)
+		{
+			canDash = true;
+			Attack();
+		}
 	}
 
 	public IEnumerator AttackDash()
@@ -54,16 +66,16 @@ public class FatBoss : EnemyControl
 		AttackEnd();
 		wallCheck = false;
 		canDash = false;
-		StartCoroutine(DashDelay());
+		//StartCoroutine(DashDelay());
 	}
-	IEnumerator DashDelay()
-	{
-		yield return new WaitForSeconds(dashAttackDelay);
-		canDash = true;
-		//canAttack = true;
-		attackType = 2;
-		Attack();
-	}
+	//IEnumerator DashDelay()
+	//{
+	//	yield return new WaitForSeconds(dashAttackDelay);
+	//	canDash = true;
+	//	//canAttack = true;
+	//	attackType = 2;
+	//	Attack();
+	//}
 	public override void AttackEnd()
 	{
 		base.AttackEnd();

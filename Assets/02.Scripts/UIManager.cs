@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
 
     Animator animator;
 
+    private Queue<Image> testImage = new Queue<Image>();
+
 	private void Awake()
 	{
         if (instance != null)
@@ -28,7 +30,8 @@ public class UIManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        test();
+        Debug.Log(testImage.Count);
     }
 
     // Update is called once per frame
@@ -75,6 +78,26 @@ public class UIManager : MonoBehaviour
                 }
             }
         }
+	}
+
+    public void test()
+    {
+		for (int i = 0; i < player.maxEnergy/2; i++)
+		{
+            //energyImage[i].gameObject.SetActive(true);
+            testImage.Enqueue(energyImage[i]);
+        }
+
+    }
+    public void testUpdate()
+    {
+		for (int i = 0; i < player.energy; i++)
+		{
+			if (i == (testImage.Count * 2)-1)
+			{
+
+			}
+		}
 	}
     public void use()
     {

@@ -335,7 +335,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 393
   viewRange: 8
-  viewAngle: 80
+  viewAngle: 160
   attackRange: 6
   aggroRange: 20
 --- !u!114 &8619097739726557260
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  initHealth: 50
+  initHealth: 15
   canDamage: 1
   sprite: {fileID: 0}
   hp: 0
