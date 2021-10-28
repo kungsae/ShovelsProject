@@ -153,7 +153,7 @@ public class PlayerMove : LivingEntity
         isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
         attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.1f, whatIsEnemy);
         //데미지 입는 부분
-        hitRay = Physics2D.BoxCast(testObj.transform.position, new Vector2(x, y), 0, Vector2.down, 0.1f, whatIsEnemy);
+        hitRay = Physics2D.BoxCast(testObj.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
 
         //땅과 거리 계산
         canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8));
