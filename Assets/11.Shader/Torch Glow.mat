@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glow HP
-  m_Shader: {fileID: -6465566751694194690, guid: f382f42ff4023db4b920b0b15a524b3c, type: 3}
+  m_Name: Torch Glow
+  m_Shader: {fileID: -6465566751694194690, guid: 9d6b2db6187b9844a994c8f6f7481def, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
