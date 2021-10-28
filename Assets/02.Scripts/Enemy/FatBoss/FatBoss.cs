@@ -64,14 +64,6 @@ public class FatBoss : EnemyControl
 		attackType = 2;
 		Attack();
 	}
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.gameObject.CompareTag("Player")&&attackType == 2)
-		{
-			//rigid.velocity = new Vector2(0, 0);
-			//AttackEnd();
-		}
-	}
 	public override void AttackEnd()
 	{
 		base.AttackEnd();

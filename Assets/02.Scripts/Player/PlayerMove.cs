@@ -55,6 +55,9 @@ public class PlayerMove : LivingEntity
     public LayerMask testLayer;
     public Collision2D testCol;
 
+    [Header("카메라 흔들림")]
+    public float intensity;
+    public float shakeTime;
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -203,6 +206,7 @@ public class PlayerMove : LivingEntity
 	public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
 	{
 		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
+        CameraShake.instance.ShakeCam(intensity, shakeTime);
         UIManager.instance.StatUpdate();
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
