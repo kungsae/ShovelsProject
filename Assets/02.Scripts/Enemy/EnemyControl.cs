@@ -85,7 +85,7 @@ public class EnemyControl : MonoBehaviour
         StartCoroutine(AttackDelay());
     }
     //공격 쿨타임
-    private IEnumerator AttackDelay()
+    protected IEnumerator AttackDelay()
     {
          yield return attackDelayWaitSecond;
          canAttack = true;

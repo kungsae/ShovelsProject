@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
     [SerializeField]private PlayerMove player;
     [SerializeField] private Sprite[] energySprite;
+    public GameObject gameoverPanel;
 
     public List<Image> energyImage = new List<Image>();
     public List<Image> hpImage = new List<Image>();
@@ -32,6 +34,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.dead)
+        {
+            gameoverPanel.SetActive(true);
+        }
     }
     public void StatUpdate()
     {
@@ -70,7 +76,8 @@ public class UIManager : MonoBehaviour
             }
         }
 	}
-    public void UseAnimation()
+    public void use()
     {
+        SceneManager.LoadScene(0);
     }
 }

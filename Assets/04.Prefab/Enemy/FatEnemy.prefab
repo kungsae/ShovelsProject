@@ -318,7 +318,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 63
-  attackSpeed: 1000
+  attackSpeed: 7
 --- !u!114 &8619097739726557259
 MonoBehaviour:
   m_ObjectHideFlags: 0

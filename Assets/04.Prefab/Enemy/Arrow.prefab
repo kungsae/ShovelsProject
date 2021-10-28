@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4109250784728920895}
   - component: {fileID: -431480952061925946}
   - component: {fileID: 3141291387173614624}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: Arrow
   m_TagString: Damage
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -6662812116773042688, guid: a19ab10bbca9f574ca687baf36d36589, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

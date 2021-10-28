@@ -10,6 +10,7 @@ public class PlayerMove : LivingEntity
     private PlayerInput playerInput;
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
+    public GameObject particle;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
@@ -171,7 +172,6 @@ public class PlayerMove : LivingEntity
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());
-
             isfalling = false;
             isAttack = false;
             isOnDamaged = false;
@@ -223,6 +223,8 @@ public class PlayerMove : LivingEntity
         {
 
             energy--;
+            particle.SetActive(true);
+            Invoke("particleOff", 0.5f);
             UIManager.instance.StatUpdate();
             isAttack = true;
             canAttack = false;
@@ -365,5 +367,10 @@ public class PlayerMove : LivingEntity
         scale.x *= -1;
         facingRight = !facingRight;
         transform.localScale = scale;
+    }
+
+    private void particleOff()
+    {
+        particle.SetActive(false);
     }
 }
