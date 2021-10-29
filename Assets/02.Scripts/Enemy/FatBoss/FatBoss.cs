@@ -54,8 +54,15 @@ public class FatBoss : EnemyControl
 		{
 			wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 2f, layer);
 			Debug.DrawRay(transform.position, Vector2.right * dir * 2f, Color.red, 0.1f);
-			if (isAttack&&!wallCheck)
+			if (isAttack && !wallCheck)
+			{
 				rigid.velocity = new Vector2(attackSpeed * dir, rigid.velocity.y);
+			}
+			else
+			{
+				CameraShake.instance.ShakeCam(10, 0.3f);
+			}	
+
 			yield return null;
 		}
 
