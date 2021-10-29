@@ -93,7 +93,7 @@ public class UIManager : MonoBehaviour
     {
 		for (int i = 0; i < player.energy; i++)
 		{
-			if (i >x= (testImage.Count * 2)-1)
+			if (i >= (testImage.Count * 2)-1)
 			{
 
 			}

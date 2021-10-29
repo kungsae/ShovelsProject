@@ -11,6 +11,10 @@ public class EnemyHealth : LivingEntity
     public Action hitEvent2;
     public GameObject damageText;
 
+    public int haveCoinMin;
+    public int haveCoinMax;
+    public GameObject coinPrefab;
+
 	// Start is called before the first frame update
 	protected override void Awake()
     {
@@ -41,9 +45,18 @@ public class EnemyHealth : LivingEntity
         text.GetComponent<DamageText>().text.text = damage.ToString();
 
     }
+    public void DropCoin()
+    {
+        int dropCoin = UnityEngine.Random.Range(haveCoinMin, haveCoinMax);
+		for (int i = 0; i < dropCoin; i++)
+		{
+            Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
+    }
 	public override void Die()
 	{
 		base.Die();
+        DropCoin();
         ai.SetDead();
     }
 }
