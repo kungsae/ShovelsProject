@@ -5,6 +5,8 @@ using UnityEngine;
 public class coin : MonoBehaviour
 {
     Rigidbody2D rig;
+	public float followSpeed;
+	private bool canGet = false;
 	public float testPower;
 	
 
@@ -15,15 +17,26 @@ public class coin : MonoBehaviour
 	private void Start()
 	{
 		rig.AddForce(new Vector2(Random.Range(-10, 10), Random.Range(0, 10))* testPower);
+		Invoke("canGetCoin", 1f);
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-		if (Physics2D.OverlapCircle(transform.position, 2, 1 << 7))
+
+		if (Physics2D.OverlapCircle(transform.position, 3, 1 << 7) != null && canGet)
 		{
-			Vector3 dir = GameManager.instance.player.transform.position - transform.position;
-			transform.position += dir * Time.deltaTime;
+			transform.position = Vector2.MoveTowards(transform.position,GameManager.instance.player.transform.position,followSpeed*Time.deltaTime);
+			if (Physics2D.OverlapCircle(transform.position, 0.2f, 1 << 7) != null)
+			{
+				GameManager.instance.player.GetComponent<PlayerStat>().money++;
+				Destroy(gameObject);
+			}
 		}
-    }
+
+	}
+	private void canGetCoin()
+	{
+		canGet = true;
+	}
 }

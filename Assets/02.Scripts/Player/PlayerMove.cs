@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : LivingEntity
+public class PlayerMove : PlayerStat
 {
-    public int energy = 0;
-    public int maxEnergy = 0;
-
     private PlayerInput playerInput;
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
