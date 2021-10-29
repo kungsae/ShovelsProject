@@ -369,5 +369,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   hp: 0
   hitCount: 0
-  maxHitCount: 0
   damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}
+  haveCoinMin: 2
+  haveCoinMax: 8
+  coinPrefab: {fileID: 2057136897343495165, guid: 84751d6003c67fa40b385fd733a7d090, type: 3}

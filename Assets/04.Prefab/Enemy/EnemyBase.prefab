@@ -225,6 +225,12 @@ MonoBehaviour:
   initHealth: 0
   canDamage: 1
   sprite: {fileID: 0}
+  hp: 0
+  hitCount: 0
+  damageText: {fileID: 0}
+  haveCoinMin: 0
+  haveCoinMax: 0
+  coinPrefab: {fileID: 2057136897343495165, guid: 84751d6003c67fa40b385fd733a7d090, type: 3}
 --- !u!1 &8931692883079878459
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Hit
   - Damage
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Damaged
   - Die
   - Arrow
-  - 
+  - Coin
   - 
   - 
   - 
