@@ -353,18 +353,38 @@ public class PlayerMove : PlayerStat
     }
     private IEnumerator EnergyRecover()
     {
+        float time = 0;
+
 		while (true)
 		{
-            energyRecover = true;
-            yield return new WaitForSeconds(1f);
-			if (energy < maxEnergy&& energyRecover)
+            time += Time.deltaTime;
+            print(time);
+            if (!energyRecover)
             {
-                yield return new WaitForSeconds(1f);
+                time = 0;
+                energyRecover = true;
+            }
+            if (time > 3&& energyRecover)
+            {
+                time = 2f;
+                if(energy < maxEnergy)
                 UseEnergy(-1, false);
-			}
+            }
+            yield return null;
 		}
+
+		//while (true)
+		//{
+		//          energyRecover = true;
+		//          yield return new WaitForSeconds(1f);
+		//	if (energy < maxEnergy&& energyRecover)
+		//          {
+		//              yield return new WaitForSeconds(1f);
+		//              UseEnergy(-1, false);
+		//	}
+		//}
 		//yield return null;
-    }
+	}
     private void Flip()
     {
         Vector3 scale = transform.localScale;

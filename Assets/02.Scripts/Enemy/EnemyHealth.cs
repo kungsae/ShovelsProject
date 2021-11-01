@@ -41,7 +41,7 @@ public class EnemyHealth : LivingEntity
                 hitEvent2();
 			}
         }
-        GameObject text = Instantiate(damageText, transform.position, Quaternion.identity);
+        GameObject text = Instantiate(damageText, transform.position + new Vector3(0,0,-1), Quaternion.identity);
         text.GetComponent<DamageText>().text.text = damage.ToString();
 
     }
