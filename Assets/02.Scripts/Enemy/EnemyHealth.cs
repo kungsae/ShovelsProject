@@ -48,10 +48,11 @@ public class EnemyHealth : LivingEntity
     public void DropCoin()
     {
         int dropCoin = UnityEngine.Random.Range(haveCoinMin, haveCoinMax);
-		for (int i = 0; i < dropCoin; i++)
-		{
-            Instantiate(coinPrefab, transform.position, Quaternion.identity);
-        }
+        //for (int i = 0; i < dropCoin; i++)
+        //{
+        //          Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        //      }
+        GameManager.instance.CoinPool(transform.position, dropCoin);
     }
 	public override void Die()
 	{

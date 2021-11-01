@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public GameObject gameoverPanel;
 
     public List<Image> energyImage = new List<Image>();
+    private List<Animator> energyImageAnimators = new List<Animator>();
     public List<Image> hpImage = new List<Image>();
 
     Animator animator;
@@ -26,12 +27,18 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
+
+		for (int i = 0; i < energyImage.Count; i++)
+		{
+            energyImageAnimators.Add(energyImage[i].GetComponent<Animator>());
+
+        }
     }
 	// Start is called before the first frame update
 	void Start()
     {
-        test();
-        Debug.Log(testImage.Count);
+        testSet();
+        //Debug.Log(testImage.Count);
     }
 
     // Update is called once per frame
@@ -41,64 +48,48 @@ public class UIManager : MonoBehaviour
         {
             gameoverPanel.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            //testSet();
+        }
     }
     public void StatUpdate()
     {
-        for (int i = 0; i < player.initHealth; i++)
-        {
-            hpImage[i].gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < player.maxEnergy; i++)
-        {
-            energyImage[i].sprite = energySprite[2];
-            if (i %2==0)
-            {
-                energyImage[i].gameObject.SetActive(true);
-            }
-        }
-
-        for (int i = 0; i < player.hp; i++)
-        {
-            hpImage[i].gameObject.SetActive(true);
-        }
-
-        for (int i = 0; i < player.energy; i++)
-        {
-            energyImage[i].sprite = energySprite[0];
-            if (i == player.energy - 1)
-            {
-                if (i % 2 == 0)
-                {
-                    energyImage[i].sprite = energySprite[1];
-                }
-                else
-                {
-                    energyImage[i].sprite = energySprite[2];
-                }
-            }
-        }
-	}
-
-    public void test()
-    {
-		for (int i = 0; i < player.maxEnergy/2; i++)
+		for (int i = 0; i < player.initHealth; i++)
 		{
-            //energyImage[i].gameObject.SetActive(true);
-            testImage.Enqueue(energyImage[i]);
-        }
+			hpImage[i].gameObject.SetActive(false);
+		}
 
-    }
-    public void testUpdate()
-    {
-		for (int i = 0; i < player.energy; i++)
+
+		for (int i = 0; i < player.hp; i++)
 		{
-			if (i >= (testImage.Count * 2)-1)
-			{
-
-			}
+			hpImage[i].gameObject.SetActive(true);
 		}
 	}
+
+    public void testSet()
+    {
+		for (int i = 0; i < player.maxEnergy; i++)
+		{
+			energyImage[i].gameObject.SetActive(true);
+		}
+
+
+	}
+    public void testUpdate(bool isDown)
+    {
+        //energyImage[player.energy - 1].gameObject.SetActive(false);
+        if (isDown)
+            energyImageAnimators[player.energy - 1].SetInteger("index", 1);
+        else
+            energyImageAnimators[player.energy].SetInteger("index", 2);
+        //      for (int i = 0; i < player.energy; i++)
+        //{
+        //	if (i == player.energy-1)
+        //		
+        //		energyImage[i].gameObject.SetActive(false);
+        //}
+    }
     public void use()
     {
         SceneManager.LoadScene(0);

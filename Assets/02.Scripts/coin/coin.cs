@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class coin : MonoBehaviour
 {
@@ -8,19 +9,25 @@ public class coin : MonoBehaviour
 	public float followSpeed;
 	private bool canGet = false;
 	public float testPower;
-	
+
+	public Action dropCoin;
+	public Action getCoin;
 
 	private void Awake()
 	{
 		rig = GetComponent<Rigidbody2D>();
-	}
-	private void Start()
-	{
-		rig.AddForce(new Vector2(Random.Range(-10, 10), Random.Range(0, 10))* testPower);
-		Invoke("canGetCoin", 1f);
+		dropCoin += () =>
+		{
+			rig.AddForce(new Vector2(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(0, 10)) * testPower);
+			Invoke("canGetCoin", 1f);
+		};
 	}
 
-	// Update is called once per frame
+	private void OnDisable()
+	{
+		canGet = false;
+	}
+
 	void Update()
     {
 
@@ -30,7 +37,9 @@ public class coin : MonoBehaviour
 			if (Physics2D.OverlapCircle(transform.position, 0.2f, 1 << 7) != null)
 			{
 				GameManager.instance.player.GetComponent<PlayerStat>().money++;
-				Destroy(gameObject);
+				//Destroy(gameObject);
+				getCoin();
+				gameObject.SetActive(false);
 			}
 		}
 

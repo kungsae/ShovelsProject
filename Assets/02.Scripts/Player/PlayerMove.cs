@@ -23,6 +23,7 @@ public class PlayerMove : PlayerStat
 
     private bool canAttack = true;
 
+    private bool energyRecover;
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
@@ -63,7 +64,6 @@ public class PlayerMove : PlayerStat
         rigid = GetComponentInParent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log(rigid);
 
         PoolManager.CreatPool<Afterimage>(aiPrefab, afterImageTrm, 20);
         jump = jumpPower;
@@ -222,11 +222,9 @@ public class PlayerMove : PlayerStat
     {
         if (!isAttack&&canAttack)
         {
-
-            energy--;
+            UseEnergy(1,true);
             particle.SetActive(true);
             Invoke("particleOff", 0.5f);
-            UIManager.instance.StatUpdate();
             isAttack = true;
             canAttack = false;
             rigid.velocity = new Vector2(0, 0);
@@ -302,7 +300,7 @@ public class PlayerMove : PlayerStat
             rigid.velocity = new Vector2(0, jump);
             if (jump > jumpPower)
             {
-                UseEnergy(1);
+                UseEnergy(1,true);
             }
         }
         //rigid.AddForce(Vector2.up * (jump), ForceMode2D.Impulse);
@@ -344,21 +342,25 @@ public class PlayerMove : PlayerStat
             isAttack = false;   
         }
     }
-    private void UseEnergy(int energeyConsumption)
+    private void UseEnergy(int energeyConsumption,bool isDown)
     {
-        energy-= energeyConsumption;
-        UIManager.instance.StatUpdate();
+        if (isDown)
+            energyRecover = false;
+        UIManager.instance.testUpdate(isDown);
+        energy -= energeyConsumption;
+        //UIManager.instance.StatUpdate();
 
     }
     private IEnumerator EnergyRecover()
     {
 		while (true)
 		{
-			yield return new WaitForSeconds(2f);
-			if (energy < maxEnergy)
-			{
-				energy++;
-				UIManager.instance.StatUpdate();
+            energyRecover = true;
+            yield return new WaitForSeconds(1f);
+			if (energy < maxEnergy&& energyRecover)
+            {
+                yield return new WaitForSeconds(1f);
+                UseEnergy(-1, false);
 			}
 		}
 		//yield return null;

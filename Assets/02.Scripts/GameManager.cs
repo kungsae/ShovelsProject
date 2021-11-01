@@ -6,7 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
-	private void Awake()
+    Queue<coin> coinQueue = new Queue<coin>();
+    public GameObject coinPool;
+    public GameObject coinPrefab;
+    private void Awake()
 	{
         if (instance != null)
         {
@@ -16,15 +19,34 @@ public class GameManager : MonoBehaviour
         instance = this;
 
 	}
-	// Start is called before the first frame update
 	void Start()
     {
-        
+        for (int i = 0; i < 3; i++)
+		{
+            NewCoin();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CoinPool(Vector3 pos,int coinNum)
     {
-        
+		for (int i = 0; i < coinNum; i++)
+		{
+            if(coinQueue.Count == 0)
+            {
+                NewCoin();
+            }
+            coin retrunCoin = coinQueue.Dequeue();
+            retrunCoin.gameObject.transform.position = pos;
+            retrunCoin.gameObject.SetActive(true);
+            retrunCoin.dropCoin();
+        }
+    }
+    private void NewCoin()
+    {
+        GameObject coin = Instantiate(coinPrefab, coinPool.transform);
+        coin coinCs = coin.GetComponent<coin>();
+        coinCs.getCoin += () => { coinQueue.Enqueue(coinCs); };
+        coin.SetActive(false);
+        coinQueue.Enqueue(coinCs);
     }
 }
