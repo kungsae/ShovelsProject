@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Sprite[] energySprite;
     public GameObject gameoverPanel;
 
+    public List<GameObject> energyGroup = new List<GameObject>();
     public List<Image> energyImage = new List<Image>();
     private List<Animator> energyImageAnimators = new List<Animator>();
     public List<Image> hpImage = new List<Image>();
@@ -37,9 +37,9 @@ public class UIManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        testSet();
-        //Debug.Log(testImage.Count);
-    }
+		EnergySet();
+		//Debug.Log(testImage.Count);
+	}
 
     // Update is called once per frame
     void Update()
@@ -48,10 +48,6 @@ public class UIManager : MonoBehaviour
         {
             gameoverPanel.SetActive(true);
         }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            //testSet();
-        }
     }
     public void StatUpdate()
     {
@@ -59,36 +55,35 @@ public class UIManager : MonoBehaviour
 		{
 			hpImage[i].gameObject.SetActive(false);
 		}
-
-
-		for (int i = 0; i < player.hp; i++)
+        for (int i = 0; i < player.hp; i++)
+        {
+            hpImage[i].gameObject.SetActive(true);
+        }
+        for (int i = 0; i < player.maxEnergy/2; i++)
 		{
-			hpImage[i].gameObject.SetActive(true);
-		}
+            energyGroup[i].SetActive(true);
+        }
 	}
 
-    public void testSet()
+    public void EnergySet()
     {
 		for (int i = 0; i < player.maxEnergy; i++)
 		{
 			energyImage[i].gameObject.SetActive(true);
 		}
+		for (int i = 0; i < player.maxEnergy/2; i++)
+		{
+            energyGroup[i].SetActive(true);
+		}
 
 
 	}
-    public void testUpdate(bool isDown)
+    public void EnergyUpdate(bool isDown)
     {
-        //energyImage[player.energy - 1].gameObject.SetActive(false);
         if (isDown)
             energyImageAnimators[player.energy - 1].SetInteger("index", 1);
         else
             energyImageAnimators[player.energy].SetInteger("index", 2);
-        //      for (int i = 0; i < player.energy; i++)
-        //{
-        //	if (i == player.energy-1)
-        //		
-        //		energyImage[i].gameObject.SetActive(false);
-        //}
     }
     public void use()
     {

@@ -346,7 +346,7 @@ public class PlayerMove : PlayerStat
     {
         if (isDown)
             energyRecover = false;
-        UIManager.instance.testUpdate(isDown);
+        UIManager.instance.EnergyUpdate(isDown);
         energy -= energeyConsumption;
         //UIManager.instance.StatUpdate();
 
@@ -358,7 +358,6 @@ public class PlayerMove : PlayerStat
 		while (true)
 		{
             time += Time.deltaTime;
-            print(time);
             if (!energyRecover)
             {
                 time = 0;
