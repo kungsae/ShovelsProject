@@ -49,9 +49,8 @@ public class PlayerMove : PlayerStat
     public Transform afterImageTrm;
     public float aiCreateTerm = 0.3f;
 
-    public GameObject testObj;
-    public LayerMask testLayer;
-    public Collision2D testCol;
+    public GameObject hitPos;
+   
 
     [Header("카메라 흔들림")]
     public float intensity;
@@ -60,7 +59,6 @@ public class PlayerMove : PlayerStat
     protected override void Awake()
     {
         base.Awake();
-        testLayer = ~(1 << 7) + ~(1 << 8);
         rigid = GetComponentInParent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -140,7 +138,7 @@ public class PlayerMove : PlayerStat
     }
     void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(testObj.transform.position, new Vector3(x, y));
+        Gizmos.DrawWireCube(hitPos.transform.position, new Vector3(x, y));
         Gizmos.color = Color.red;
         Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckRadius);
         Gizmos.color = Color.green;
@@ -155,7 +153,7 @@ public class PlayerMove : PlayerStat
         isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
         attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.1f, whatIsEnemy);
         //데미지 입는 부분
-        hitRay = Physics2D.BoxCast(testObj.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
+        hitRay = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
 
         //땅과 거리 계산
         canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8));
@@ -173,7 +171,6 @@ public class PlayerMove : PlayerStat
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());
-            //isfalling = false;
             isAttack = false;
             isOnDamaged = false;
         }
@@ -256,11 +253,6 @@ public class PlayerMove : PlayerStat
         }
 
     }
-    //IEnumerator HitDelay()
-    //{
-    //    yield return new WaitForSeconds(0.2f);
-    //    canHit = true;
-    //}
     IEnumerator Invincible()
     {
         isInvincible = true;
@@ -348,7 +340,6 @@ public class PlayerMove : PlayerStat
             energyRecover = false;
         UIManager.instance.EnergyUpdate(isDown);
         energy -= energeyConsumption;
-        //UIManager.instance.StatUpdate();
 
     }
     private IEnumerator EnergyRecover()
@@ -371,18 +362,6 @@ public class PlayerMove : PlayerStat
             }
             yield return null;
 		}
-
-		//while (true)
-		//{
-		//          energyRecover = true;
-		//          yield return new WaitForSeconds(1f);
-		//	if (energy < maxEnergy&& energyRecover)
-		//          {
-		//              yield return new WaitForSeconds(1f);
-		//              UseEnergy(-1, false);
-		//	}
-		//}
-		//yield return null;
 	}
     private void Flip()
     {
