@@ -7,6 +7,8 @@ public class ChatNpc : MonoBehaviour
     public string[] message;
     public Transform charTr;
     public GameObject chatBox;
+
+    public GameObject nowChatBox;
     void Start()
     {
 
@@ -15,16 +17,17 @@ public class ChatNpc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            print("A");
+            Debug.Log("B");
             Talk();
-
         }
     }
-    public void Talk()
+	public void Talk()
     {
-        GameObject chat = Instantiate(chatBox);
-        chat.GetComponent<chatBox>().Talk(message, charTr);
+        if(nowChatBox==null)
+        nowChatBox = Instantiate(chatBox);
+
+        nowChatBox.GetComponent<chatBox>().Talk(message, charTr);
     }
 }
