@@ -109,8 +109,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -187,6 +187,7 @@ MonoBehaviour:
   currentChat: 
   text: {fileID: 6909484378751404490}
   chatBoxObject: {fileID: 6909484379904269981}
+  time: 0
 --- !u!1 &6909484379904269981
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 6909484379904269981}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5999999, y: 1.5999999, z: 1}
   m_Children: []
   m_Father: {fileID: 6909484378751404489}
   m_RootOrder: 0
@@ -258,12 +259,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 1, y: 1.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
