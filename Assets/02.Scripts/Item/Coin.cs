@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class coin : MonoBehaviour
+public class Coin : MonoBehaviour
 {
     Rigidbody2D rig;
 	public float followSpeed;

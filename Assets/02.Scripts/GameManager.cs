@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public GameObject player;
-    Queue<coin> coinQueue = new Queue<coin>();
+    public PlayerMove playerScript;
+    Queue<Coin> coinQueue = new Queue<Coin>();
     public GameObject coinPool;
     public GameObject coinPrefab;
     private void Awake()
@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
 
-	}
+    }
 	void Start()
     {
         for (int i = 0; i < 3; i++)
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
             {
                 NewCoin();
             }
-            coin retrunCoin = coinQueue.Dequeue();
+            Coin retrunCoin = coinQueue.Dequeue();
             retrunCoin.gameObject.transform.position = pos;
             retrunCoin.gameObject.SetActive(true);
             retrunCoin.dropCoin();
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void NewCoin()
     {
         GameObject coin = Instantiate(coinPrefab, coinPool.transform);
-        coin coinCs = coin.GetComponent<coin>();
+        Coin coinCs = coin.GetComponent<Coin>();
         coinCs.getCoin += () => { coinQueue.Enqueue(coinCs); };
         coin.SetActive(false);
         coinQueue.Enqueue(coinCs);

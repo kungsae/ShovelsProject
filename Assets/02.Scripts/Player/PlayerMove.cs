@@ -27,6 +27,7 @@ public class PlayerMove : PlayerStat
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
+    private bool Parrying = false;
     //private bool isfalling = false;
     private bool isInvincible = false;
     public float invincibleTime = 1.5f;
@@ -369,6 +370,10 @@ public class PlayerMove : PlayerStat
         scale.x *= -1;
         facingRight = !facingRight;
         transform.localScale = scale;
+    }
+    public void BuyItem()
+    {
+
     }
 
     private void particleOff()
