@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class CameraShake : MonoBehaviour
 {
 	public static CameraShake instance { get; private set; }
-
+	public PixelPerfectCamera pixelCam;
 	private float curretTime;
 	private bool isShake = false;
 
@@ -50,5 +51,11 @@ public class CameraShake : MonoBehaviour
 	public void ShakeCam(float intensity,float time)
 	{
 		StartCoroutine(ShakeUpdate(intensity,time));
+	}
+	public void followCamChange(GameObject followObj,int x = 320,int y = 180)
+	{
+		virCam.Follow = followObj.transform;
+		pixelCam.refResolutionX = x;
+		pixelCam.refResolutionY = y;
 	}
 }

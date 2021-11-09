@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class TestCutScene : MonoBehaviour
+public class CutScene : MonoBehaviour
 {
     PlayableDirector director;
+    public GameObject cameraTarget;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +17,7 @@ public class TestCutScene : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         director.Play();
+        CameraShake.instance.followCamChange(cameraTarget,470,260);
         Destroy(this);
 	}
 }
