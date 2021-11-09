@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 1d20e5b2d531ab74391a02ebc54f8f86
+guid: c43d17d6c1101454cbab3a91be5bd773
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8757098914875501893
-    second: die_0
+      213: 2359167797099805661
+    second: Parrying_0
   - first:
-      213: -6103215479232170835
-    second: die_1
+      213: 7486322722536367640
+    second: Parrying_1
+  - first:
+      213: -8907292231601463792
+    second: Parrying_2
+  - first:
+      213: 6102448030011531554
+    second: Parrying_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,7 +77,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -83,7 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -95,7 +101,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -109,28 +115,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: die_0
+      name: Parrying_0
       rect:
         serializedVersion: 2
         x: 0
         y: 160
         width: 160
         height: 160
-      alignment: 9
-      pivot: {x: 0.5, y: 0.6}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 54dec14e017778970800000000000000
-      internalID: 8757098914875501893
+      spriteID: ddbbcafac927db020800000000000000
+      internalID: 2359167797099805661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: die_1
+      name: Parrying_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81627b61ad2c4e760800000000000000
+      internalID: 7486322722536367640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Parrying_2
       rect:
         serializedVersion: 2
         x: 0
@@ -138,14 +165,35 @@ TextureImporter:
         width: 160
         height: 160
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da473bc9bd50d4ba0800000000000000
-      internalID: -6103215479232170835
+      spriteID: 01e5cc088e0f26480800000000000000
+      internalID: -8907292231601463792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Parrying_3
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 221ae11b62040b450800000000000000
+      internalID: 6102448030011531554
       vertices: []
       indices: 
       edges: []

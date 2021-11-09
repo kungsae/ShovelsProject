@@ -221,7 +221,7 @@ public class PlayerMove : PlayerStat
         UIManager.instance.StatUpdate();
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
-        StartCoroutine(Invincible(invincibleTime));
+        StartCoroutine(Invincible(invincibleTime,true));
 
         //무적 레이어
         gameObject.layer = 8;
@@ -270,10 +270,13 @@ public class PlayerMove : PlayerStat
         }
 
     }
-    IEnumerator Invincible(float time)
+    IEnumerator Invincible(float time,bool onEffect)
     {
         isInvincible = true;
-        StartCoroutine(InvincibleEffect(time));
+        if (onEffect)
+        {
+            StartCoroutine(InvincibleEffect(time));
+        }
         yield return new WaitForSeconds(time);
         isInvincible = false;
 
@@ -404,7 +407,7 @@ public class PlayerMove : PlayerStat
 		{
             Debug.Log("A");
             transform.Rotate(new Vector3(0, 0, -10 * dir));
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(0.0001f);
         }
 
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -416,7 +419,7 @@ public class PlayerMove : PlayerStat
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(0, 2) * 5;
         parryied = false;
-        StartCoroutine(Invincible(0.5f));
+        StartCoroutine(Invincible(0.5f,false));
 
         //무적 레이어
         gameObject.layer = 8;
