@@ -104,6 +104,7 @@ public class PlayerMove : PlayerStat
             if (playerInput.parrying&&canParryied&&!isAttack)
             {
                 parryied = true;
+                StartCoroutine(Parrying());
             }
             if (rigid.velocity.y < 0)
             {
@@ -136,7 +137,7 @@ public class PlayerMove : PlayerStat
             }
 			else if (attackRay.collider.gameObject.CompareTag("Damage") && parryied)
 			{
-                Parrying();
+                SucceesParrying();
             }
 		}
 
@@ -205,7 +206,7 @@ public class PlayerMove : PlayerStat
             rigid.velocity = new Vector2(0, 0);
             if (parryied)
             {
-                Parrying();
+                SucceesParrying();
             }
             else
             PlayerDamage(collision);
@@ -220,7 +221,7 @@ public class PlayerMove : PlayerStat
         UIManager.instance.StatUpdate();
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
-        StartCoroutine(Invincible());
+        StartCoroutine(Invincible(invincibleTime));
 
         //무적 레이어
         gameObject.layer = 8;
@@ -269,26 +270,26 @@ public class PlayerMove : PlayerStat
         }
 
     }
-    IEnumerator Invincible()
+    IEnumerator Invincible(float time)
     {
         isInvincible = true;
-        StartCoroutine(InvincibleEffect());
-        yield return new WaitForSeconds(invincibleTime);
+        StartCoroutine(InvincibleEffect(time));
+        yield return new WaitForSeconds(time);
         isInvincible = false;
 
         //플레이어 레이어
         gameObject.layer = 7;
 
     }
-    IEnumerator InvincibleEffect()
+    IEnumerator InvincibleEffect(float time)
     {
         int count = 3;
 		for (int i = 0; i < count; i++)
 		{
 			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
-			yield return new WaitForSeconds(invincibleTime/(count*2));
+			yield return new WaitForSeconds(time / (count*2));
             sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
-            yield return new WaitForSeconds(invincibleTime/(count*2));
+            yield return new WaitForSeconds(time / (count*2));
         }
     }
     IEnumerator JumpDelay()
@@ -394,12 +395,31 @@ public class PlayerMove : PlayerStat
             Debug.Log("AAAA");
         }
     }
-    private void Parrying()
+    private IEnumerator Parrying()
+    {
+        parryied = true;
+        float dir = transform.localScale.x;
+
+        for (int i = 0; i < 36; i++)
+		{
+            Debug.Log("A");
+            transform.Rotate(new Vector3(0, 0, -10 * dir));
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        parryied = false;
+    }
+    private void SucceesParrying()
     {
         Debug.Log("패링");
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(0, 2) * 5;
         parryied = false;
+        StartCoroutine(Invincible(0.5f));
+
+        //무적 레이어
+        gameObject.layer = 8;
     }
     private void particleOff()
     {
