@@ -22,12 +22,14 @@ public class PlayerMove : PlayerStat
     private bool facingRight = true;
 
     private bool canAttack = true;
+    private bool canParryied = true;
 
     private bool energyRecover;
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
-    private bool Parrying = false;
+    private bool parryied = false;
+
     //private bool isfalling = false;
     private bool isInvincible = false;
     public float invincibleTime = 1.5f;
@@ -98,12 +100,16 @@ public class PlayerMove : PlayerStat
         }
         //체공중
         else
-        {   
+        {
+            if (playerInput.parrying&&canParryied&&!isAttack)
+            {
+                parryied = true;
+            }
             if (rigid.velocity.y < 0)
             {
                 //isfalling = true;
             }
-            if (playerInput.attack && !isOnDamaged && energy > 0)
+            if (playerInput.attack && !isOnDamaged && energy > 0&&!parryied)
             {
                 StartCoroutine(Attack());
             }
@@ -125,10 +131,14 @@ public class PlayerMove : PlayerStat
             if (attackRay.collider.gameObject.CompareTag("Enemy") || attackRay.collider.gameObject.CompareTag("Hit"))
             {
                 Collider2D enemy = attackRay.collider;
-                if(!isOnDamaged&&!isInvincible)
-                EnemyDamage(enemy, damage, 1);
+                if (!isOnDamaged && !isInvincible)
+                    EnemyDamage(enemy, damage, 1);
             }
-        }
+			else if (attackRay.collider.gameObject.CompareTag("Damage") && parryied)
+			{
+                Parrying();
+            }
+		}
 
         if (((facingRight && xMove < 0) || (!facingRight && xMove > 0))&& !isOnDamaged)
         {
@@ -193,6 +203,11 @@ public class PlayerMove : PlayerStat
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
         {
             rigid.velocity = new Vector2(0, 0);
+            if (parryied)
+            {
+                Parrying();
+            }
+            else
             PlayerDamage(collision);
         }
     }
@@ -316,7 +331,7 @@ public class PlayerMove : PlayerStat
         }
         else if(!isOnDamaged)
         {
-            OnDamage(1, collision.transform.position, hitRay.normal, 1f);
+            OnDamage(0, collision.transform.position, hitRay.normal, 1f);
         }
 
     }
@@ -371,11 +386,21 @@ public class PlayerMove : PlayerStat
         facingRight = !facingRight;
         transform.localScale = scale;
     }
-    public void BuyItem()
+    private void ParryingEnd()
     {
-
+        if (parryied)
+        {
+            parryied = false;
+            Debug.Log("AAAA");
+        }
     }
-
+    private void Parrying()
+    {
+        Debug.Log("패링");
+        rigid.velocity = new Vector2(0, 0);
+        rigid.velocity = new Vector2(0, 2) * 5;
+        parryied = false;
+    }
     private void particleOff()
     {
         particle.SetActive(false);

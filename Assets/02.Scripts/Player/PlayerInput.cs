@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour
     public float xMove { get; private set; }
     public bool jump { get; private set; }
     public bool attack { get; private set; }
+    public bool parrying { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +22,6 @@ public class PlayerInput : MonoBehaviour
         xMove = Input.GetAxisRaw(xAxisName);
         jump = Input.GetKey(KeyCode.C);
         attack = Input.GetKeyDown(KeyCode.Z);
+        parrying = Input.GetKeyDown(KeyCode.X);
     }
 }
