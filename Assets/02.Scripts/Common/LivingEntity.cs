@@ -9,6 +9,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public float initHealth;
     public bool canDamage = true;
     public SpriteRenderer sprite;
+    public Rigidbody2D rigid;
     public float hp; /*{ get; protected set; }*/
     public bool dead { get; protected set; }
     public event Action OnDeath;
@@ -16,6 +17,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
 	{
         hp = initHealth;
         sprite = GetComponent<SpriteRenderer>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 	public virtual void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal,float damageDrng)
 	{
@@ -27,6 +29,8 @@ public class LivingEntity : MonoBehaviour, IDamageable
         }
         if (hp <= 0 && !dead)
         {
+            int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
+            rigid.AddForce(new Vector2(dir, 1) * 2, ForceMode2D.Impulse);
             Die();
             Debug.Log("»ç¸Á");
         }
@@ -42,6 +46,13 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public virtual void Die()
     {
         if (OnDeath != null) OnDeath();
+        StartCoroutine(WaitForIt());
+    }
+
+    IEnumerator WaitForIt()
+    {
+        yield return new WaitForSeconds(0.0001f);
         dead = true;
     }
+    
 }

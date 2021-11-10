@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IDamageable
 {
-	void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal,float damageDrng);
+    void Die();
+    void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal,float damageDrng);
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMove : PlayerStat
 {
     private PlayerInput playerInput;
-    private Rigidbody2D rigid;
+    private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
     public GameObject particle;
 
@@ -62,7 +62,7 @@ public class PlayerMove : PlayerStat
     protected override void Awake()
     {
         base.Awake();
-        rigid = GetComponentInParent<Rigidbody2D>();
+        rigidBody = GetComponentInParent<Rigidbody2D>();
         playerInput = GetComponent<PlayerInput>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -106,7 +106,7 @@ public class PlayerMove : PlayerStat
                 parryied = true;
                 StartCoroutine(Parrying());
             }
-            if (rigid.velocity.y < 0)
+            if (rigidBody.velocity.y < 0)
             {
                 //isfalling = true;
             }
@@ -174,12 +174,12 @@ public class PlayerMove : PlayerStat
         {
             if (isGround)
             {
-                rigid.velocity = new Vector2(0, 0);
+                rigidBody.velocity = new Vector2(0, 0);
             }
             return;
         }
 
-        if (isGround&&rigid.velocity.y<1)
+        if (isGround&&rigidBody.velocity.y<1)
         {
             if(!isOnDamaged)
             StartCoroutine(JumpDelay());
@@ -192,18 +192,18 @@ public class PlayerMove : PlayerStat
         }
         if (!isGround && !isAttack && !isOnDamaged)
         {
-            rigid.velocity = new Vector3(xMove * moveSpeed, rigid.velocity.y);
+            rigidBody.velocity = new Vector3(xMove * moveSpeed, rigidBody.velocity.y);
         }
         else if(!isOnDamaged)
         {
-            rigid.velocity = new Vector3(0, rigid.velocity.y);
+            rigidBody.velocity = new Vector3(0, rigidBody.velocity.y);
         }
     }
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
         {
-            rigid.velocity = new Vector2(0, 0);
+            rigidBody.velocity = new Vector2(0, 0);
             if (parryied)
             {
                 SucceesParrying();
@@ -229,8 +229,8 @@ public class PlayerMove : PlayerStat
     public void OnDamageEffect(Vector3 hitPosition)
     {
         int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
-        rigid.velocity = new Vector2(0, 0);
-        rigid.velocity = new Vector2(dir, 1)*5;
+        rigidBody.velocity = new Vector2(0, 0);
+        rigidBody.velocity = new Vector2(dir, 1)*5;
     }
     IEnumerator Attack()
     {
@@ -241,12 +241,12 @@ public class PlayerMove : PlayerStat
             Invoke("particleOff", 0.5f);
             isAttack = true;
             canAttack = false;
-            rigid.velocity = new Vector2(0, 0);
+            rigidBody.velocity = new Vector2(0, 0);
 
-            rigid.gravityScale = 0;
+            rigidBody.gravityScale = 0;
             yield return new WaitForSeconds(0.2f);
-            rigid.gravityScale = 3;
-            rigid.AddForce(new Vector2(0,-30f),ForceMode2D.Impulse);
+            rigidBody.gravityScale = 3;
+            rigidBody.AddForce(new Vector2(0,-30f),ForceMode2D.Impulse);
         }
 
         float time = 0;
@@ -289,9 +289,9 @@ public class PlayerMove : PlayerStat
         int count = 3;
 		for (int i = 0; i < count; i++)
 		{
-			sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
+			sprite.color = new Color(1, 1, 1, 0.5f);
 			yield return new WaitForSeconds(time / (count*2));
-            sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
+            sprite.color = new Color(1, 1, 1, 1f);
             yield return new WaitForSeconds(time / (count*2));
         }
     }
@@ -309,7 +309,7 @@ public class PlayerMove : PlayerStat
     {
         if (!isOnDamaged)
         {
-            rigid.velocity = new Vector2(0, jump);
+            rigidBody.velocity = new Vector2(0, jump);
             if (jump > jumpPower)
             {
                 UseEnergy(1,true);
@@ -318,6 +318,7 @@ public class PlayerMove : PlayerStat
         //rigid.AddForce(Vector2.up * (jump), ForceMode2D.Impulse);
         jump = jumpPower;   
     }
+
     public void PlayerDamage(Collision2D collision)
     {
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
@@ -416,8 +417,8 @@ public class PlayerMove : PlayerStat
     private void SucceesParrying()
     {
         Debug.Log("ÆÐ¸µ");
-        rigid.velocity = new Vector2(0, 0);
-        rigid.velocity = new Vector2(0, 2) * 5;
+        rigidBody.velocity = new Vector2(0, 0);
+        rigidBody.velocity = new Vector2(0, 2) * 5;
         parryied = false;
         StartCoroutine(Invincible(0.5f,false));
 
