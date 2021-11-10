@@ -156,14 +156,14 @@ public class PlayerMove : PlayerStat
         Gizmos.color = Color.green;
         Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
 
-        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.5f, 0.5f));
+        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.4f, 0.4f));
     }
     // Update is called once per frame
     void FixedUpdate()
     {
 
         isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
-        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.1f, whatIsEnemy);
+        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.4f, 0.4f), 0, Vector2.down, 0.1f, whatIsEnemy);
         //데미지 입는 부분
         hitRay = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
 
@@ -181,8 +181,10 @@ public class PlayerMove : PlayerStat
 
         if (isGround&&rigid.velocity.y<1)
         {
-            if(!isOnDamaged)
-            StartCoroutine(JumpDelay());
+            if (!isOnDamaged && !parryied)
+            {
+                StartCoroutine(JumpDelay());
+            }
             isAttack = false;
             isOnDamaged = false;
         }
@@ -406,7 +408,7 @@ public class PlayerMove : PlayerStat
         for (int i = 0; i < 36; i++)
 		{
             Debug.Log("A");
-            transform.Rotate(new Vector3(0, 0, -10 * dir));
+            transform.Rotate(new Vector3(0, 0, 10 * dir));
             yield return new WaitForSeconds(0.0001f);
         }
 
@@ -417,7 +419,8 @@ public class PlayerMove : PlayerStat
     {
         Debug.Log("패링");
         rigid.velocity = new Vector2(0, 0);
-        rigid.velocity = new Vector2(0, 2) * 5;
+        rigid.velocity = new Vector2(0, 3) * 5;
+        UseEnergy(-1, false);
         parryied = false;
         StartCoroutine(Invincible(0.5f,false));
 
