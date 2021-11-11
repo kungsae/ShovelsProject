@@ -149,16 +149,6 @@ public class PlayerMove : PlayerStat
 
 
     }
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(hitPos.transform.position, new Vector3(x, y));
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckRadius);
-        Gizmos.color = Color.green;
-        Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
-
-        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.4f, 0.4f));
-    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -206,7 +196,19 @@ public class PlayerMove : PlayerStat
             rigidBody.velocity = new Vector3(0, rigidBody.velocity.y);
         }
     }
-	private void OnTriggerEnter2D(Collider2D collision)
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(hitPos.transform.position, new Vector3(x, y));
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(groundCheckObj.transform.position, Vector2.down * groundCheckRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
+
+        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.4f, 0.4f));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
 	{
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
         {
@@ -441,9 +443,5 @@ public class PlayerMove : PlayerStat
     private void fireParticleOff()
     {
         fireParticle.SetActive(false);
-    }
-    private void dustParticleOff()
-    {
-        dustParticle.SetActive(false);
     }
 }
