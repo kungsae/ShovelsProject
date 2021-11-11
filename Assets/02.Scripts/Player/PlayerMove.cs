@@ -7,7 +7,8 @@ public class PlayerMove : PlayerStat
     private PlayerInput playerInput;
     private Rigidbody2D rigidBody;
     private SpriteRenderer spriteRenderer;
-    public GameObject particle;
+    public GameObject fireParticle;
+    public GameObject dustParticle;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
@@ -181,6 +182,10 @@ public class PlayerMove : PlayerStat
 
         if (isGround&&rigidBody.velocity.y<1)
         {
+            if(isAttack)
+            {
+                Instantiate(dustParticle, transform.position, Quaternion.identity);
+            }
             if (!isOnDamaged && !parryied)
             {
                 StartCoroutine(JumpDelay());
@@ -239,8 +244,8 @@ public class PlayerMove : PlayerStat
         if (!isAttack&&canAttack)
         {
             UseEnergy(1,true);
-            particle.SetActive(true);
-            Invoke("particleOff", 0.5f);
+            fireParticle.SetActive(true);
+            Invoke("fireParticleOff", 0.5f);
             isAttack = true;
             canAttack = false;
             rigidBody.velocity = new Vector2(0, 0);
@@ -433,8 +438,12 @@ public class PlayerMove : PlayerStat
         //무적 레이어
         gameObject.layer = 8;
     }
-    private void particleOff()
+    private void fireParticleOff()
     {
-        particle.SetActive(false);
+        fireParticle.SetActive(false);
+    }
+    private void dustParticleOff()
+    {
+        dustParticle.SetActive(false);
     }
 }
