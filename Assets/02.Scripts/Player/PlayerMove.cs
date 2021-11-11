@@ -9,6 +9,7 @@ public class PlayerMove : PlayerStat
     private SpriteRenderer spriteRenderer;
     public GameObject fireParticle;
     public GameObject dustParticle;
+    public ParticleSystem ParryingParticle;
 
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
@@ -174,7 +175,7 @@ public class PlayerMove : PlayerStat
         {
             if(isAttack)
             {
-                Instantiate(dustParticle, transform.position, Quaternion.identity);
+                Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
             }
             if (!isOnDamaged && !parryied)
             {
@@ -227,7 +228,7 @@ public class PlayerMove : PlayerStat
 	{
 		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
         CameraShake.instance.ShakeCam(intensity, shakeTime);
-        UIManager.instance.StatUpdate();
+        UIManager.instance.StatUpdate(true);
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
         StartCoroutine(Invincible(invincibleTime,true));
@@ -434,6 +435,7 @@ public class PlayerMove : PlayerStat
         rigid.velocity = new Vector2(0, 3) * 5;
         UseEnergy(-1, false);
 
+        ParryingParticle.Play();
         parryied = false;
         StartCoroutine(Invincible(0.5f,false));
 

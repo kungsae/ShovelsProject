@@ -68,7 +68,8 @@ public class UIManager : MonoBehaviour
         }
         if (isDamage)
         {
-            hpParticle.transform.position = hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position;
+           
+            hpParticle.transform.position = (hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position);
             hpParticle.Play();
         }
 
