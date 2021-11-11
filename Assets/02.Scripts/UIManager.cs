@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class UIManager : MonoBehaviour
     public List<Image> energyImage = new List<Image>();
     private List<Animator> energyImageAnimators = new List<Animator>();
     public List<Image> hpImage = new List<Image>();
+
+    public ParticleSystem hpParticle;
 
     Animator animator;
 
@@ -49,7 +52,7 @@ public class UIManager : MonoBehaviour
             gameoverPanel.SetActive(true);
         }
     }
-    public void StatUpdate()
+    public void StatUpdate(bool isDamage = false)
     {
 		for (int i = 0; i < player.initHealth; i++)
 		{
@@ -63,6 +66,13 @@ public class UIManager : MonoBehaviour
 		{
             energyGroup[i].SetActive(true);
         }
+        if (isDamage)
+        {
+            hpParticle.transform.position = hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position;
+            hpParticle.Play();
+        }
+        
+
 	}
 
     public void EnergySet()
