@@ -91,7 +91,7 @@ public class chatBox : MonoBehaviour
     private void chatBoxSize(Transform chatPoint)
     {
         float x = text.preferredWidth;
-        x = (x > 8) ? 8 : x + 0.7f;
+        x = (x > 5) ? 5 : x + 0.5f;
         chatBoxObject.transform.localScale = new Vector3(x, text.preferredHeight + 0.3f);
         transform.position = new Vector2(chatPoint.position.x, chatPoint.position.y + text.preferredHeight / 2);
     }

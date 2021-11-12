@@ -109,6 +109,7 @@ public class PlayerMove : PlayerStat
             if (playerInput.parrying&&canParryied&&!isAttack)
             {
                 StartCoroutine(Parrying());
+                canParryied = false;
             }
             if (rigidBody.velocity.y < 0)
             {
@@ -137,7 +138,13 @@ public class PlayerMove : PlayerStat
             {
                 Collider2D enemy = attackRay.collider;
                 if (!isOnDamaged && !isInvincible)
-                    EnemyDamage(enemy, damage, 1);
+                {
+                    if (!isParrying)
+                        EnemyDamage(enemy, damage, 1);
+					else
+						PlayerDamage(enemy);
+				}
+                    
             }
 			else if (attackRay.collider.gameObject.CompareTag("Damage") && isParrying)
 			{
@@ -185,6 +192,7 @@ public class PlayerMove : PlayerStat
             }
             isAttack = false;
             isOnDamaged = false;
+            canParryied = true;
         }
         else
         {
@@ -418,8 +426,8 @@ public class PlayerMove : PlayerStat
     }
     private IEnumerator Parrying()
     {
-        if (!isParrying)
-        {      
+        if (canParryied)
+        {    
             isParrying = true;
             float dir = transform.localScale.x;
 
@@ -448,9 +456,10 @@ public class PlayerMove : PlayerStat
         StartCoroutine(ParryingEffect());
 
         ParryingParticle.Play();
-        isParrying = false;
         StartCoroutine(Invincible(0.5f,false));
 
+        isParrying = false;
+        canParryied = true;
         //무적 레이어
         gameObject.layer = 8;
     }

@@ -9,6 +9,8 @@ public class ChatNpc : MonoBehaviour
     public GameObject chatBox;
 
     public GameObject nowChatBox;
+
+    private GameObject player = null;
     void Start()
     {
 
@@ -17,11 +19,21 @@ public class ChatNpc : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X)&& player == GameManager.instance.player)
         {
             Debug.Log("B");
             Talk();
         }
+    }
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+        player = collision.gameObject;
+
+    }
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+        player = null;
+
     }
 	public void Talk()
     {

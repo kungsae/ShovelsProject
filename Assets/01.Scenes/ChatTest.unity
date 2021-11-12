@@ -655,7 +655,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &74935945
 GameObject:
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c50fab9b439b14ba789d35f57c1e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 0
   initHealth: 10000
   canDamage: 1
   sprite: {fileID: 0}
@@ -835,7 +835,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106171905}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.89, y: -16.5, z: 0}
+  m_LocalPosition: {x: 30.95, y: -16.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54256,7 +54256,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4418283894459494347, guid: 148a00be214c9ee4aa67a3e357b1f725, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4418283894459494347, guid: 148a00be214c9ee4aa67a3e357b1f725, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54413,7 +54413,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &424405739
 GameObject:
@@ -66315,7 +66315,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &836538814
 SpriteRenderer:
@@ -68571,7 +68571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1353461739
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68586,10 +68586,10 @@ RectTransform:
   m_Father: {fileID: 1188222851}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 261, y: -90}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.51, y: 0.2}
 --- !u!95 &1353461740
 Animator:
@@ -117994,7 +117994,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7262628875053610840, guid: 31156a08174f9664d90c1f05d845aa1d, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7262628875053610840, guid: 31156a08174f9664d90c1f05d845aa1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -119127,7 +119127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6249093917007339793, guid: 6f318374d72b9234baae1efafb70a762, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6249093917007339793, guid: 6f318374d72b9234baae1efafb70a762, type: 3}
       propertyPath: m_LocalPosition.x
@@ -120428,11 +120428,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2063245223}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.62, y: -20.73, z: 0}
+  m_LocalPosition: {x: 33.85, y: -20.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2063245225
 MonoBehaviour:
@@ -120447,9 +120447,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message:
-  - What the
-  - Furck are you
-  - Doing Now
+  - "\uC0C1\uCC98\uB97C \uCE58\uB8CC\uD574\uC904 \uC0AC\uB78C\uC5B4\uB514 \uC5C6\uB098
+    \uAC00\uB9CC\uD788 \uB194\uB450\uB2E4\uAC04 \uB04A\uC784\uC5C6\uC774 \uB367\uB098
+    \uC0AC\uB791\uB3C4 \uC0AC\uB78C\uB3C4 \uB108\uBB34\uB098\uB3C4 \uAC81\uB098 \uD63C\uC790\uC778\uAC8C
+    \uBB34\uC11C\uC6CC \uB09C \uC78A\uD600\uC9C8\uAE4C \uB450\uB824\uC6CC"
   charTr: {fileID: 2063245224}
   chatBox: {fileID: 6909484378751404488, guid: b7312dcf5cf93db46958e2e7415c97ca, type: 3}
   nowChatBox: {fileID: 0}
@@ -120870,7 +120871,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4418283894459494347, guid: 148a00be214c9ee4aa67a3e357b1f725, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 4418283894459494347, guid: 148a00be214c9ee4aa67a3e357b1f725, type: 3}
       propertyPath: m_LocalPosition.x

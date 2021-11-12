@@ -69,7 +69,7 @@ public class UIManager : MonoBehaviour
         if (isDamage)
         {
            
-            hpParticle.transform.position = (hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position);
+            hpParticle.transform.position = Camera.main.ScreenToWorldPoint(hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position + new Vector3(0,-1f,0));
             hpParticle.Play();
         }
 
