@@ -189,10 +189,11 @@ public class PlayerMove : PlayerStat
             if (!isOnDamaged && !isParrying)
             {
                 StartCoroutine(JumpDelay());
+                canParryied = true;
             }
             isAttack = false;
             isOnDamaged = false;
-            canParryied = true;
+
         }
         else
         {

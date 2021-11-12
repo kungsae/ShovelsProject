@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopItem : MonoBehaviour
 {
     private bool inShop;
+    [SerializeField] private TextMeshPro itemStat;
+    [SerializeField] private GameObject sigh;
+    public string itemManual;
+    
     [SerializeField] private int itemPrice = 100;
     private enum ShopItemType
     {
@@ -23,12 +28,12 @@ public class ShopItem : MonoBehaviour
     }
 	void Start()
     {
-
+        ItemName();
     }
 
 	// Update is called once per frame
 	private void Update()
-	{
+    {
         if (Input.GetKeyDown(KeyCode.X)&& inShop)
         {
             Debug.Log(gameObject.name);
@@ -85,5 +90,14 @@ public class ShopItem : MonoBehaviour
             return true;
         }
         return false;
+    }
+    private void ItemName()
+    {
+        itemStat.text = itemManual + "\n" + itemPrice + "G";
+        float x = itemStat.preferredWidth;
+        float y = itemStat.preferredHeight / 0.5f;
+        x = (x > 2.5f) ? 2.5f : x + 0.5f;
+        Debug.Log(itemStat.preferredHeight + "\n" + y);
+        sigh.transform.localScale = new Vector3(x, itemStat.preferredHeight + y*0.5f);
     }
 }
