@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2471352884089630210}
   - component: {fileID: 2471352884089630213}
   - component: {fileID: 2471352884089630212}
+  - component: {fileID: -6578426867598013427}
   m_Layer: 0
   m_Name: enemyonhit
   m_TagString: Untagged
@@ -3868,9 +3869,9 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 0
-    light: {fileID: 0}
+    light: {fileID: 3736920959112290374, guid: 7945491d25a0de045ba8e91cb413bc18, type: 3}
     randomDistribution: 1
     color: 1
     range: 1
@@ -4862,3 +4863,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-6578426867598013427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471352884089630215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d6148972dae3fd4da1ab82f95b20e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Prefab: {fileID: 1769202933680804907, guid: 57ef7e3f264f1754da6e1f84d671c35e, type: 3}
