@@ -14,6 +14,12 @@ TextureImporter:
   - first:
       213: 6102448030011531554
     second: Parrying_3
+  - first:
+      213: -7020141065324935667
+    second: Parrying_4
+  - first:
+      213: 6494626713024955181
+    second: Parrying_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -119,7 +125,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
+        y: 320
         width: 160
         height: 160
       alignment: 0
@@ -140,7 +146,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 160
+        y: 320
         width: 160
         height: 160
       alignment: 0
@@ -161,7 +167,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 160
         width: 160
         height: 160
       alignment: 0
@@ -182,7 +188,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 0
+        y: 160
         width: 160
         height: 160
       alignment: 0
@@ -194,6 +200,48 @@ TextureImporter:
       bones: []
       spriteID: 221ae11b62040b450800000000000000
       internalID: 6102448030011531554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Parrying_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d06cc2835e2739e90800000000000000
+      internalID: -7020141065324935667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Parrying_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d238d92e59c812a50800000000000000
+      internalID: 6494626713024955181
       vertices: []
       indices: 
       edges: []

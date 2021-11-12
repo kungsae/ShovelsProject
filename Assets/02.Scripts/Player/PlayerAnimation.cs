@@ -22,5 +22,6 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isGround", playerMove.isGround);
         animator.SetFloat("velocity", rigid.velocity.y);
 		animator.SetBool("isDead", playerMove.dead);
+		animator.SetBool("isParrying", playerMove.isParrying);
     }
 }

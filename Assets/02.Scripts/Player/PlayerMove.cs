@@ -30,7 +30,7 @@ public class PlayerMove : PlayerStat
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
-    private bool parryied = false;
+    public bool isParrying = false;
 
     //private bool isfalling = false;
     private bool isInvincible = false;
@@ -60,6 +60,9 @@ public class PlayerMove : PlayerStat
     [Header("카메라 흔들림")]
     public float intensity;
     public float shakeTime;
+
+
+    public float testDuration;
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -105,14 +108,13 @@ public class PlayerMove : PlayerStat
         {
             if (playerInput.parrying&&canParryied&&!isAttack)
             {
-                parryied = true;
                 StartCoroutine(Parrying());
             }
             if (rigidBody.velocity.y < 0)
             {
                 //isfalling = true;
             }
-            if (playerInput.attack && !isOnDamaged && energy > 0&&!parryied)
+            if (playerInput.attack && !isOnDamaged && energy > 0&&!isParrying)
             {
                 StartCoroutine(Attack());
             }
@@ -137,7 +139,7 @@ public class PlayerMove : PlayerStat
                 if (!isOnDamaged && !isInvincible)
                     EnemyDamage(enemy, damage, 1);
             }
-			else if (attackRay.collider.gameObject.CompareTag("Damage") && parryied)
+			else if (attackRay.collider.gameObject.CompareTag("Damage") && isParrying)
 			{
                 SucceesParrying();
             }
@@ -177,7 +179,7 @@ public class PlayerMove : PlayerStat
             {
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
             }
-            if (!isOnDamaged && !parryied)
+            if (!isOnDamaged && !isParrying)
             {
                 StartCoroutine(JumpDelay());
             }
@@ -214,7 +216,7 @@ public class PlayerMove : PlayerStat
         if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
         {
             rigidBody.velocity = new Vector2(0, 0);
-            if (parryied)
+            if (isParrying)
             {
                 SucceesParrying();
             }
@@ -370,6 +372,11 @@ public class PlayerMove : PlayerStat
         if (isDown)
             energyRecover = false;
         UIManager.instance.EnergyUpdate(isDown);
+        if (maxEnergy > energy)
+        {
+            energy -= energeyConsumption;
+        }
+        else if(isDown)
         energy -= energeyConsumption;
 
     }
@@ -403,26 +410,30 @@ public class PlayerMove : PlayerStat
     }
     private void ParryingEnd()
     {
-        if (parryied)
+        if (isParrying)
         {
-            parryied = false;
+            isParrying = false;
             Debug.Log("AAAA");
         }
     }
     private IEnumerator Parrying()
     {
-        parryied = true;
-        float dir = transform.localScale.x;
+        if (!isParrying)
+        {      
+            isParrying = true;
+            float dir = transform.localScale.x;
 
-        for (int i = 0; i < 36; i++)
-		{
-            Debug.Log("A");
-            transform.Rotate(new Vector3(0, 0, 10 * dir));
-            yield return new WaitForSeconds(0.0001f);
+            for (int i = 0; i < 36; i++)
+		    {
+                Debug.Log("A");
+                transform.Rotate(new Vector3(0, 0, 10 * dir));
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            isParrying = false;
         }
 
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        parryied = false;
     }
     private void SucceesParrying()
     {
@@ -434,13 +445,26 @@ public class PlayerMove : PlayerStat
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(0, 3) * 5;
         UseEnergy(-1, false);
+        StartCoroutine(ParryingEffect());
 
         ParryingParticle.Play();
-        parryied = false;
+        isParrying = false;
         StartCoroutine(Invincible(0.5f,false));
 
         //무적 레이어
         gameObject.layer = 8;
+    }
+    private IEnumerator ParryingEffect()
+    {
+            float elapsedTime = 0f;
+            Time.timeScale = 0f;
+            CameraShake.instance.ShakeCam(5,0.5f);
+            while (elapsedTime < testDuration)
+            {
+                yield return 0;
+                elapsedTime += Time.unscaledDeltaTime;
+            }
+            Time.timeScale = 1f;
     }
     private void fireParticleOff()
     {
