@@ -149,7 +149,7 @@ MonoBehaviour:
   followSpeed: 10
   testPower: 20
   itemIamge:
-  - {fileID: -1872394588536321801, guid: ecaad5acfde184e4a8ae4726ff46c491, type: 3}
-  - {fileID: -3560384090907692646, guid: 3cc0b715a6041e643af273a5429c71c0, type: 3}
+  - {fileID: -2880734798192188640, guid: ce4baff927e815f48b9916dbae847fdd, type: 3}
+  - {fileID: -1606773871817442943, guid: f8d25bacc62dac048815edc6102fbeb9, type: 3}
   - {fileID: 21300000, guid: 05d86f1362d1b2a409791b8ebe9e7522, type: 3}
   - {fileID: -6103215479232170835, guid: 1d20e5b2d531ab74391a02ebc54f8f86, type: 3}

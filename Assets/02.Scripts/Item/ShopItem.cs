@@ -6,8 +6,9 @@ using UnityEngine;
 public class ShopItem : MonoBehaviour
 {
     private bool inShop;
-    [SerializeField] private TextMeshPro itemStat;
+    [SerializeField] private TextMeshPro itmeText;
     [SerializeField] private GameObject sigh;
+    [SerializeField] private GameObject itemName;
     public string itemManual;
     
     [SerializeField] private int itemPrice = 100;
@@ -93,11 +94,12 @@ public class ShopItem : MonoBehaviour
     }
     private void ItemName()
     {
-        itemStat.text = itemManual + "\n" + itemPrice + "G";
-        float x = itemStat.preferredWidth;
-        float y = itemStat.preferredHeight / 0.5f;
+        itmeText.text = itemManual + "\n" + itemPrice + "G";
+        float x = itmeText.preferredWidth;
+        float y = itmeText.preferredHeight / 0.5f;
         x = (x > 2.5f) ? 2.5f : x + 0.5f;
-        Debug.Log(itemStat.preferredHeight + "\n" + y);
-        sigh.transform.localScale = new Vector3(x, itemStat.preferredHeight + y*0.5f);
-    }
+        Debug.Log(itmeText.preferredHeight + "\n" + y);
+        sigh.transform.localScale = new Vector3(x, itmeText.preferredHeight + y*0.5f);
+		itemName.transform.position += new Vector3(0, y * 0.5f);
+	}
 }

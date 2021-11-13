@@ -146,7 +146,7 @@ public class PlayerMove : PlayerStat
 				}
                     
             }
-			else if (attackRay.collider.gameObject.CompareTag("Damage") && isParrying)
+			else if (attackRay.collider.gameObject.CompareTag("Damage") && isParrying&&!isOnDamaged)
 			{
                 SucceesParrying();
             }
@@ -191,6 +191,10 @@ public class PlayerMove : PlayerStat
                 StartCoroutine(JumpDelay());
                 canParryied = true;
             }
+            if (isOnDamaged)
+            {
+                StartCoroutine(Invincible(invincibleTime, true));
+            }
             isAttack = false;
             isOnDamaged = false;
 
@@ -222,7 +226,7 @@ public class PlayerMove : PlayerStat
 
     private void OnTriggerEnter2D(Collider2D collision)
 	{
-        if (collision.gameObject.CompareTag("Damage")&&!isInvincible)
+        if (collision.gameObject.CompareTag("Damage")&&!isInvincible&&!isOnDamaged)
         {
             rigidBody.velocity = new Vector2(0, 0);
             if (isParrying)
@@ -242,7 +246,7 @@ public class PlayerMove : PlayerStat
         UIManager.instance.StatUpdate(true);
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
-        StartCoroutine(Invincible(invincibleTime,true));
+
 
         //무적 레이어
         gameObject.layer = 8;
