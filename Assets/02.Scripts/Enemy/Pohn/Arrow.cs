@@ -26,5 +26,4 @@ public class Arrow : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         Destroy(this.gameObject);
 	}
-
 }

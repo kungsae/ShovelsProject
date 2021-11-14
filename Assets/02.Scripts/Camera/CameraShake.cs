@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class CameraShake : MonoBehaviour
 {
 	public static CameraShake instance { get; private set; }
-	public PixelPerfectCamera pixelCam;
+
 	private float curretTime;
 	private bool isShake = false;
 
@@ -21,10 +21,8 @@ public class CameraShake : MonoBehaviour
 			Debug.LogError("다수의 카메라 쉐이크 스크립트가 실행중입니다.");
 		}
 		instance = this;
-		virCam = GetComponent<CinemachineVirtualCamera>();
-		camNoise = virCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
 	}
-	private IEnumerator ShakeUpdate(float intensity, float time)
+	private IEnumerator ShakeUpdate(float intensity, float time, CinemachineBasicMultiChannelPerlin camNoise)
 	{
 		if (isShake)
 		{
@@ -48,14 +46,8 @@ public class CameraShake : MonoBehaviour
 		isShake = false;
 		camNoise.m_AmplitudeGain = 0;
 	}
-	public void ShakeCam(float intensity,float time)
+	public void ShakeCam(float intensity,float time, CinemachineBasicMultiChannelPerlin camNoise)
 	{
-		StartCoroutine(ShakeUpdate(intensity,time));
-	}
-	public void followCamChange(GameObject followObj,int x = 320,int y = 180)
-	{
-		virCam.Follow = followObj.transform;
-		pixelCam.refResolutionX = x;
-		pixelCam.refResolutionY = y;
+		StartCoroutine(ShakeUpdate(intensity,time,camNoise));
 	}
 }

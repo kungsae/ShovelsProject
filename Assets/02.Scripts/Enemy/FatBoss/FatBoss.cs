@@ -60,7 +60,7 @@ public class FatBoss : EnemyControl
 			}
 			else
 			{
-				CameraShake.instance.ShakeCam(10, 0.3f);
+				CameraManager.instance.ShakeCam(10, 0.3f);
 			}	
 
 			yield return null;
@@ -85,7 +85,7 @@ public class FatBoss : EnemyControl
 	//}
 	public void cry()
 	{
-		CameraShake.instance.ShakeCam(10, 1.5f);
+		CameraManager.instance.ShakeCam(10, 1.5f);
 	}
 	public override void AttackEnd()
 	{

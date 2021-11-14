@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -132,12 +133,12 @@ public class PlayerMove : PlayerStat
             }
         }
         //데미지 주는부분
-        if (attackRay.collider != null)
+        if (attackRay.collider != null&& hitRay.collider == null)
         {
             if (attackRay.collider.gameObject.CompareTag("Enemy") || attackRay.collider.gameObject.CompareTag("Hit"))
             {
                 Collider2D enemy = attackRay.collider;
-                if (!isOnDamaged && !isInvincible)
+                if (!isOnDamaged /*&& !isInvincible*/)
                 {
                     if (!isParrying)
                         EnemyDamage(enemy, damage, 1);
@@ -164,12 +165,12 @@ public class PlayerMove : PlayerStat
     {
 
         isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
-        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.4f, 0.4f), 0, Vector2.down, 0.1f, whatIsEnemy);
+        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.6f, 0.4f), 0, Vector2.down, 0.1f, whatIsEnemy);
         //데미지 입는 부분
         hitRay = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
 
         //땅과 거리 계산
-        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8));
+        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8) + ~(1 << 2));
 
         if (dead)
         {
@@ -180,11 +181,13 @@ public class PlayerMove : PlayerStat
             return;
         }
 
+        //바닥체크
         if (isGround&&rigidBody.velocity.y<1)
         {
             if(isAttack)
             {
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
+                CameraManager.instance.ShakeCam(intensity, shakeTime);
             }
             if (!isOnDamaged && !isParrying)
             {
@@ -221,7 +224,7 @@ public class PlayerMove : PlayerStat
         Gizmos.color = Color.green;
         Gizmos.DrawRay(groundCheckObj.transform.position + new Vector3(0.1f, 0, 0), Vector2.down * attackCheckDistance);
 
-        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.4f, 0.4f));
+        Gizmos.DrawWireCube(groundCheckObj.transform.position, new Vector3(0.6f, 0.4f));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -242,7 +245,7 @@ public class PlayerMove : PlayerStat
 	public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
 	{
 		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
-        CameraShake.instance.ShakeCam(intensity, shakeTime);
+        CameraManager.instance.ShakeCam(intensity, shakeTime);
         UIManager.instance.StatUpdate(true);
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
@@ -361,7 +364,7 @@ public class PlayerMove : PlayerStat
         }
         else if(!isOnDamaged)
         {
-            OnDamage(0, collision.transform.position, hitRay.normal, 1f);
+            OnDamage(1f, collision.transform.position, hitRay.normal, 1f);
         }
 
     }
@@ -472,8 +475,8 @@ public class PlayerMove : PlayerStat
     {
             float elapsedTime = 0f;
             Time.timeScale = 0f;
-            CameraShake.instance.ShakeCam(5,0.5f);
-            while (elapsedTime < testDuration)
+        CameraManager.instance.ShakeCam(5, 0.5f);
+        while (elapsedTime < testDuration)
             {
                 yield return 0;
                 elapsedTime += Time.unscaledDeltaTime;
@@ -484,4 +487,5 @@ public class PlayerMove : PlayerStat
     {
         fireParticle.SetActive(false);
     }
+
 }

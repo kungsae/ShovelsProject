@@ -16,7 +16,7 @@ public class FatEnemy : EnemyControl
 	}
 	public IEnumerator AttackDash()
 	{
-		float dir = transform.localScale.x > 0 ? 1 : -1;
+		float dir =  transform.localScale.x > 0 ? 1 : -1;
 		while (!wallCheck)
 		{
 			wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 2f, layer);
