@@ -76,7 +76,7 @@ public class PlayerMove : PlayerStat
         LoadStat();
         jump = jumpPower;
     }
-	private void Start()
+	protected override void Start()
 	{
         energy = maxEnergy;
         UIManager.instance.StatUpdate();
@@ -402,13 +402,18 @@ public class PlayerMove : PlayerStat
     {
         if (isDown)
             energyRecover = false;
-        UIManager.instance.EnergyUpdate(isDown);
-        if (maxEnergy > energy)
-        {
-            energy -= energeyConsumption;
+
+		for (int i = 0; i < energeyConsumption; i++)
+		{
+            UIManager.instance.EnergyUpdate(isDown);
+            if (!isDown&&maxEnergy > energy)
+            {
+                energy += 1;
+            }
+            else if (isDown)
+                energy -= 1;
         }
-        else if(isDown)
-        energy -= energeyConsumption;
+
 
     }
     private IEnumerator EnergyRecover()
@@ -427,7 +432,7 @@ public class PlayerMove : PlayerStat
             {
                 time = 2f;
                 if(energy < maxEnergy)
-                UseEnergy(-1, false);
+                UseEnergy(1, false);
             }
             yield return null;
 		}
@@ -449,8 +454,9 @@ public class PlayerMove : PlayerStat
     }
     private IEnumerator Parrying()
     {
-        if (canParryied)
-        {    
+        if (canParryied&&energy>=2)
+        {
+            UseEnergy(2, true);
             isParrying = true;
             float dir = transform.localScale.x;
 
@@ -475,7 +481,7 @@ public class PlayerMove : PlayerStat
 
         rigid.velocity = new Vector2(0, 0);
         rigid.velocity = new Vector2(0, 3) * 5;
-        UseEnergy(-1, false);
+        UseEnergy(4, false);
         StartCoroutine(ParryingEffect());
 
         ParryingParticle.Play();
