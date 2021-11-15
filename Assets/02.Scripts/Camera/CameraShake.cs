@@ -48,6 +48,7 @@ public class CameraShake : MonoBehaviour
 	}
 	public void ShakeCam(float intensity,float time, CinemachineBasicMultiChannelPerlin camNoise)
 	{
+		StopCoroutine(ShakeUpdate(intensity,time,camNoise));
 		StartCoroutine(ShakeUpdate(intensity,time,camNoise));
 	}
 }
