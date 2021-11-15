@@ -21,9 +21,12 @@ public class EnemyHealth : LivingEntity
         base.Awake();
         ai = GetComponent<EnemyAi>();
     }
-
-    // Update is called once per frame
-    void Update()
+	protected override void Start()
+	{
+        base.Start();
+	}
+	// Update is called once per frame
+	void Update()
     {
         
     } 

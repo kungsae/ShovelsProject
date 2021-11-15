@@ -504,10 +504,20 @@ public class PlayerMove : PlayerStat
     }
     private void LoadStat()
     {
-        maxEnergy = PlayerPrefs.GetInt("maxEnergy");
-        initHealth = PlayerPrefs.GetInt("maxHealth");
-        money = PlayerPrefs.GetInt("money");
-        hp = initHealth; 
+        if (PlayerPrefs.GetInt("maxEnergy") != 0)
+        {
+            maxEnergy = PlayerPrefs.GetInt("maxEnergy");
+            initHealth = PlayerPrefs.GetInt("maxHealth");
+            money = PlayerPrefs.GetInt("money");
+        }
+        else
+        {
+            maxEnergy = 10;
+            initHealth = 5;
+            money = 0;
+        }
+        hp = initHealth;
+
     }
 
 }

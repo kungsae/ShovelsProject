@@ -18,7 +18,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
     }
-	private void Start()
+	protected virtual void Start()
 	{
         hp = initHealth;
     }

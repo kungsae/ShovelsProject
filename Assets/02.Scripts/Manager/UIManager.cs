@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
     public ParticleSystem hpParticle;
 
     public Text coinText;
+    public Image fade;
 
     Animator animator;
 
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        fade.gameObject.SetActive(true);
+        fade.DOFade(0, 1f);
         coinUi();
         EnergySet();
         //Debug.Log(testImage.Count);

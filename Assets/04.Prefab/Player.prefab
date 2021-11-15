@@ -201,10 +201,10 @@ MonoBehaviour:
   canDamage: 1
   sprite: {fileID: 2240103639087861658}
   rigid: {fileID: 0}
-  hp: 5
+  hp: 0
   energy: 0
   maxEnergy: 10
-  money: 10000
+  money: 0
   fireParticle: {fileID: 2798971736430122317, guid: c21f4813ef41ed14f8ecf9e7e366783b, type: 3}
   dustParticle: {fileID: 8267156534652782013, guid: a96a40fb00dbc6d43aca23314154af67, type: 3}
   ParryingParticle: {fileID: 6710507731100175533}
@@ -219,13 +219,14 @@ MonoBehaviour:
     m_Bits: 123
   groundCheckObj: {fileID: 2240103639030666483}
   isGround: 0
+  rest: 0
   isParrying: 0
   invincibleTime: 1.5
   groundCheckRadius: 0.5
   attackCheckDistance: 2
   jumpPower: 8
   moveSpeed: 5
-  jumpTime: 0.2
+  jumpTime: 0.15
   x: 0.6
   y: 0.9
   aiPrefab: {fileID: 7897839002753557688, guid: 93034baa0a3747548aeac98f1b0107b8, type: 3}

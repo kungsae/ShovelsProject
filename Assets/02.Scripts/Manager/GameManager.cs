@@ -21,13 +21,16 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-		for (int i = 0; i < savePoint.Count; i++)
+		for (int i = 1; i < savePoint.Count; i++)
 		{
             savePoint[i].index = i;
 		}
         savePointIndex = PlayerPrefs.GetInt("SavePoint");
-        savePoint[savePointIndex].save = true;
-        player.transform.position = savePoint[savePointIndex].gameObject.transform.position;
+        if (savePointIndex > 0)
+        {
+            savePoint[savePointIndex].save = true;
+            player.transform.position = savePoint[savePointIndex].gameObject.transform.position;
+        }
     }
 	void Start()
     {

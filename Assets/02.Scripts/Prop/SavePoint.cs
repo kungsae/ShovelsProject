@@ -27,6 +27,5 @@ public class SavePoint : MonoBehaviour
 		PlayerPrefs.SetInt("maxHealth", player.initHealth);
 		PlayerPrefs.SetInt("money", player.money);
 		PlayerPrefs.SetInt("SavePoint", GameManager.instance.savePointIndex);
-		Debug.Log("ÀúÀå");
     }
 }

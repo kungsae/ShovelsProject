@@ -18,6 +18,10 @@ public class Main : MonoBehaviour
     }
 	private void Update()
 	{
+        if (Input.anyKeyDown)
+        {
+            button.onClick.Invoke();
+        }
         if (fade.color.a >= 1)
             SceneManager.LoadScene(1);
     }
