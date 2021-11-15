@@ -65,6 +65,7 @@ public class ShopItem : MonoBehaviour
         if (GameManager.instance.playerScript.money > price)
         {
             GameManager.instance.playerScript.money -= price;
+            UIManager.instance.coinUi();
             Debug.Log("아이템 구입");
             GameObject item = Instantiate(itemPrefab, gameObject.transform.position, Quaternion.identity);
             Item itemScript = item.GetComponent<Item>();

@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     Queue<Coin> coinQueue = new Queue<Coin>();
     public GameObject coinPool;
     public GameObject coinPrefab;
+
+    public int savePointIndex = 0;
+    public List<SavePoint> savePoint = new List<SavePoint>();
+
     private void Awake()
 	{
         if (instance != null)
@@ -17,7 +21,13 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-
+		for (int i = 0; i < savePoint.Count; i++)
+		{
+            savePoint[i].index = i;
+		}
+        savePointIndex = PlayerPrefs.GetInt("SavePoint");
+        savePoint[savePointIndex].save = true;
+        player.transform.position = savePoint[savePointIndex].gameObject.transform.position;
     }
 	void Start()
     {

@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
 
     public ParticleSystem hpParticle;
 
+    public Text coinText;
+
     Animator animator;
 
     private Queue<Image> testImage = new Queue<Image>();
@@ -30,7 +32,6 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-
         for (int i = 0; i < energyImage.Count; i++)
         {
             energyImageAnimators.Add(energyImage[i].GetComponent<Animator>());
@@ -40,6 +41,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        coinUi();
         EnergySet();
         //Debug.Log(testImage.Count);
     }
@@ -95,6 +97,10 @@ public class UIManager : MonoBehaviour
             energyImageAnimators[player.energy - 1].SetInteger("index", 1);
         else
             energyImageAnimators[player.energy].SetInteger("index", 2);
+    }
+    public void coinUi()
+    {
+        coinText.text = player.money.ToString("G");
     }
     public void use()
     {

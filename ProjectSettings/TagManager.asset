@@ -9,6 +9,7 @@ TagManager:
   - Hit
   - Damage
   - Coin
+  - Save
   layers:
   - Default
   - TransparentFX

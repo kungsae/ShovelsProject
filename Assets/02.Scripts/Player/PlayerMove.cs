@@ -20,17 +20,17 @@ public class PlayerMove : PlayerStat
     public RaycastHit2D attackRay;
 
     public GameObject groundCheckObj;
-    public bool isGround = false;
-    
-    private bool facingRight = true;
 
+    public bool isGround = false;
+    private bool facingRight = true;
     private bool canAttack = true;
     private bool canParryied = true;
-
     private bool energyRecover;
     private bool isAttack = false;
     private bool isJump = false;
     private bool isOnDamaged = false;
+
+    public bool rest = false;
     public bool isParrying = false;
 
     //private bool isfalling = false;
@@ -73,6 +73,7 @@ public class PlayerMove : PlayerStat
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         PoolManager.CreatPool<Afterimage>(aiPrefab, afterImageTrm, 20);
+        LoadStat();
         jump = jumpPower;
     }
 	private void Start()
@@ -91,6 +92,10 @@ public class PlayerMove : PlayerStat
         if (Input.GetKeyDown(KeyCode.G))
         {
             OnDamage(1, transform.position, transform.position, 1);
+        }
+        if (Input.anyKeyDown)
+        {
+            rest = false;
         }
         //¹Ù´ÚÃ¼Å©
         if (isGround || attackRay)
@@ -138,7 +143,7 @@ public class PlayerMove : PlayerStat
             if (attackRay.collider.gameObject.CompareTag("Enemy") || attackRay.collider.gameObject.CompareTag("Hit"))
             {
                 Collider2D enemy = attackRay.collider;
-                if (!isOnDamaged /*&& !isInvincible*/)
+                if (!isOnDamaged /*&& !isInvincible*/&& rigidBody.velocity.y < 1)
                 {
                     if (!isParrying)
                         EnemyDamage(enemy, damage, 1);
@@ -189,7 +194,7 @@ public class PlayerMove : PlayerStat
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
                 CameraManager.instance.ShakeCam(intensity, shakeTime);
             }
-            if (!isOnDamaged && !isParrying)
+            if (!isOnDamaged && !isParrying&&!rest)
             {
                 StartCoroutine(JumpDelay());
                 canParryied = true;
@@ -206,7 +211,7 @@ public class PlayerMove : PlayerStat
         {
             isJump = false;
         }
-        if (!isGround && !isAttack && !isOnDamaged)
+        if (!isGround && !isAttack && !isOnDamaged&&!rest)
         {
             rigidBody.velocity = new Vector3(xMove * moveSpeed, rigidBody.velocity.y);
         }
@@ -238,6 +243,16 @@ public class PlayerMove : PlayerStat
             }
             else
             PlayerDamage(collision);
+        }
+        if (collision.gameObject.CompareTag("Save"))
+        {
+            SavePoint save = collision.GetComponent<SavePoint>();
+            if (!save.save)
+            {
+                save.Save();
+                rest = true;
+                transform.position = new Vector3(collision.transform.position.x, transform.position.y);
+            }
         }
     }
 
@@ -486,6 +501,13 @@ public class PlayerMove : PlayerStat
     private void fireParticleOff()
     {
         fireParticle.SetActive(false);
+    }
+    private void LoadStat()
+    {
+        maxEnergy = PlayerPrefs.GetInt("maxEnergy");
+        initHealth = PlayerPrefs.GetInt("maxHealth");
+        money = PlayerPrefs.GetInt("money");
+        hp = initHealth; 
     }
 
 }

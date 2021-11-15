@@ -6,7 +6,7 @@ using UnityEngine;
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     public float damage;
-    public float initHealth;
+    public int initHealth;
     public bool canDamage = true;
     public SpriteRenderer sprite;
     public Rigidbody2D rigid;
@@ -15,9 +15,12 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public event Action OnDeath;
 	protected virtual void Awake()
 	{
-        hp = initHealth;
         sprite = GetComponent<SpriteRenderer>();
         rigid = GetComponent<Rigidbody2D>();
+    }
+	private void Start()
+	{
+        hp = initHealth;
     }
 	public virtual void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal,float damageDrng)
 	{

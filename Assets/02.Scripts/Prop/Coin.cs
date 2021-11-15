@@ -40,6 +40,7 @@ public class Coin : MonoBehaviour
 			{
 				player.money++;
 				getCoin();
+				UIManager.instance.coinUi();
 				gameObject.SetActive(false);
 			}
 		}
