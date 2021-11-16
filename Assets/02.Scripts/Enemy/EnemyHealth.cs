@@ -39,7 +39,7 @@ public class EnemyHealth : LivingEntity
         {
             if(hitCount % 3 == 0)
             hitEvent();
-            else if(hitCount % 7 == 0)
+            else if(hitCount % 7 == 0&&hitEvent2!= null)
 			{
                 hitEvent2();
 			}

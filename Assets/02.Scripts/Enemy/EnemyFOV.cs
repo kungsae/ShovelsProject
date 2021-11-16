@@ -12,6 +12,7 @@ public class EnemyFOV : MonoBehaviour
 	[Range(0, 360)]
 	public float viewAngle = 40f;//시야 각도
 
+	private float attackRange2;
 	public float attackRange = 2f;
 	public float aggroRange = 5f;
 
@@ -19,6 +20,7 @@ public class EnemyFOV : MonoBehaviour
 	private void Awake()
 	{
 		enemy = GetComponent<EnemyControl>();
+		attackRange2 = attackRange;
 	}
 	public Vector2 CirclePoint(float angle)
 	{

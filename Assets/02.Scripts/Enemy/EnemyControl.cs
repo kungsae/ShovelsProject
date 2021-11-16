@@ -11,7 +11,6 @@ public class EnemyControl : MonoBehaviour
     public bool canAttack = true;
 
     public float attackDelay;
-    private WaitForSeconds attackDelayWaitSecond;
 
     public float speed = 1f;
 
@@ -23,11 +22,11 @@ public class EnemyControl : MonoBehaviour
     Vector3 destination;
 
     protected EnemyHealth health;
-    private EnemyAi ai;
+    protected EnemyAi ai;
 
     public bool facingRight = true;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         health = GetComponent<EnemyHealth>();
         rigid = GetComponent<Rigidbody2D>();
@@ -37,7 +36,7 @@ public class EnemyControl : MonoBehaviour
     }
 	protected virtual void Start()
 	{
-        attackDelayWaitSecond = new WaitForSeconds(attackDelay);
+        //attackDelayWaitSecond = new WaitForSeconds(attackDelay);
         destination = patrollPoint[patrollIndex];
     }
 	protected virtual void Update()
@@ -87,7 +86,7 @@ public class EnemyControl : MonoBehaviour
     //°ø°Ý ÄðÅ¸ÀÓ
     protected IEnumerator AttackDelay()
     {
-         yield return attackDelayWaitSecond;
+         yield return new WaitForSeconds(attackDelay);
          canAttack = true;
     }
 
