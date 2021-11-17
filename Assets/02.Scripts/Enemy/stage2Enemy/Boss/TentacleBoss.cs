@@ -34,7 +34,7 @@ public class TentacleBoss : EnemyControl
 				break;
 			case 2:
 			case 3:
-				fov.attackRange = originalAttackRange*4;
+				fov.attackRange = originalAttackRange*5;
 				break;
 			default:
 				break;

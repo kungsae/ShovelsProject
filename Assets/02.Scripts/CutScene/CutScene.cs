@@ -9,9 +9,7 @@ public class CutScene : MonoBehaviour
 {
     PlayableDirector director;
     public GameObject cameraTarget;
-
-
-
+    public CinemachineVirtualCamera bossRoomCam;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +20,7 @@ public class CutScene : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         director.Play();
-        CameraManager.instance.followCamChange(CameraManager.instance.mainCam, 470,260);
+        CameraManager.instance.followCamChange(bossRoomCam, 470,260);
         Destroy(GetComponent<BoxCollider2D>());
 	}
 

@@ -26,18 +26,26 @@ public class CameraManager : MonoBehaviour
 	public void followCamChange(CinemachineVirtualCamera lookCam, int x = 320, int y = 180)
 	{
 		mainCam.Priority = 0;
-		CinemachineVirtualCamera cam = null;
+		lookCam.Priority = 10;
+		CinemachineVirtualCamera cam = lookCam;
 		for (int i = 0; i < vCams.Count; i++)
 		{
-			if (cam != null)
-			{
-				if (cam.Priority < vCams[i].Priority)
-					cam = vCams[i];
-			}
-			else
-			{
-				cam = vCams[i];
-			}	
+			if(vCams[i] != lookCam)
+			vCams[i].Priority = 0;
+		}
+		{
+			//for (int i = 0; i < vCams.Count; i++)
+			//{
+			//	if (cam != null)
+			//	{
+			//		if (cam.Priority < vCams[i].Priority)
+			//			cam = vCams[i];
+			//	}
+			//	else
+			//	{
+			//		cam = vCams[i];
+			//	}
+			//}
 		}
 		nowCam = cam;
 	}
