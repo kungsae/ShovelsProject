@@ -175,7 +175,7 @@ public class PlayerMove : PlayerStat
         hitRay = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
 
         //땅과 거리 계산
-        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, ~(1 << 7) + ~(1 << 8) + ~(1 << 2));
+        canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, notPlayer);
 
         if (dead)
         {
@@ -253,6 +253,10 @@ public class PlayerMove : PlayerStat
                 rest = true;
                 transform.position = new Vector3(collision.transform.position.x, transform.position.y);
             }
+        }
+        if (collision.gameObject.CompareTag("ChangeCameraMax"))
+        {
+            CameraManager.instance.ChangeCameraMax(collision);
         }
     }
 

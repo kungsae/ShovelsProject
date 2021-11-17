@@ -216,7 +216,7 @@ MonoBehaviour:
     m_Bits: 64
   notPlayer:
     serializedVersion: 2
-    m_Bits: 123
+    m_Bits: 3195
   groundCheckObj: {fileID: 2240103639030666483}
   isGround: 0
   rest: 0

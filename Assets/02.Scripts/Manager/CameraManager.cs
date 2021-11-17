@@ -13,6 +13,7 @@ public class CameraManager : MonoBehaviour
 
 	public CinemachineVirtualCamera nowCam;
 	public CinemachineVirtualCamera mainCam = new CinemachineVirtualCamera();
+	public CinemachineConfiner confiner;
     public List <CinemachineVirtualCamera> vCams = new List<CinemachineVirtualCamera>();
 	private void Awake()
 	{
@@ -49,9 +50,10 @@ public class CameraManager : MonoBehaviour
 		}
 		nowCam = cam;
 	}
-	public void ChangeCameraMax()
+	public void ChangeCameraMax(Collider2D col)
 	{
 		mainCam.Priority = 10;
+		confiner.m_BoundingShape2D = col;
 	}
 	public void ShakeCam(float intensity, float shakeTime)
 	{
