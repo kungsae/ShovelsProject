@@ -42,4 +42,5 @@ public class ChatNpc : MonoBehaviour
 
         nowChatBox.GetComponent<chatBox>().Talk(message, charTr);
     }
+
 }

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/01.Scenes/Map.unity
     guid: abdbbd47734d9bb4ebe2fecf1b89d342
   - enabled: 1
+    path: Assets/01.Scenes/CutScene.unity
+    guid: 69595fcc05e375d41a35421dba17c052
+  - enabled: 1
     path: Assets/01.Scenes/ChatTest.unity
     guid: 7c36bf1d3e639734a95b388ffb8cbaf2
   m_configObjects: {}
