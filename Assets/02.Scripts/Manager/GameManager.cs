@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public int savePointIndex = 0;
     public List<SavePoint> savePoint = new List<SavePoint>();
+    public List<Door> doors = new List<Door>();
 
     private void Awake()
 	{
@@ -61,5 +62,12 @@ public class GameManager : MonoBehaviour
         coinCs.getCoin += () => { coinQueue.Enqueue(coinCs); };
         coin.SetActive(false);
         coinQueue.Enqueue(coinCs);
+    }
+    public void OpneDoor()
+    {
+		for (int i = 0; i < doors.Count; i++)
+		{
+            doors[i].StartCoroutine(doors[i].CloseDoor());
+		}
     }
 }

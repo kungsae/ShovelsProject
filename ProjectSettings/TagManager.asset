@@ -10,6 +10,7 @@ TagManager:
   - Damage
   - Coin
   - Save
+  - ChangeCameraMax
   layers:
   - Default
   - TransparentFX

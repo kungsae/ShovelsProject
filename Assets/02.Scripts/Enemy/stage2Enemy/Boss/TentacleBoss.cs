@@ -14,6 +14,7 @@ public class TentacleBoss : EnemyControl
 		health.hitEvent = BackDashAttack;
 		fov = GetComponent<EnemyFOV>();
 		originalAttackRange = fov.attackRange;
+
 	}
 	public override void Attack()
 	{
@@ -29,29 +30,29 @@ public class TentacleBoss : EnemyControl
 		switch (attackType)
 		{
 			case 1:
-				fov.aggroRange = originalAttackRange;
+				fov.attackRange = originalAttackRange;
 				break;
 			case 2:
-				fov.aggroRange = originalAttackRange*3;
-				break;
 			case 3:
-				fov.aggroRange = originalAttackRange * 2 ;
+				fov.attackRange = originalAttackRange*4;
 				break;
 			default:
 				break;
 		}
 	}
-	public void BackDash()
+	private void FlipDir()
 	{
-		int dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
-		if ((facingRight && dir < 0) || (!facingRight && dir > 0))
+		int flipDir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
+		if ((facingRight && flipDir < 0) || (!facingRight && flipDir > 0))
 		{
 			Flip();
 		}
-		if (attackType != 4)
-		rigid.AddForce(new Vector2(-dir*2, 1) * 30, ForceMode2D.Impulse);
-		else
-			rigid.AddForce(new Vector2(-dir, 1) * 30, ForceMode2D.Impulse);
+	}
+	public void BackDash()
+	{
+		int dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
+		FlipDir();
+		rigid.AddForce(new Vector2(-dir, 1) * 30, ForceMode2D.Impulse);
 	}
 	public void BackDashAttack()
 	{
@@ -63,6 +64,30 @@ public class TentacleBoss : EnemyControl
 	}
 	public void ProjectionAttack()
 	{
-		Instantiate(projectionObject,transform.position,Quaternion.identity);
+		FlipDir();
+		GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
+		Vector3 dir = GameManager.instance.player.transform.position - projection.transform.position;
+		projection.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);	
+	}
+	public void MultieShootProjectionAttack()
+	{
+		FlipDir();
+		for (int i = 0; i <= 5; i++)
+		{
+			GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
+			int dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 0 : 90;
+			projection.transform.rotation = Quaternion.Euler(new Vector3(0,0,dir+(i*18)));
+		}
+
+	}
+	public IEnumerator ContinuousShootProjectionAttack()
+	{
+		FlipDir();
+		for (int i = 0; i < 5; i++)
+		{
+			ProjectionAttack();
+			yield return new WaitForSeconds(0.1f);
+		}
+
 	}
 }

@@ -102,7 +102,7 @@ public class PlayerMove : PlayerStat
         {
             if (playerInput.jump && !isOnDamaged && energy > 0)
             {
-                jump = jumpPower * 2;
+                jump = 20;
             }
             else
             {

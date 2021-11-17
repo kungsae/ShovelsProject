@@ -48,9 +48,9 @@ public class EnemyHealth : LivingEntity
         text.GetComponent<DamageText>().text.text = damage.ToString();
 
     }
-    public void DropCoin()
+    public void DropCoin(int damage = 1)
     {
-        int dropCoin = UnityEngine.Random.Range(haveCoinMin, haveCoinMax);
+        int dropCoin = UnityEngine.Random.Range(haveCoinMin, haveCoinMax)*damage;
         //for (int i = 0; i < dropCoin; i++)
         //{
         //          Instantiate(coinPrefab, transform.position, Quaternion.identity);

@@ -40,8 +40,10 @@ public class CameraManager : MonoBehaviour
 			}	
 		}
 		nowCam = cam;
-		pixelCam.refResolutionX = x;
-		pixelCam.refResolutionY = y;
+	}
+	public void ChangeCameraMax()
+	{
+		mainCam.Priority = 10;
 	}
 	public void ShakeCam(float intensity, float shakeTime)
 	{

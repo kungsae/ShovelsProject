@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.52928543, y: -0.3234526}
+  m_Offset: {x: 0.60813, y: -0.2589432}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6353798, y: 0.9176667}
+  m_Size: {x: 0.7930689, y: 1.0466855}
   m_EdgeRadius: 0
 --- !u!1 &7243105254414508877
 GameObject:
@@ -101,7 +101,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.50692844, y: -0.1711911}
+  m_Offset: {x: 0.4712652, y: 0.14816558}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -112,7 +112,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1634693, y: 1.2221897}
+  m_Size: {x: 1.7515705, y: 1.860903}
   m_EdgeRadius: 0
 --- !u!1 &8652555901011204344
 GameObject:
@@ -262,7 +262,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -286,10 +286,10 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 393
-  viewRange: 10
-  viewAngle: 40
-  attackRange: 2
-  aggroRange: 5
+  viewRange: 7.42
+  viewAngle: 360
+  attackRange: 1.5
+  aggroRange: 13.7
 --- !u!114 &9155359677456663062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,15 +316,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  initHealth: 0
+  initHealth: 50
   canDamage: 1
   sprite: {fileID: 0}
   rigid: {fileID: 0}
   hp: 0
   hitCount: 0
-  damageText: {fileID: 0}
-  haveCoinMin: 0
-  haveCoinMax: 0
+  damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}
+  haveCoinMin: 50
+  haveCoinMax: 50
   coinPrefab: {fileID: 2057136897343495165, guid: 84751d6003c67fa40b385fd733a7d090, type: 3}
 --- !u!114 &8652555901011204345
 MonoBehaviour:
@@ -341,9 +341,11 @@ MonoBehaviour:
   isStop: 0
   isAttack: 0
   canAttack: 1
-  attackDelay: 0
-  speed: 1
-  patrollPoint: []
+  attackDelay: 2
+  speed: 3
+  patrollPoint:
+  - {x: 25.22, y: -3.15, z: 0}
+  - {x: 14.2, y: -3.6, z: 0}
   patrollIndex: 0
   facingRight: 1
-  projectionObject: {fileID: 0}
+  projectionObject: {fileID: 5086454687768864071, guid: 3c4c4ea1681ffff4d92cfc1e2c704cb8, type: 3}

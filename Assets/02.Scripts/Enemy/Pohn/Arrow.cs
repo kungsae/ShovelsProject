@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    SpriteRenderer sprite;
     private float speed = 10;
 	private void Awake()
 	{
-        sprite = GetComponent<SpriteRenderer>();
-
     }
 	void Start()
     {

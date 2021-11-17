@@ -97,4 +97,8 @@ public class FatBoss : EnemyControl
 		animator.SetInteger("AttackType", attackType);
 		base.Attack();
 	}
+	public void DieEvent()
+	{
+		GameManager.instance.OpneDoor();
+	}
 }
