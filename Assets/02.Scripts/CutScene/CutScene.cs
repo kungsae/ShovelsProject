@@ -21,6 +21,7 @@ public class CutScene : MonoBehaviour
 	{
         director.Play();
         CameraManager.instance.followCamChange(bossRoomCam, 470,260);
+        SoundManager.instance.NullBgm();
         Destroy(GetComponent<BoxCollider2D>());
 	}
 

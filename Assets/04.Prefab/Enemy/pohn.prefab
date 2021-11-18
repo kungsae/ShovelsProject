@@ -178,6 +178,8 @@ MonoBehaviour:
   - {x: -1.46, y: -3.19, z: 0}
   - {x: -14.08, y: -3.19, z: 0}
   patrollIndex: 0
+  attack1: {fileID: 8300000, guid: 30d10e0553dbbbf4d8ab3f19cec573a4, type: 3}
+  attack2: {fileID: 8300000, guid: 5884f05048117ec44ac3b5a460ccb51d, type: 3}
   facingRight: 1
 --- !u!114 &150885068321721770
 MonoBehaviour:
@@ -227,6 +229,7 @@ MonoBehaviour:
   initHealth: 6
   canDamage: 1
   sprite: {fileID: 0}
+  rigid: {fileID: 0}
   hp: 0
   hitCount: 0
   damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}

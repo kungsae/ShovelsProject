@@ -24,6 +24,9 @@ public class EnemyControl : MonoBehaviour
     protected EnemyHealth health;
     protected EnemyAi ai;
 
+    public AudioClip attack1;
+    public AudioClip attack2;
+
     public bool facingRight = true;
 
     protected virtual void Awake()
@@ -131,6 +134,14 @@ public class EnemyControl : MonoBehaviour
     public void DieAnimation()
     {
         animator.SetTrigger("dead");
+    }
+    public void AttackSound()
+    {
+        SoundManager.instance.SFXPlay(attack1, transform.position,0.2f);
+    }
+    public void AttackSound2()
+    {
+        SoundManager.instance.SFXPlay(attack2, transform.position,0.5f);
     }
     protected void Flip()
     {

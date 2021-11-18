@@ -68,6 +68,7 @@ public class PlayerMove : PlayerStat
     public AudioClip parryingSound;
     public AudioClip hitSound;
     public AudioClip attackSound;
+    public AudioClip attackHeadSound;
 
 
     // Start is called before the first frame update
@@ -199,7 +200,7 @@ public class PlayerMove : PlayerStat
             {
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
                 CameraManager.instance.ShakeCam(intensity, shakeTime);
-                SoundManager.instance.SFXPlay(attackSound, transform.position);
+                SoundManager.instance.SFXPlay(attackHeadSound, transform.position, 0.8f);
             }
             if (!isOnDamaged && !isParrying&&!rest)
             {
@@ -267,7 +268,6 @@ public class PlayerMove : PlayerStat
             CameraManager.instance.ChangeCameraMax(collision);
         }
     }
-
 
 	public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
 	{
@@ -399,10 +399,14 @@ public class PlayerMove : PlayerStat
     }
     public void EnemyDamage(Collider2D collision, float damage, float damageDrng)
     {
+        float sound = 0;
         if (isAttack)
         {
             damage += 3;
+            CameraManager.instance.ShakeCam(intensity, shakeTime);
+            sound = 0.3f;
         }
+        SoundManager.instance.SFXPlay(attackHeadSound, transform.position,0.5f+sound);
         Debug.Log(collision.transform.GetComponent<LivingEntity>());
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null&&target.canDamage)

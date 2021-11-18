@@ -68,7 +68,7 @@ public class TentacleBoss : EnemyControl
 	{
 		SoundManager.instance.SFXPlay(fire,transform.position,0.8f);
 		FlipDir();
-		GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
+		GameObject projection = Instantiate(projectionObject, transform.position - new Vector3(0, 1, 0), Quaternion.identity);
 		Vector3 dir = GameManager.instance.player.transform.position - projection.transform.position;
 		projection.transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);	
 	}
@@ -78,12 +78,13 @@ public class TentacleBoss : EnemyControl
 		SoundManager.instance.SFXPlay(fire, transform.position, 0.8f);
 		for (int i = 0; i <= 5; i++)
 		{
-			GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
+			GameObject projection = Instantiate(projectionObject, transform.position- new Vector3(0,1,0), Quaternion.identity);
 			int dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 0 : 90;
 			projection.transform.rotation = Quaternion.Euler(new Vector3(0,0,dir+(i*18)));
 		}
 
 	}
+	
 	public IEnumerator ContinuousShootProjectionAttack()
 	{
 		FlipDir();
@@ -97,5 +98,7 @@ public class TentacleBoss : EnemyControl
 	public void DieEvent()
 	{
 		GameManager.instance.OpneDoor();
+		CameraManager.instance.followCamChange(CameraManager.instance.mainCam);
+		SoundManager.instance.ChageBgm(0);
 	}
 }

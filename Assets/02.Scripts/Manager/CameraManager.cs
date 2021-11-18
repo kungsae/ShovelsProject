@@ -50,10 +50,16 @@ public class CameraManager : MonoBehaviour
 		}
 		nowCam = cam;
 	}
+	int a = 0;
 	public void ChangeCameraMax(Collider2D col)
 	{
 		mainCam.Priority = 10;
-		confiner.m_BoundingShape2D = col;
+		StartCoroutine(test(col));
+	}
+	IEnumerator test(Collider2D col)
+	{
+		yield return new WaitForSeconds(0.5f);
+			confiner.m_BoundingShape2D = col;
 	}
 	public void ShakeCam(float intensity, float shakeTime)
 	{

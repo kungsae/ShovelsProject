@@ -74,7 +74,6 @@ public class FatBoss : EnemyControl
 
 	public void DashAttackEndEvent()
 	{
-		CameraManager.instance.ShakeCam(10, 0.5f);
 		AttackEnd();
 		wallCheck = false;
 		canDash = false;
@@ -107,6 +106,7 @@ public class FatBoss : EnemyControl
 	{
 		GameManager.instance.OpneDoor();
 		CameraManager.instance.followCamChange(CameraManager.instance.mainCam);
+		SoundManager.instance.ChageBgm(0);
 	}
 	public void AttackSound()
 	{
@@ -114,6 +114,7 @@ public class FatBoss : EnemyControl
 	}
 	public void SturnSound()
 	{
+		CameraManager.instance.ShakeCam(10, 0.5f);
 		SoundManager.instance.SFXPlay(strunSound, transform.position, 0.4f);
 	}
 }
