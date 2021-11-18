@@ -7,6 +7,8 @@ public class FatEnemy : EnemyControl
 	public LayerMask layer;
 	private bool wallCheck = false;
 	public float attackSpeed;
+	public AudioClip runAttackSound;
+	public AudioClip strunSound;
 
 	protected override void Update()
 	{
@@ -32,5 +34,17 @@ public class FatEnemy : EnemyControl
 	{
 		AttackEnd();
 		wallCheck = false;
+	}
+	public void Shake()
+	{
+		CameraManager.instance.ShakeCam(10, 0.5f);
+	}
+	public void AttackSound()
+	{
+		SoundManager.instance.SFXPlay(runAttackSound, transform.position, 0.8f);
+	}
+	public void SturnSound()
+	{
+		SoundManager.instance.SFXPlay(strunSound, transform.position, 0.4f);
 	}
 }

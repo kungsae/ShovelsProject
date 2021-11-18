@@ -9,6 +9,8 @@ public class SavePoint : MonoBehaviour
 	public bool save = false;
 	PlayerMove player;
 	public int index;
+
+	public GameObject damageText;
 	private void Start()
 	{
 		sprite = GetComponent<SpriteRenderer>();
@@ -27,5 +29,8 @@ public class SavePoint : MonoBehaviour
 		PlayerPrefs.SetInt("maxHealth", player.initHealth);
 		PlayerPrefs.SetInt("money", player.money);
 		PlayerPrefs.SetInt("SavePoint", GameManager.instance.savePointIndex);
-    }
+
+		GameObject text = Instantiate(damageText, transform.position + new Vector3(0, 0, -1), Quaternion.identity);
+		text.GetComponent<DamageText>().text.text = "ภ๚ภๅ ตส!";
+	}
 }

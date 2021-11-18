@@ -1,6 +1,5 @@
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : PlayerStat
@@ -56,14 +55,21 @@ public class PlayerMove : PlayerStat
     public float aiCreateTerm = 0.3f;
 
     public GameObject hitPos;
-   
+
+    public float parryingDuration;
 
     [Header("카메라 흔들림")]
     public float intensity;
     public float shakeTime;
 
 
-    public float testDuration;
+    [Header("사운드")]
+    public AudioClip groundSound;
+    public AudioClip parryingSound;
+    public AudioClip hitSound;
+    public AudioClip attackSound;
+
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -193,9 +199,11 @@ public class PlayerMove : PlayerStat
             {
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
                 CameraManager.instance.ShakeCam(intensity, shakeTime);
+                SoundManager.instance.SFXPlay(attackSound, transform.position);
             }
             if (!isOnDamaged && !isParrying&&!rest)
             {
+
                 StartCoroutine(JumpDelay());
                 canParryied = true;
             }
@@ -346,6 +354,7 @@ public class PlayerMove : PlayerStat
     {
         if (!isJump)
         {
+            SoundManager.instance.SFXPlay(groundSound, transform.position, 0.5f);
             isJump = true;
             yield return new WaitForSeconds(jumpTime);
             Jump();
@@ -376,6 +385,7 @@ public class PlayerMove : PlayerStat
     }
     public void PlayerDamage(Collider2D collision)
     {
+        SoundManager.instance.SFXPlay(hitSound, transform.position);
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null && !isOnDamaged)
         {
@@ -479,7 +489,7 @@ public class PlayerMove : PlayerStat
     private void SucceesParrying()
     {
         Debug.Log("패링");
-
+        SoundManager.instance.SFXPlay(parryingSound, transform.position, 0.07f);
         rigidBody.velocity = new Vector2(0, 0);
         rigidBody.velocity = new Vector2(0, 2) * 5;
 
@@ -501,7 +511,7 @@ public class PlayerMove : PlayerStat
             float elapsedTime = 0f;
             Time.timeScale = 0f;
         CameraManager.instance.ShakeCam(5, 0.5f);
-        while (elapsedTime < testDuration)
+        while (elapsedTime < parryingDuration)
             {
                 yield return 0;
                 elapsedTime += Time.unscaledDeltaTime;

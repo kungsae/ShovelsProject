@@ -125,3 +125,5 @@ MonoBehaviour:
   sprite: {fileID: 3324955276683482086}
   image: {fileID: -2341359323266322967, guid: 0d2b3df76cbf2bf49bb5472cd6f8f9e4, type: 3}
   save: 0
+  index: 0
+  damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}

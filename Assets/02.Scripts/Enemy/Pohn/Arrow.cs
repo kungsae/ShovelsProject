@@ -6,13 +6,13 @@ public class Arrow : MonoBehaviour
 {
     private float speed = 10;
 	private void Awake()
-	{
+	{   
     }
 	void Start()
     {
         Vector3 dir = GameManager.instance.player.transform.position - transform.position;
         transform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
-        Destroy(this.gameObject,5f);
+        Destroy(this.gameObject,3f);
     }
 	private void FixedUpdate()
 	{
@@ -20,7 +20,8 @@ public class Arrow : MonoBehaviour
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        Debug.Log(collision.gameObject.name);
-        Destroy(this.gameObject);
+		Debug.Log(collision.gameObject.name);
+		if(collision.gameObject.layer!=13)
+		Destroy(this.gameObject);
 	}
 }

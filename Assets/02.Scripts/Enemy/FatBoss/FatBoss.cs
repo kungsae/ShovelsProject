@@ -70,6 +70,7 @@ public class FatBoss : EnemyControl
 
 	public void DashAttackEndEvent()
 	{
+		CameraManager.instance.ShakeCam(10, 0.5f);
 		AttackEnd();
 		wallCheck = false;
 		canDash = false;

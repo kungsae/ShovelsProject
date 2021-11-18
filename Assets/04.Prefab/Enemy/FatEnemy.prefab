@@ -319,6 +319,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 59
   attackSpeed: 7
+  runAttackSound: {fileID: 8300000, guid: a21429b359a5d83448ef33a71534b263, type: 3}
+  strunSound: {fileID: 8300000, guid: 6d78d471ead099644b19fc73482a9ebc, type: 3}
 --- !u!114 &8619097739726557259
 MonoBehaviour:
   m_ObjectHideFlags: 0

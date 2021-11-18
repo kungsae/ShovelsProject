@@ -108,6 +108,6 @@ public class UIManager : MonoBehaviour
     }
     public void use()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

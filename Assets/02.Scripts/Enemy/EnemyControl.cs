@@ -19,7 +19,7 @@ public class EnemyControl : MonoBehaviour
 
     public Vector3[] patrollPoint;
     public int patrollIndex = 0;
-    Vector3 destination;
+    private Vector3 destination;
 
     protected EnemyHealth health;
     protected EnemyAi ai;
@@ -32,12 +32,14 @@ public class EnemyControl : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         ai = GetComponent<EnemyAi>();
-        dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
+        //dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
 	protected virtual void Start()
-	{
+    {
+
         //attackDelayWaitSecond = new WaitForSeconds(attackDelay);
         destination = patrollPoint[patrollIndex];
+        dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
 	protected virtual void Update()
     {

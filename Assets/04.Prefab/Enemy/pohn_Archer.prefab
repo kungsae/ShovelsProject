@@ -179,6 +179,7 @@ MonoBehaviour:
   facingRight: 1
   arrow: {fileID: 5086454687768864071, guid: 3c4c4ea1681ffff4d92cfc1e2c704cb8, type: 3}
   arrowSpeed: 10
+  shootSound: {fileID: 8300000, guid: 412bcbe8df9d0e34089dd96c195b1c38, type: 3}
 --- !u!114 &9185407139978134563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +228,7 @@ MonoBehaviour:
   initHealth: 4
   canDamage: 1
   sprite: {fileID: 0}
+  rigid: {fileID: 0}
   hp: 0
   hitCount: 0
   damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}

@@ -8,6 +8,8 @@ public class TentacleBoss : EnemyControl
 	private EnemyFOV fov;
 	public GameObject projectionObject;
 	private float originalAttackRange;
+
+	public AudioClip fire;
 	protected override void Awake()
 	{
 		base.Awake();
@@ -64,6 +66,7 @@ public class TentacleBoss : EnemyControl
 	}
 	public void ProjectionAttack()
 	{
+		SoundManager.instance.SFXPlay(fire,transform.position,0.8f);
 		FlipDir();
 		GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
 		Vector3 dir = GameManager.instance.player.transform.position - projection.transform.position;
@@ -72,6 +75,7 @@ public class TentacleBoss : EnemyControl
 	public void MultieShootProjectionAttack()
 	{
 		FlipDir();
+		SoundManager.instance.SFXPlay(fire, transform.position, 0.8f);
 		for (int i = 0; i <= 5; i++)
 		{
 			GameObject projection = Instantiate(projectionObject, transform.position, Quaternion.identity);
@@ -89,5 +93,9 @@ public class TentacleBoss : EnemyControl
 			yield return new WaitForSeconds(0.1f);
 		}
 
+	}
+	public void DieEvent()
+	{
+		GameManager.instance.OpneDoor();
 	}
 }
