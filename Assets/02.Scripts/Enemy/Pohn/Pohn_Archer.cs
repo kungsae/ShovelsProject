@@ -10,7 +10,7 @@ public class Pohn_Archer :  EnemyControl
 
 	public void fire()
 	{
-		SoundManager.instance.SFXPlay(shootSound, transform.position);
+		SoundManager.instance.SFXPlay(shootSound, transform.position,0.8f);
 		float dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
 		GameObject arrow = Instantiate(this.arrow, transform.position, Quaternion.identity);
 	}

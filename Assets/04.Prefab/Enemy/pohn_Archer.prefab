@@ -179,7 +179,7 @@ MonoBehaviour:
   facingRight: 1
   arrow: {fileID: 5086454687768864071, guid: 3c4c4ea1681ffff4d92cfc1e2c704cb8, type: 3}
   arrowSpeed: 10
-  shootSound: {fileID: 8300000, guid: 412bcbe8df9d0e34089dd96c195b1c38, type: 3}
+  shootSound: {fileID: 8300000, guid: 85183b350995d8a4ca8d733d52ef1bd6, type: 3}
 --- !u!114 &9185407139978134563
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,10 @@ public class FatBoss : EnemyControl
 
 	private int attackType = 1;
 
+	public AudioClip runAttackSound;
+	public AudioClip strunSound;
+	public AudioClip spikeSound;
+	public AudioClip shoutSound;
 	protected override void Start()
 	{
 		base.Start();
@@ -84,8 +88,9 @@ public class FatBoss : EnemyControl
 	//	attackType = 2;
 	//	Attack();
 	//}
-	public void cry()
+	public void Shout()
 	{
+		SoundManager.instance.SFXPlay(shoutSound, transform.position, 0.8f);
 		CameraManager.instance.ShakeCam(10, 1.5f);
 	}
 	public override void AttackEnd()
@@ -101,5 +106,14 @@ public class FatBoss : EnemyControl
 	public void DieEvent()
 	{
 		GameManager.instance.OpneDoor();
+		CameraManager.instance.followCamChange(CameraManager.instance.mainCam);
+	}
+	public void AttackSound()
+	{
+		SoundManager.instance.SFXPlay(runAttackSound, transform.position, 0.8f);
+	}
+	public void SturnSound()
+	{
+		SoundManager.instance.SFXPlay(strunSound, transform.position, 0.4f);
 	}
 }
