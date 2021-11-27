@@ -25,6 +25,8 @@ public class UIManager : MonoBehaviour
     Animator animator;
 
     private Queue<Image> testImage = new Queue<Image>();
+    public GameObject escPanel;
+    public Button exit;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class UIManager : MonoBehaviour
             energyImageAnimators.Add(energyImage[i].GetComponent<Animator>());
 
         }
+        exit.onClick.AddListener(ExitGame);
     }
     // Start is called before the first frame update
     void Start()
@@ -56,6 +59,11 @@ public class UIManager : MonoBehaviour
         if (player.dead)
         {
             gameoverPanel.SetActive(true);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            escPanel.SetActive(!escPanel.activeSelf);
+            Time.timeScale = escPanel.activeSelf ? 0 : 1;
         }
     }
     public void StatUpdate(bool isDamage = false)
@@ -109,5 +117,13 @@ public class UIManager : MonoBehaviour
     public void use()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit(); // 어플리케이션 종료
+#endif
     }
 }

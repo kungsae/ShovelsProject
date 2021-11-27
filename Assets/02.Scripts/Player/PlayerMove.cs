@@ -96,10 +96,6 @@ public class PlayerMove : PlayerStat
 
         xMove = playerInput.xMove;
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            OnDamage(1, transform.position, transform.position, 1);
-        }
         if (Input.anyKeyDown)
         {
             rest = false;

@@ -17,6 +17,9 @@ public class Story : MonoBehaviour
 	public string story;
 	private int count = 0;
 	private int imageCount = 0;
+	private int isFirst = 0;
+
+	public GameObject nextButton;
 	private void Start()
 	{
 		textOut();
@@ -31,6 +34,7 @@ public class Story : MonoBehaviour
 
 	public void textOut()
 	{
+		nextButton.SetActive(false);
 		if (count == storys.Length&&next)
 		{
 			StartCoroutine(SceneLoad());
@@ -53,6 +57,8 @@ public class Story : MonoBehaviour
 	IEnumerator SceneLoad()
 	{
 		fade.DOFade(1, 1);
+		isFirst++;
+		PlayerPrefs.SetInt("isFirst", isFirst);
 		yield return new WaitForSeconds(1.1f);
 		SceneManager.LoadScene(2);
 	}
@@ -92,5 +98,6 @@ public class Story : MonoBehaviour
 		}
 		yield return new WaitForSeconds(0.1f);
 		next = true;
+		nextButton.SetActive(true);
 	}
 }

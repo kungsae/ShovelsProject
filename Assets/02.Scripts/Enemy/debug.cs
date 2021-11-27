@@ -8,10 +8,10 @@ public class debug : MonoBehaviour
 	public GameObject test;
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.U))
-		{
-			player.transform.position = test.transform.position;
-		}
+		//if (Input.GetKeyDown(KeyCode.U))
+		//{
+		//	player.transform.position = test.transform.position;
+		//}
 	}
 
 }
