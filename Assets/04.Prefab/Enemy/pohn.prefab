@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 80
   m_Sprite: {fileID: -4669335712817580549, guid: ffa92b4434fb2e84d902d50304f07752, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -226,15 +226,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  initHealth: 6
+  maxHp: 6
   canDamage: 1
   sprite: {fileID: 0}
   rigid: {fileID: 0}
-  hp: 0
+  hp: 6
   hitCount: 0
   damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}
-  haveCoinMin: 0
-  haveCoinMax: 2
+  haveCoinMin: 2
+  haveCoinMax: 5
   coinPrefab: {fileID: 2057136897343495165, guid: 84751d6003c67fa40b385fd733a7d090, type: 3}
 --- !u!1 &150885069497447868
 GameObject:

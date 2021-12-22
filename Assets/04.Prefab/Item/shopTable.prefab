@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bcdce40705e9dd4a882c1df2f4ac899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itmeText: {fileID: 4091988206292910191}
+  itemText: {fileID: 4091988206292910191}
   sigh: {fileID: 2704327310397909731}
   itemName: {fileID: 2720606638089528685}
   itemManual: "\uC874\uB098 \uC384\uB2E4"

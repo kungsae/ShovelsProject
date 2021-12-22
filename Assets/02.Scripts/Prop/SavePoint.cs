@@ -22,11 +22,20 @@ public class SavePoint : MonoBehaviour
 	}
     public void Save()
     {
+		if (player.damage == 0f)
+		{
+			player.damage = 1f;
+		}
+
+		player.hp = player.maxHp;
+		UIManager.instance.StatUpdate();
+
 		GameManager.instance.savePointIndex = index;
 		save = true;
 		sprite.sprite = image;
+		PlayerPrefs.SetFloat("damage", player.damage);
 		PlayerPrefs.SetInt("maxEnergy", player.maxEnergy);
-		PlayerPrefs.SetInt("maxHealth", player.initHealth);
+		PlayerPrefs.SetInt("maxHealth", player.maxHp);
 		PlayerPrefs.SetInt("money", player.money);
 		PlayerPrefs.SetInt("SavePoint", GameManager.instance.savePointIndex);
 

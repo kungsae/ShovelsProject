@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -36,26 +37,42 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
         instance = this;
-        for (int i = 0; i < energyImage.Count; i++)
+        if (energyImage.Count > 0)
         {
-            energyImageAnimators.Add(energyImage[i].GetComponent<Animator>());
+            for (int i = 0; i < energyImage.Count; i++)
+            {
+                energyImageAnimators.Add(energyImage[i].GetComponent<Animator>());
 
+            }
+            exit.onClick.AddListener(ExitGame);
         }
-        exit.onClick.AddListener(ExitGame);
     }
     // Start is called before the first frame update
     void Start()
     {
-        fade.gameObject.SetActive(true);
-        fade.DOFade(0, 1f);
-        coinUi();
-        EnergySet();
+        if (energyImage.Count > 0)
+        {
+            coinUi();
+            EnergySet();
+        }
+        StartCoroutine(StartFade());
         //Debug.Log(testImage.Count);
     }
+    IEnumerator StartFade()
+    {
+        fade.gameObject.SetActive(true);
+        fade.color = new Color(0, 0, 0, 1);
+        yield return new WaitForSeconds(1f);
 
+        fade.DOFade(0, 1f);
+    }
     // Update is called once per frame
     void Update()
     {
+        if (energyImage.Count <= 0)
+        {
+            return;
+        }
         if (player.dead)
         {
             gameoverPanel.SetActive(true);
@@ -66,9 +83,10 @@ public class UIManager : MonoBehaviour
             Time.timeScale = escPanel.activeSelf ? 0 : 1;
         }
     }
+
     public void StatUpdate(bool isDamage = false)
     {
-        for (int i = 0; i < player.initHealth; i++)
+        for (int i = 0; i < player.maxHp; i++)
         {
             hpImage[i].gameObject.SetActive(false);
         }
@@ -82,12 +100,9 @@ public class UIManager : MonoBehaviour
         }
         if (isDamage)
         {
-           
             hpParticle.transform.position = Camera.main.ScreenToWorldPoint(hpImage.Find(x => x.gameObject.activeSelf == false).gameObject.transform.position + new Vector3(0,-1f,0));
             hpParticle.Play();
         }
-
-
     }
 
     public void EnergySet()
@@ -110,11 +125,13 @@ public class UIManager : MonoBehaviour
         else
             energyImageAnimators[player.energy].SetInteger("index", 2);
     }
+    //현재 돈 표시
     public void coinUi()
     {
         coinText.text = player.money.ToString("G");
     }
-    public void use()
+    //씬 다시 불러오기(게임 재시작)
+    public void ResetGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

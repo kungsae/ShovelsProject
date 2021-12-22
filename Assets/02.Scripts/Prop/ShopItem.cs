@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ShopItem : MonoBehaviour
+public class ShopItem : InteractObj
 {
-    private bool inShop;
-    [SerializeField] private TextMeshPro itmeText;
+    [SerializeField] private TextMeshPro itemText;
     [SerializeField] private GameObject sigh;
     [SerializeField] private GameObject itemName;
     public string itemManual;
@@ -23,44 +22,23 @@ public class ShopItem : MonoBehaviour
     public GameObject Image;
     public GameObject itemPrefab;
 	// Start is called before the first frame update
-	private void Awake()
-	{
-
-    }
 	void Start()
     {
         ItemName();
     }
 
-	// Update is called once per frame
-	private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X)&& inShop)
-        {
-            Debug.Log(gameObject.name);
-            if (BuyItem(itemPrice))
-            {
-                Image.SetActive(false);
-                this.enabled = false;
-            }
-                
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            inShop = true;
-        }
-    }
-	private void OnTriggerExit2D(Collider2D collision)
+	protected override void Interact()
 	{
-        if (collision.gameObject.CompareTag("Player"))
+		base.Interact();
+        Debug.Log(gameObject.name);
+        if (BuyItem(itemPrice))
         {
-            inShop = false;
+            Image.SetActive(false);
+            this.enabled = false;
         }
     }
-    public bool BuyItem(int price)
+	//아이템 구매
+	public bool BuyItem(int price)
     {
         if (GameManager.instance.playerScript.money > price)
         {
@@ -93,14 +71,15 @@ public class ShopItem : MonoBehaviour
         }
         return false;
     }
+    //아이템 정보 (이름,가격)을 펫말로 표시하는 스크립트
     private void ItemName()
     {
-        itmeText.text = itemManual + "\n" + itemPrice + "G";
-        float x = itmeText.preferredWidth;
-        float y = itmeText.preferredHeight / 0.5f;
+        itemText.text = itemManual + "\n" + itemPrice + "G";
+        float x = itemText.preferredWidth;
+        float y = itemText.preferredHeight / 0.5f;
         x = (x > 2.5f) ? 2.5f : x + 0.5f;
-        Debug.Log(itmeText.preferredHeight + "\n" + y);
-        sigh.transform.localScale = new Vector3(x, itmeText.preferredHeight + y*0.5f);
+        Debug.Log(itemText.preferredHeight + "\n" + y);
+        sigh.transform.localScale = new Vector3(x, itemText.preferredHeight + y*0.5f);
 		itemName.transform.position += new Vector3(0, y * 0.5f);
 	}
 }

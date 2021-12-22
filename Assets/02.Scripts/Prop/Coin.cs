@@ -8,11 +8,13 @@ public class Coin : MonoBehaviour
     Rigidbody2D rig;
 	public float followSpeed;
 	private bool canGet = false;
-	public float testPower;
+	public float power;
 
 	public Action dropCoin;
 	public Action getCoin;
 	PlayerStat player;
+
+	public AudioClip getCoinSound;
 
 	private void Awake()
 	{
@@ -20,7 +22,7 @@ public class Coin : MonoBehaviour
 		player = GameManager.instance.player.GetComponent<PlayerStat>();
 		dropCoin += () =>
 		{
-			rig.AddForce(new Vector2(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(5, 10)) * testPower);
+			rig.AddForce(new Vector2(UnityEngine.Random.Range(-10, 10), UnityEngine.Random.Range(5, 10)) * power);
 			Invoke("canGetCoin", 1f);
 		};
 	}
@@ -38,6 +40,7 @@ public class Coin : MonoBehaviour
 			transform.position = Vector2.MoveTowards(transform.position,GameManager.instance.player.transform.position,followSpeed*Time.deltaTime);
 			if (Physics2D.OverlapCircle(transform.position, 0.2f, 1 << 7) != null)
 			{
+				SoundManager.instance.SFXPlay(getCoinSound,transform.position);
 				player.money++;
 				getCoin();
 				UIManager.instance.coinUi();

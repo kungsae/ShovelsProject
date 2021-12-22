@@ -382,7 +382,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 80
   m_Sprite: {fileID: -2435290640650830476, guid: b16a5042ba3da2e4683e2c0dab45821c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -481,6 +481,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   patrollIndex: 0
+  attack1: {fileID: 0}
+  attack2: {fileID: 0}
   facingRight: 1
   layer:
     serializedVersion: 2
@@ -535,15 +537,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  initHealth: 50
+  maxHp: 50
   canDamage: 1
   sprite: {fileID: 0}
   rigid: {fileID: 0}
-  hp: 0
+  hp: 50
   hitCount: 0
   damageText: {fileID: 67409839172081098, guid: bf3f009cb67e25d429bb31e8d2c2a06d, type: 3}
-  haveCoinMin: 20
-  haveCoinMax: 20
+  haveCoinMin: 50
+  haveCoinMax: 50
   coinPrefab: {fileID: 2057136897343495165, guid: 84751d6003c67fa40b385fd733a7d090, type: 3}
 --- !u!1 &4821258672001014110
 GameObject:

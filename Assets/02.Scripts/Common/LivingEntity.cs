@@ -6,7 +6,7 @@ using UnityEngine;
 public class LivingEntity : MonoBehaviour, IDamageable
 {
     public float damage;
-    public int initHealth;
+    public int maxHp;
     public bool canDamage = true;
     public SpriteRenderer sprite;
     public Rigidbody2D rigid;
@@ -20,7 +20,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     }
 	protected virtual void Start()
 	{
-        hp = initHealth;
+        hp = maxHp;
     }
 	public virtual void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal,float damageDrng)
 	{

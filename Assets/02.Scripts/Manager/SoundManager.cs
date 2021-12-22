@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
     }
 	void Start()
     {
+        if(BGM.Length>0)
         audio.clip = BGM[0];
     }
 
@@ -35,17 +36,23 @@ public class SoundManager : MonoBehaviour
     }
     public void ChageBgm()
     {
-        audio.clip = BGM[1];
-        audio.volume = 0.5f;
-        audio.loop = true;
-        audio.Play();
+        if (BGM.Length > 0)
+        {
+            audio.clip = BGM[1];
+            audio.volume = 0.5f;
+            audio.loop = true;
+            audio.Play();
+        }
     }
     public void ChageBgm(int num = 1)
     {
-        audio.clip = BGM[num];
-        audio.volume = 1;
-        audio.loop = true;
-        audio.Play();
+        if (BGM.Length > 0)
+        {
+            audio.clip = BGM[num];
+            audio.volume = 1;
+            audio.loop = true;
+            audio.Play();
+        }
     }
     public void SFXPlay(AudioClip clip,Vector3 pos, float volume = 1f)
     {

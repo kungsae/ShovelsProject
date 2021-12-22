@@ -89,8 +89,9 @@ public class FatBoss : EnemyControl
 	//}
 	public void Shout()
 	{
+		CameraManager.instance.ShakeCam(10, 1.5f,true);
+		print("A");
 		SoundManager.instance.SFXPlay(shoutSound, transform.position, 0.8f);
-		CameraManager.instance.ShakeCam(10, 1.5f);
 	}
 	public override void AttackEnd()
 	{

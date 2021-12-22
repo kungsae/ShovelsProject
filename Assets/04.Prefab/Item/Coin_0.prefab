@@ -165,4 +165,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 10
-  testPower: 20
+  power: 20
+  getCoinSound: {fileID: 8300000, guid: e835648c04b5702409564c298f3f51c2, type: 3}

@@ -21,8 +21,8 @@ public class FatEnemy : EnemyControl
 		float dir =  transform.localScale.x > 0 ? 1 : -1;
 		while (!wallCheck)
 		{
-			wallCheck = Physics2D.Raycast(transform.position, Vector2.right * dir, 2f, layer);
-			Debug.DrawRay(transform.position, Vector2.right * dir * 2f, Color.red, 0.1f);
+			wallCheck = Physics2D.Raycast(transform.position - new Vector3(0,1,0), Vector2.right * dir, 2f, layer);
+			Debug.DrawRay(transform.position - new Vector3(0,1,0), Vector2.right * dir * 2f, Color.red, 0.1f);
 			if (isAttack && !wallCheck)
 				rigid.velocity = new Vector2(attackSpeed * dir, rigid.velocity.y);
 			if (health.dead)

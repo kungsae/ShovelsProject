@@ -22,6 +22,7 @@ public class CameraShake : MonoBehaviour
 		}
 		instance = this;
 	}
+	//강도,시간,카메라를 입력받아서 카메라 쉐이크를 작동하는 함수
 	private IEnumerator ShakeUpdate(float intensity, float time, CinemachineBasicMultiChannelPerlin camNoise)
 	{
 		if (isShake)
@@ -31,7 +32,6 @@ public class CameraShake : MonoBehaviour
 		isShake = true;
 		camNoise.m_AmplitudeGain = intensity;
 		curretTime = 0;
-
 
 		while (true)
 		{
@@ -44,8 +44,10 @@ public class CameraShake : MonoBehaviour
 			yield return null;
 		}
 		isShake = false;
+		CameraManager.instance.cantShake = false;
 		camNoise.m_AmplitudeGain = 0;
 	}
+	//실제 사용함수
 	public void ShakeCam(float intensity,float time, CinemachineBasicMultiChannelPerlin camNoise)
 	{
 		StopCoroutine(ShakeUpdate(intensity,time,camNoise));

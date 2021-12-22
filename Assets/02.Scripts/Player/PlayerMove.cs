@@ -526,17 +526,19 @@ public class PlayerMove : PlayerStat
     {
         if (PlayerPrefs.GetInt("maxEnergy") != 0)
         {
+            damage = PlayerPrefs.GetFloat("damage");
             maxEnergy = PlayerPrefs.GetInt("maxEnergy");
-            initHealth = PlayerPrefs.GetInt("maxHealth");
+            maxHp = PlayerPrefs.GetInt("maxHealth");
             money = PlayerPrefs.GetInt("money");
         }
         else
         {
+            damage = 1f;
             maxEnergy = 10;
-            initHealth = 5;
+            maxHp = 5;
             money = 0;
         }
-        hp = initHealth;
+        hp = maxHp;
 
     }
 

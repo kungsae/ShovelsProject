@@ -82,7 +82,7 @@ public class EnemyFOV : MonoBehaviour
 		Vector2 dir = GameManager.instance.player.transform.position - transform.position;
 
 		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, dir.normalized, viewRange, layer);
-		Debug.DrawRay(transform.position, dir.normalized * viewRange, Color.red, 0.1f);
+		//Debug.DrawRay(transform.position, dir.normalized * viewRange, Color.red, 0.1f);
 		if (hit2D.collider != null)
 		{
 			isView = (hit2D.collider.gameObject.CompareTag("Player"));

@@ -8,6 +8,7 @@ public class TentacleBoss : EnemyControl
 	private EnemyFOV fov;
 	public GameObject projectionObject;
 	private float originalAttackRange;
+	public BoxCollider2D[] attackCol;
 
 	public AudioClip fire;
 	protected override void Awake()
@@ -52,6 +53,10 @@ public class TentacleBoss : EnemyControl
 	}
 	public void BackDash()
 	{
+		for (int i = 0; i < attackCol.Length; i++)
+		{
+			attackCol[i].enabled = false;
+		}
 		int dir = GameManager.instance.player.transform.position.x - transform.position.x > 0 ? 1 : -1;
 		FlipDir();
 		rigid.AddForce(new Vector2(-dir, 1) * 30, ForceMode2D.Impulse);

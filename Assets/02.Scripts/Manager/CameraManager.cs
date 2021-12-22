@@ -10,11 +10,13 @@ public class CameraManager : MonoBehaviour
     public static CameraManager instance { get; private set; }
 
     public PixelPerfectCamera pixelCam;
-
+	
 	public CinemachineVirtualCamera nowCam;
 	public CinemachineVirtualCamera mainCam = new CinemachineVirtualCamera();
 	public CinemachineConfiner confiner;
     public List <CinemachineVirtualCamera> vCams = new List<CinemachineVirtualCamera>();
+
+	public bool cantShake = false;
 	private void Awake()
 	{
 		if (instance != null)
@@ -61,9 +63,17 @@ public class CameraManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 			confiner.m_BoundingShape2D = col;
 	}
-	public void ShakeCam(float intensity, float shakeTime)
+	public void ShakeCam(float intensity, float shakeTime,bool _cantShake = false)
 	{
-		CinemachineBasicMultiChannelPerlin cam = nowCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
-		CameraShake.instance.ShakeCam(intensity, shakeTime, cam);
+
+		if (!cantShake)
+		{
+			if (_cantShake)
+			{
+				cantShake = true;
+			}
+			CinemachineBasicMultiChannelPerlin cam = nowCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+			CameraShake.instance.ShakeCam(intensity, shakeTime, cam);
+		}
 	}
 }

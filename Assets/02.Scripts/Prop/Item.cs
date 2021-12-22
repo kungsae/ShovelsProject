@@ -83,7 +83,7 @@ public class Item : MonoBehaviour
 		switch (itemType)
 		{
 			case ItemType.Potion:
-				if(player.hp<player.initHealth)
+				if(player.hp<player.maxHp)
 				player.hp++;
 				UIManager.instance.StatUpdate();
 				break;
