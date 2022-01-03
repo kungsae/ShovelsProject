@@ -20,7 +20,7 @@ public class CutScene : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         director.Play();
-        CameraManager.instance.followCamChange(bossRoomCam, 470,260);
+        CameraManager.instance.followCamChange(bossRoomCam);
         SoundManager.instance.NullBgm();
         Destroy(GetComponent<BoxCollider2D>());
 	}

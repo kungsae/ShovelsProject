@@ -16,7 +16,6 @@ public class CameraManager : MonoBehaviour
 	public CinemachineConfiner confiner;
     public List <CinemachineVirtualCamera> vCams = new List<CinemachineVirtualCamera>();
 
-	public bool cantShake = false;
 	private void Awake()
 	{
 		if (instance != null)
@@ -26,10 +25,12 @@ public class CameraManager : MonoBehaviour
 		instance = this;
 		nowCam = mainCam;
 	}
-	public void followCamChange(CinemachineVirtualCamera lookCam, int x = 320, int y = 180)
+	public void followCamChange(CinemachineVirtualCamera lookCam, int x = 640, int y = 360)
 	{
 		mainCam.Priority = 0;
 		lookCam.Priority = 10;
+		pixelCam.refResolutionX = x;
+		pixelCam.refResolutionY = y;
 		CinemachineVirtualCamera cam = lookCam;
 		for (int i = 0; i < vCams.Count; i++)
 		{
@@ -52,7 +53,6 @@ public class CameraManager : MonoBehaviour
 		}
 		nowCam = cam;
 	}
-	int a = 0;
 	public void ChangeCameraMax(Collider2D col)
 	{
 		mainCam.Priority = 10;
@@ -63,17 +63,10 @@ public class CameraManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 			confiner.m_BoundingShape2D = col;
 	}
-	public void ShakeCam(float intensity, float shakeTime,bool _cantShake = false)
+	public void ShakeCam(float intensity, float shakeTime)
 	{
 
-		if (!cantShake)
-		{
-			if (_cantShake)
-			{
-				cantShake = true;
-			}
-			CinemachineBasicMultiChannelPerlin cam = nowCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
-			CameraShake.instance.ShakeCam(intensity, shakeTime, cam);
-		}
+		CinemachineBasicMultiChannelPerlin cam = nowCam.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+		CameraShake.instance.ShakeCam(intensity, shakeTime, cam);
 	}
 }

@@ -44,7 +44,6 @@ public class CameraShake : MonoBehaviour
 			yield return null;
 		}
 		isShake = false;
-		CameraManager.instance.cantShake = false;
 		camNoise.m_AmplitudeGain = 0;
 	}
 	//실제 사용함수

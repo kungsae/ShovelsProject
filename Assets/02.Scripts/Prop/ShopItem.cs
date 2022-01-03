@@ -40,7 +40,7 @@ public class ShopItem : InteractObj
 	//아이템 구매
 	public bool BuyItem(int price)
     {
-        if (GameManager.instance.playerScript.money > price)
+        if (GameManager.instance.playerScript.money >= price)
         {
             GameManager.instance.playerScript.money -= price;
             UIManager.instance.coinUi();
