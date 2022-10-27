@@ -10,7 +10,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
     public bool canDamage = true;
     public SpriteRenderer sprite;
     public Rigidbody2D rigid;
-    public float hp; /*{ get; protected set; }*/
+    public float hp;
     public bool dead { get; protected set; }
     public event Action OnDeath;
 	protected virtual void Awake()
@@ -27,7 +27,6 @@ public class LivingEntity : MonoBehaviour, IDamageable
         if (canDamage)
         {
             hp -= damage* damageDrng;
-            //Debug.Log( gameObject.name+ ": 받은 데미지 : " + damage * damageDrng + " 현재 체력 : " + hp);
             StartCoroutine(DamageDelay());
         }
         if (hp <= 0 && !dead)
@@ -35,7 +34,6 @@ public class LivingEntity : MonoBehaviour, IDamageable
             int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
             rigid.AddForce(new Vector2(dir, 1) * 2, ForceMode2D.Impulse);
             Die();
-            Debug.Log("사망");
         }
     }
     IEnumerator DamageDelay()

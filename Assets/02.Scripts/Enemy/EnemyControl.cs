@@ -35,12 +35,9 @@ public class EnemyControl : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         ai = GetComponent<EnemyAi>();
-        //dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
 	protected virtual void Start()
     {
-
-        //attackDelayWaitSecond = new WaitForSeconds(attackDelay);
         destination = patrollPoint[patrollIndex];
         dir = (destination.x - transform.position.x) > 0 ? 1 : -1;
     }
@@ -62,8 +59,6 @@ public class EnemyControl : MonoBehaviour
             if (ai.state != EnemyAi.State.ATTACK&&!isStop&&!isAttack)
             {
                 rigid.velocity = new Vector2(speed * dir, rigid.velocity.y);
-                //IsStayPoint();
-
                 if ((facingRight && rigid.velocity.x < 0) || (!facingRight && rigid.velocity.x > 0))
                 {
                     Flip();
@@ -94,8 +89,6 @@ public class EnemyControl : MonoBehaviour
          yield return new WaitForSeconds(attackDelay);
          canAttack = true;
     }
-
-
     //이동 목표 지정,멈춤 상태 해제
     public void Trace()
     {
@@ -134,6 +127,7 @@ public class EnemyControl : MonoBehaviour
     public void DieAnimation()
     {
         animator.SetTrigger("dead");
+        animator.Update(0);
     }
     public void AttackSound()
     {

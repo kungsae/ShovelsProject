@@ -15,8 +15,8 @@ public class PlayerMove : PlayerStat
     public LayerMask whatIsEnemy;
     public LayerMask notPlayer;
 
-    public RaycastHit2D hitRay;
-    public RaycastHit2D attackRay;
+    public RaycastHit2D hitBox;
+    public RaycastHit2D attackBox;
 
     public GameObject groundCheckObj;
 
@@ -29,6 +29,7 @@ public class PlayerMove : PlayerStat
     private bool isJump = false;
     private bool isOnDamaged = false;
 
+    //저장중일때
     public bool rest = false;
     public bool isParrying = false;
 
@@ -71,6 +72,12 @@ public class PlayerMove : PlayerStat
     public AudioClip attackHeadSound;
 
 
+    private const string tagEnemy = "Enemy";
+    private const string tagHit = "Hit";
+    private const string tagDamage = "Damage";
+    private const string tagSave = "Save";
+    private const string tagChangeCameraMax = "ChangeCameraMax";
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -83,13 +90,13 @@ public class PlayerMove : PlayerStat
         LoadStat();
         jump = jumpPower;
     }
-	protected override void Start()
-	{
+    protected override void Start()
+    {
         energy = maxEnergy;
         UIManager.instance.StatUpdate();
         StartCoroutine(EnergyRecover());
-	}
-	private void Update()
+    }
+    private void Update()
     {
         if (dead)
             return;
@@ -101,7 +108,7 @@ public class PlayerMove : PlayerStat
             rest = false;
         }
         //바닥체크
-        if (isGround || attackRay)
+        if (isGround || attackBox)
         {
             if (playerInput.jump && !isOnDamaged && energy > 0)
             {
@@ -115,7 +122,7 @@ public class PlayerMove : PlayerStat
         //체공중
         else
         {
-            if (playerInput.parrying&&canParryied&&!isAttack)
+            if (playerInput.parrying && canParryied && !isAttack)
             {
                 StartCoroutine(Parrying());
                 canParryied = false;
@@ -124,58 +131,39 @@ public class PlayerMove : PlayerStat
             {
                 //isfalling = true;
             }
-            if (playerInput.attack && !isOnDamaged && energy > 0&&!isParrying)
+            if (playerInput.attack && !isOnDamaged && energy > 0 && !isParrying)
             {
                 StartCoroutine(Attack());
             }
         }
 
         //데미지 입는 부분
-        if (hitRay.collider != null)
+        if (hitBox.collider != null)
         {
-            if (hitRay.collider.gameObject.CompareTag("Enemy")|| hitRay.collider.gameObject.CompareTag("Hit"))
+            if (hitBox.collider.gameObject.CompareTag(tagEnemy) || hitBox.collider.gameObject.CompareTag(tagHit))
             {
-                Collider2D enemy = hitRay.collider;
-                if(!isOnDamaged && !isInvincible)
-                PlayerDamage(enemy);
+                Collider2D enemy = hitBox.collider;
+                if (!isOnDamaged && !isInvincible)
+                    PlayerDamage(enemy);
             }
         }
-        //데미지 주는부분
-        if (attackRay.collider != null&& hitRay.collider == null)
-        {
-            if (attackRay.collider.gameObject.CompareTag("Enemy") || attackRay.collider.gameObject.CompareTag("Hit"))
-            {
-                Collider2D enemy = attackRay.collider;
-                if (!isOnDamaged /*&& !isInvincible*/&& rigidBody.velocity.y < 1)
-                {
-                    if (!isParrying)
-                        EnemyDamage(enemy, damage, 1);
-					else
-						PlayerDamage(enemy);
-				}
-                    
-            }
-			else if (attackRay.collider.gameObject.CompareTag("Damage") && isParrying&&!isOnDamaged)
-			{
-                SucceesParrying();
-            }
-		}
-
-        if (((facingRight && xMove < 0) || (!facingRight && xMove > 0))&& !isOnDamaged)
+        if (((facingRight && xMove < 0) || (!facingRight && xMove > 0)) && !isOnDamaged)
         {
             Flip();
         }
-
+        //공격 및 패링 체크
+        AttackCheck();
 
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f,0.5f), 0, Vector2.down, 0.1f, whatIsGround);
-        attackRay = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.6f, 0.4f), 0, Vector2.down, 0.1f, whatIsEnemy);
-        //데미지 입는 부분
-        hitRay = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y),0,Vector2.zero,0.1f,whatIsEnemy);
+        //바닥체크 범위
+        isGround = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.5f, 0.5f), 0, Vector2.down, 0.1f, whatIsGround);
+        //공격 범위
+        attackBox = Physics2D.BoxCast(groundCheckObj.transform.position, new Vector2(0.6f, 0.4f), 0, Vector2.down, 0.1f, whatIsEnemy);
+        //히트박스
+        hitBox = Physics2D.BoxCast(hitPos.transform.position, new Vector2(x, y), 0, Vector2.zero, 0.1f, whatIsEnemy);
 
         //땅과 거리 계산
         canAttack = !Physics2D.Raycast(groundCheckObj.transform.position, Vector2.down, attackCheckDistance, notPlayer);
@@ -190,15 +178,15 @@ public class PlayerMove : PlayerStat
         }
 
         //바닥체크
-        if (isGround&&rigidBody.velocity.y<1)
+        if (isGround && rigidBody.velocity.y < 1)
         {
-            if(isAttack)
+            if (isAttack)
             {
                 Instantiate(dustParticle, ParryingParticle.transform.position, Quaternion.identity);
                 CameraManager.instance.ShakeCam(intensity, shakeTime);
                 SoundManager.instance.SFXPlay(attackHeadSound, transform.position, 0.8f);
             }
-            if (!isOnDamaged && !isParrying&&!rest)
+            if (!isOnDamaged && !isParrying && !rest)
             {
 
                 StartCoroutine(JumpDelay());
@@ -210,17 +198,18 @@ public class PlayerMove : PlayerStat
             }
             isAttack = false;
             isOnDamaged = false;
-
         }
         else
         {
             isJump = false;
         }
-        if (!isGround && !isAttack && !isOnDamaged&&!rest)
+
+
+        if (!isGround && !isAttack && !isOnDamaged && !rest)
         {
             rigidBody.velocity = new Vector3(xMove * moveSpeed, rigidBody.velocity.y);
         }
-        else if(!isOnDamaged)
+        else if (!isOnDamaged)
         {
             rigidBody.velocity = new Vector3(0, rigidBody.velocity.y);
         }
@@ -238,8 +227,8 @@ public class PlayerMove : PlayerStat
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-	{
-        if (collision.gameObject.CompareTag("Damage")&&!isInvincible&&!isOnDamaged)
+    {
+        if (collision.gameObject.CompareTag(tagDamage) && !isInvincible && !isOnDamaged)
         {
             rigidBody.velocity = new Vector2(0, 0);
             if (isParrying)
@@ -247,9 +236,11 @@ public class PlayerMove : PlayerStat
                 SucceesParrying();
             }
             else
-            PlayerDamage(collision);
+                PlayerDamage(collision);
         }
-        if (collision.gameObject.CompareTag("Save"))
+
+
+        if (collision.gameObject.CompareTag(tagSave))
         {
             SavePoint save = collision.GetComponent<SavePoint>();
             if (!save.save)
@@ -259,45 +250,64 @@ public class PlayerMove : PlayerStat
                 transform.position = new Vector3(collision.transform.position.x, transform.position.y);
             }
         }
-        if (collision.gameObject.CompareTag("ChangeCameraMax"))
+        if (collision.gameObject.CompareTag(tagChangeCameraMax))
         {
             CameraManager.instance.ChangeCameraMax(collision);
         }
     }
+    private void AttackCheck()
+    {
+        if (attackBox.collider == null && hitBox.collider != null) 
+            return;
 
-	public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
-	{
-		base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
+        if (attackBox.collider.gameObject.CompareTag(tagEnemy) || attackBox.collider.gameObject.CompareTag(tagHit))
+        {
+            Collider2D enemy = attackBox.collider;
+            if (!isOnDamaged && rigidBody.velocity.y < 1)
+            {
+                if (!isParrying)
+                    EnemyDamage(enemy, damage, 1);
+                else
+                    PlayerDamage(enemy);
+            }
+        }
+        else if (attackBox.collider.gameObject.CompareTag(tagDamage) && isParrying && !isOnDamaged)
+        {
+            SucceesParrying();
+        }
+    }
+    public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal, float damageDrng)
+    {
+        base.OnDamage(damage, hitPosition, hitNormal, damageDrng);
         CameraManager.instance.ShakeCam(intensity, shakeTime);
         UIManager.instance.StatUpdate(true);
         isOnDamaged = true;
         OnDamageEffect(hitPosition);
 
-
         //무적 레이어
         gameObject.layer = 8;
     }
+
     public void OnDamageEffect(Vector3 hitPosition)
     {
         int dir = transform.position.x - hitPosition.x > 0 ? 1 : -1;
         rigidBody.velocity = new Vector2(0, 0);
-        rigidBody.velocity = new Vector2(dir, 1)*5;
+        rigidBody.velocity = new Vector2(dir, 1) * 5;
     }
     IEnumerator Attack()
     {
-        if (!isAttack&&canAttack)
+        if (!isAttack && canAttack)
         {
-            UseEnergy(1,true);
+            UseEnergy(1, true);
             fireParticle.SetActive(true);
             Invoke("fireParticleOff", 0.5f);
             isAttack = true;
             canAttack = false;
             rigidBody.velocity = new Vector2(0, 0);
-
             rigidBody.gravityScale = 0;
             yield return new WaitForSeconds(0.2f);
             rigidBody.gravityScale = 3;
-            rigidBody.AddForce(new Vector2(0,-30f),ForceMode2D.Impulse);
+            rigidBody.AddForce(new Vector2(0, -30f), ForceMode2D.Impulse);
         }
 
         float time = 0;
@@ -321,7 +331,7 @@ public class PlayerMove : PlayerStat
         }
 
     }
-    IEnumerator Invincible(float time,bool onEffect)
+    IEnumerator Invincible(float time, bool onEffect)
     {
         isInvincible = true;
         if (onEffect)
@@ -338,12 +348,12 @@ public class PlayerMove : PlayerStat
     IEnumerator InvincibleEffect(float time)
     {
         int count = 3;
-		for (int i = 0; i < count; i++)
-		{
-			sprite.color = new Color(1, 1, 1, 0.5f);
-			yield return new WaitForSeconds(time / (count*2));
+        for (int i = 0; i < count; i++)
+        {
+            sprite.color = new Color(1, 1, 1, 0.5f);
+            yield return new WaitForSeconds(time / (count * 2));
             sprite.color = new Color(1, 1, 1, 1f);
-            yield return new WaitForSeconds(time / (count*2));
+            yield return new WaitForSeconds(time / (count * 2));
         }
     }
     IEnumerator JumpDelay()
@@ -364,19 +374,19 @@ public class PlayerMove : PlayerStat
             rigidBody.velocity = new Vector2(0, jump);
             if (jump > jumpPower)
             {
-                UseEnergy(1,true);
+                UseEnergy(1, true);
             }
         }
         //rigid.AddForce(Vector2.up * (jump), ForceMode2D.Impulse);
-        jump = jumpPower;   
+        jump = jumpPower;
     }
 
     public void PlayerDamage(Collision2D collision)
     {
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
-        if (target != null&&!isOnDamaged)
+        if (target != null && !isOnDamaged)
         {
-            OnDamage(target.damage, collision.transform.position, hitRay.normal, 1f);
+            OnDamage(target.damage, collision.transform.position, hitBox.normal, 1f);
         }
     }
     public void PlayerDamage(Collider2D collision)
@@ -385,11 +395,11 @@ public class PlayerMove : PlayerStat
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
         if (target != null && !isOnDamaged)
         {
-            OnDamage(target.damage, collision.transform.position, hitRay.normal, 1f);
+            OnDamage(target.damage, collision.transform.position, hitBox.normal, 1f);
         }
-        else if(!isOnDamaged)
+        else if (!isOnDamaged)
         {
-            OnDamage(1f, collision.transform.position, hitRay.normal, 1f);
+            OnDamage(1f, collision.transform.position, hitBox.normal, 1f);
         }
 
     }
@@ -402,25 +412,25 @@ public class PlayerMove : PlayerStat
             CameraManager.instance.ShakeCam(intensity, shakeTime);
             sound = 0.3f;
         }
-        SoundManager.instance.SFXPlay(attackHeadSound, transform.position,0.5f+sound);
+        SoundManager.instance.SFXPlay(attackHeadSound, transform.position, 0.5f + sound);
         Debug.Log(collision.transform.GetComponent<LivingEntity>());
         LivingEntity target = collision.transform.GetComponentInParent<LivingEntity>();
-        if (target != null&&target.canDamage)
+        if (target != null && target.canDamage)
         {
-            target.OnDamage(damage, hitRay.point, hitRay.normal, damageDrng);
+            target.OnDamage(damage, hitBox.point, hitBox.normal, damageDrng);
             Jump();
-            isAttack = false;   
+            isAttack = false;
         }
     }
-    private void UseEnergy(int energeyConsumption,bool isDown)
+    private void UseEnergy(int energeyConsumption, bool isDown)
     {
         if (isDown)
             energyRecover = false;
 
-		for (int i = 0; i < energeyConsumption; i++)
-		{
+        for (int i = 0; i < energeyConsumption; i++)
+        {
             UIManager.instance.EnergyUpdate(isDown);
-            if (!isDown&&maxEnergy > energy)
+            if (!isDown && maxEnergy > energy)
             {
                 energy += 1;
             }
@@ -434,23 +444,23 @@ public class PlayerMove : PlayerStat
     {
         float time = 0;
 
-		while (true)
-		{
-            time += Time.deltaTime;
+        while (true)
+        {
             if (!energyRecover)
             {
                 time = 0;
                 energyRecover = true;
             }
-            if (time > 3&& energyRecover)
+            if (time > 3 && energyRecover)
             {
                 time = 2f;
-                if(energy < maxEnergy)
-                UseEnergy(1, false);
+                if (energy < maxEnergy)
+                    UseEnergy(1, false);
             }
             yield return null;
-		}
-	}
+            time += Time.deltaTime;
+        }
+    }
     private void Flip()
     {
         Vector3 scale = transform.localScale;
@@ -463,20 +473,18 @@ public class PlayerMove : PlayerStat
         if (isParrying)
         {
             isParrying = false;
-            Debug.Log("AAAA");
         }
     }
     private IEnumerator Parrying()
     {
-        if (canParryied&&energy>=2)
+        if (canParryied && energy >= 2)
         {
             UseEnergy(2, true);
             isParrying = true;
             float dir = transform.localScale.x;
 
             for (int i = 0; i < 36; i++)
-		    {
-                Debug.Log("A");
+            {
                 transform.Rotate(new Vector3(0, 0, 10 * dir));
                 yield return new WaitForSeconds(0.01f);
             }
@@ -488,7 +496,6 @@ public class PlayerMove : PlayerStat
     }
     private void SucceesParrying()
     {
-        Debug.Log("패링");
         SoundManager.instance.SFXPlay(parryingSound, transform.position, 0.07f);
         rigidBody.velocity = new Vector2(0, 0);
         rigidBody.velocity = new Vector2(0, 2) * 5;
@@ -499,7 +506,7 @@ public class PlayerMove : PlayerStat
         StartCoroutine(ParryingEffect());
 
         ParryingParticle.Play();
-        StartCoroutine(Invincible(0.5f,false));
+        StartCoroutine(Invincible(0.5f, false));
 
         isParrying = false;
         canParryied = true;
@@ -508,15 +515,15 @@ public class PlayerMove : PlayerStat
     }
     private IEnumerator ParryingEffect()
     {
-            float elapsedTime = 0f;
-            Time.timeScale = 0f;
+        float elapsedTime = 0f;
+        Time.timeScale = 0f;
         CameraManager.instance.ShakeCam(5, 0.5f);
         while (elapsedTime < parryingDuration)
-            {
-                yield return 0;
-                elapsedTime += Time.unscaledDeltaTime;
-            }
-            Time.timeScale = 1f;
+        {
+            yield return 0;
+            elapsedTime += Time.unscaledDeltaTime;
+        }
+        Time.timeScale = 1f;
     }
     private void fireParticleOff()
     {

@@ -37,28 +37,14 @@ public class CameraManager : MonoBehaviour
 			if(vCams[i] != lookCam)
 			vCams[i].Priority = 0;
 		}
-		{
-			//for (int i = 0; i < vCams.Count; i++)
-			//{
-			//	if (cam != null)
-			//	{
-			//		if (cam.Priority < vCams[i].Priority)
-			//			cam = vCams[i];
-			//	}
-			//	else
-			//	{
-			//		cam = vCams[i];
-			//	}
-			//}
-		}
 		nowCam = cam;
 	}
 	public void ChangeCameraMax(Collider2D col)
 	{
 		mainCam.Priority = 10;
-		StartCoroutine(test(col));
+		StartCoroutine(WaitTime(col));
 	}
-	IEnumerator test(Collider2D col)
+	IEnumerator WaitTime(Collider2D col)
 	{
 		yield return new WaitForSeconds(0.5f);
 			confiner.m_BoundingShape2D = col;
